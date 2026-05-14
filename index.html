@@ -8,21 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-:root{
-  --cream:#F6F4EF;--sand:#D9D2C3;--sage:#7B8F7A;--dark:#41464B;
-  --glass:rgba(246,244,239,0.65);--gb:rgba(217,210,195,0.85);
-}
+:root{--cream:#F6F4EF;--sand:#D9D2C3;--sage:#7B8F7A;--dark:#41464B;--glass:rgba(246,244,239,0.65);--gb:rgba(217,210,195,0.85);--red:#c0392b;--gold:#b8860b;}
 html{height:100%;}
-body{
-  min-height:100%;
-  font-family:'DM Sans',sans-serif;
-  color:var(--dark);
-  background:linear-gradient(160deg,#F6F4EF 0%,#EDE8DF 45%,#D9D2C3 100%);
-  background-attachment:fixed;
-}
- 
-/* SCREENS */
-.screen{display:none;flex-direction:column;gap:14px;padding:16px 16px 90px;min-height:100vh;}
+body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);background:linear-gradient(160deg,#F6F4EF 0%,#EDE8DF 45%,#D9D2C3 100%);background-attachment:fixed;}
+.screen{display:none;flex-direction:column;gap:14px;padding:16px 16px 100px;min-height:100vh;}
 .screen.active{display:flex;}
  
 /* NAV */
@@ -48,62 +37,67 @@ body{
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;}
 .sec-sub{font-size:12px;color:var(--sage);margin-top:3px;}
  
-/* EX CARD */
-.ex-card{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:0.5px solid var(--gb);border-radius:22px;overflow:hidden;cursor:pointer;}
-.ex-card img{width:100%;height:190px;object-fit:cover;display:block;}
-.ex-body{padding:14px 16px 16px;}
-.ex-name{font-size:16px;font-weight:500;margin-bottom:4px;}
-.ex-meta{font-size:12px;color:var(--sage);}
-.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
-.tag{font-size:11px;padding:4px 11px;border-radius:20px;background:rgba(123,143,122,0.13);color:var(--sage);}
-.tag-dark{background:rgba(65,70,75,0.09);color:var(--dark);}
- 
-/* MINI CARD */
-.mini-card{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;display:flex;align-items:center;overflow:hidden;cursor:pointer;}
-.mini-thumb{width:78px;height:78px;object-fit:cover;flex-shrink:0;}
+/* CARDS */
+.mini-card{background:var(--glass);backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;display:flex;align-items:center;overflow:hidden;cursor:pointer;}
+.mini-thumb{width:78px;height:78px;object-fit:cover;object-position:top center;flex-shrink:0;background:linear-gradient(135deg,#0a1628,#1a2d4a);}
+.mini-thumb-ph{width:78px;height:78px;flex-shrink:0;background:linear-gradient(135deg,#0a1628,#1a2d4a);display:flex;align-items:center;justify-content:center;font-size:28px;}
 .mini-info{flex:1;padding:12px 10px;}
-.mini-name{font-size:14px;font-weight:500;margin-bottom:3px;}
+.mini-name{font-size:14px;font-weight:500;margin-bottom:2px;}
 .mini-meta{font-size:11px;color:var(--sage);}
-.mini-badge{padding:3px 10px;border-radius:20px;background:rgba(123,143,122,0.12);color:var(--sage);font-size:13px;margin-right:12px;flex-shrink:0;}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.tag{font-size:10px;padding:3px 9px;border-radius:20px;background:rgba(123,143,122,0.13);color:var(--sage);}
+.tag-dark{background:rgba(65,70,75,0.09);color:var(--dark);}
+.tag-alt{background:rgba(217,210,195,0.5);color:var(--dark);}
  
 /* FILTER */
-.filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;}
+.filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
 .filter-row::-webkit-scrollbar{display:none;}
-.chip{padding:7px 15px;border-radius:20px;border:0.5px solid var(--gb);background:var(--glass);backdrop-filter:blur(8px);font-size:12px;color:var(--sage);cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.chip{padding:7px 14px;border-radius:20px;border:0.5px solid var(--gb);background:var(--glass);backdrop-filter:blur(8px);font-size:12px;color:var(--sage);cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 .chip.on{background:var(--sage);color:#fff;border-color:var(--sage);}
  
 /* DETAIL */
 .back-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;font-size:14px;color:var(--sage);cursor:pointer;font-family:'DM Sans',sans-serif;padding:4px 0;}
-.detail-img{width:100%;height:260px;object-fit:cover;border-radius:22px;display:block;}
-.detail-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:6px;}
+.detail-img{width:100%;height:300px;object-fit:cover;object-position:top center;border-radius:22px;display:block;}
+.detail-img-ph{width:100%;height:300px;border-radius:22px;background:linear-gradient(135deg,#0a1628,#1a2d4a);display:flex;align-items:center;justify-content:center;font-size:80px;}
+.detail-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;margin-bottom:6px;}
 .stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .stat-box{background:var(--glass);backdrop-filter:blur(10px);border:0.5px solid var(--gb);border-radius:16px;padding:14px;text-align:center;}
 .stat-v{font-size:22px;font-weight:500;}
 .stat-l{font-size:10px;color:var(--sage);text-transform:uppercase;letter-spacing:.04em;margin-top:3px;}
 .card-label{font-size:11px;color:var(--sage);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px;}
-.steps{display:flex;flex-direction:column;gap:12px;}
+.steps{display:flex;flex-direction:column;gap:11px;}
 .step{display:flex;gap:12px;align-items:flex-start;}
-.step-n{width:27px;height:27px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;margin-top:1px;}
-.step-t{font-size:13px;line-height:1.6;padding-top:3px;}
+.step-n{width:26px;height:26px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;margin-top:1px;}
+.step-t{font-size:13px;line-height:1.6;padding-top:2px;}
+.alt-card{background:rgba(217,210,195,0.3);border:0.5px solid var(--gb);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:8px;}
+.alt-card:last-child{margin-bottom:0;}
  
 /* BUTTONS */
-.btn-primary{background:var(--dark);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;display:block;}
+.btn-primary{background:var(--dark);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;display:block;text-align:center;}
+.btn-sage{background:var(--sage);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;display:block;}
 .btn-outline{background:transparent;border:0.5px solid rgba(65,70,75,0.25);color:var(--dark);border-radius:16px;padding:15px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;width:100%;display:block;}
 .btn-danger{background:transparent;border:0.5px solid rgba(180,60,60,0.3);color:#b44;border-radius:16px;padding:14px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;width:100%;display:block;}
+.btn-gold{background:linear-gradient(135deg,#c9a84c,#8B6914);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;display:block;text-align:center;}
  
 /* FORM */
 .big-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;line-height:1.1;margin-bottom:6px;}
 .form-sub{font-size:13px;color:var(--sage);}
 .field{display:flex;flex-direction:column;gap:7px;}
 .field-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);}
-.glass-input{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--dark);font-family:'DM Sans',sans-serif;outline:none;width:100%;border:0.5px solid var(--gb);}
+.glass-input{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--dark);font-family:'DM Sans',sans-serif;outline:none;width:100%;}
 .glass-input:focus{border-color:var(--sage);}
 .glass-input::placeholder{color:rgba(65,70,75,0.38);}
+.glass-input.error{border-color:var(--red);}
+.glass-input.promo-ok{border-color:var(--sage);background:rgba(123,143,122,0.08);}
+.field-error{font-size:12px;color:var(--red);margin-top:2px;}
+.field-success{font-size:12px;color:var(--sage);margin-top:2px;display:flex;align-items:center;gap:4px;}
+ 
 .sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .sel-opt{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;}
 .sel-opt.on{background:rgba(123,143,122,0.2);border-color:var(--sage);}
 .sel-opt .icon{font-size:28px;margin-bottom:6px;}
 .sel-opt .lbl{font-size:13px;font-weight:500;}
+ 
 .goal-opt{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:15px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;}
 .goal-opt.on{background:rgba(123,143,122,0.16);border-color:var(--sage);}
 .g-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0;}
@@ -111,7 +105,8 @@ body{
 .g-sub{font-size:12px;color:var(--sage);margin-top:2px;}
 .radio{margin-left:auto;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(65,70,75,0.28);flex-shrink:0;}
 .goal-opt.on .radio{background:var(--sage);border-color:var(--sage);}
-.steps-indicator{display:flex;gap:6px;align-items:center;}
+ 
+.steps-ind{display:flex;gap:6px;align-items:center;}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--sand);}
 .sdot.on{width:20px;border-radius:3px;background:var(--sage);}
  
@@ -120,6 +115,12 @@ body{
 .p-ava{width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 10px;}
 .p-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;}
 .p-email{font-size:12px;opacity:.7;margin-top:3px;}
+.p-badge{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:500;}
+.badge-free{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.8);}
+.badge-trial{background:rgba(255,200,0,0.25);color:#ffd700;}
+.badge-promo{background:rgba(100,200,100,0.25);color:#90ee90;}
+.badge-forever{background:linear-gradient(135deg,rgba(201,168,76,0.4),rgba(139,105,20,0.4));color:#ffd700;border:0.5px solid rgba(255,215,0,0.3);}
+ 
 .info-list{display:flex;flex-direction:column;}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:.5px solid rgba(217,210,195,0.5);font-size:14px;}
 .info-row:last-child{border:none;}
@@ -127,15 +128,7 @@ body{
 .info-val{font-weight:500;}
  
 /* TAB BAR */
-.tabbar{
-  position:fixed;bottom:0;left:0;right:0;
-  background:rgba(246,244,239,0.92);
-  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-  border-top:.5px solid var(--gb);
-  display:none;
-  padding:8px 0 20px;
-  z-index:999;
-}
+.tabbar{position:fixed;bottom:0;left:0;right:0;background:rgba(246,244,239,0.92);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:.5px solid var(--gb);display:none;padding:8px 0 20px;z-index:999;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font-size:10px;color:rgba(65,70,75,0.38);padding:4px;border:none;background:none;font-family:'DM Sans',sans-serif;}
 .tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
 .tab.on{color:var(--sage);}
@@ -145,8 +138,55 @@ body{
 .splash-logo{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;text-align:center;color:var(--dark);margin:8px 0 4px;}
 .splash-sub{text-align:center;font-size:14px;color:var(--sage);line-height:1.6;max-width:260px;margin:0 auto;}
  
-.done-banner{background:rgba(123,143,122,0.15);border:0.5px solid rgba(123,143,122,0.3);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sage);}
-.done-check{width:24px;height:24px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0;}
+/* LOADING */
+.ai-loading{text-align:center;padding:32px 20px;}
+.spinner{width:48px;height:48px;border:3px solid rgba(123,143,122,0.2);border-top-color:var(--sage);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ai-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;margin-bottom:8px;}
+.ai-sub{font-size:13px;color:var(--sage);line-height:1.6;}
+ 
+/* PLAN */
+.plan-day{background:var(--glass);backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;padding:16px;}
+.plan-day-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;margin-bottom:2px;}
+.plan-day-sub{font-size:12px;color:var(--sage);margin-bottom:12px;}
+.plan-ex{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid rgba(217,210,195,0.4);cursor:pointer;}
+.plan-ex:last-child{border:none;padding-bottom:0;}
+.plan-ex-icon{font-size:20px;width:32px;text-align:center;flex-shrink:0;}
+.plan-ex-name{font-size:13px;font-weight:500;}
+.plan-ex-meta{font-size:11px;color:var(--sage);margin-top:1px;}
+.plan-ex-arr{color:var(--sand);font-size:18px;margin-left:auto;flex-shrink:0;}
+ 
+/* PAYWALL */
+.paywall-hero{background:linear-gradient(135deg,#c9a84c,#8B6914);border-radius:24px;padding:28px 22px;color:#fff;text-align:center;position:relative;overflow:hidden;}
+.paywall-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:rgba(255,255,255,0.08);border-radius:50%;}
+.paywall-crown{font-size:48px;margin-bottom:10px;}
+.paywall-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:6px;}
+.paywall-sub{font-size:13px;opacity:.85;line-height:1.5;}
+.price-card{background:var(--glass);backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;padding:18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;}
+.price-card.on{background:rgba(123,143,122,0.15);border-color:var(--sage);}
+.price-icon{font-size:28px;flex-shrink:0;}
+.price-name{font-size:15px;font-weight:500;}
+.price-desc{font-size:12px;color:var(--sage);margin-top:2px;}
+.price-amount{margin-left:auto;text-align:right;flex-shrink:0;}
+.price-val{font-size:18px;font-weight:600;color:var(--dark);}
+.price-period{font-size:11px;color:var(--sage);}
+.features-list{display:flex;flex-direction:column;gap:10px;}
+.feature-item{display:flex;align-items:center;gap:10px;font-size:13px;}
+.feature-check{width:22px;height:22px;border-radius:50%;background:rgba(123,143,122,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+ 
+/* ACCESS BANNER */
+.access-banner{border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px;}
+.banner-trial{background:rgba(255,200,0,0.1);border:0.5px solid rgba(255,200,0,0.3);color:#8B6914;}
+.banner-promo{background:rgba(123,143,122,0.1);border:0.5px solid rgba(123,143,122,0.3);color:var(--sage);}
+.banner-forever{background:rgba(201,168,76,0.1);border:0.5px solid rgba(201,168,76,0.4);color:#8B6914;}
+ 
+/* PROMO INPUT WRAP */
+.promo-wrap{position:relative;}
+.promo-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--sage);color:#fff;border:none;border-radius:10px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;}
+ 
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
 </style>
 </head>
 <body>
@@ -155,172 +195,215 @@ body{
 <div class="screen active" id="s-splash">
   <div style="height:6px;"></div>
   <div class="splash-logo">FIT<b>form</b></div>
-  <p class="splash-sub">Персональные тренировки, созданные именно для тебя</p>
-  <img class="splash-img"
-    src="https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_12_19_gghtjj.png"
-    alt="fitness" loading="eager"/>
+  <p class="splash-sub">Персональный ИИ-тренер в Telegram</p>
+  <img class="splash-img" src="https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_12_19_gghtjj.png" alt="fitness" loading="eager"/>
   <div class="glass" style="display:flex;flex-direction:column;gap:10px;">
-    <button class="btn-primary" onclick="go('s-register')">Начать — это бесплатно</button>
-    <button class="btn-outline" onclick="quickLogin()">Уже есть аккаунт</button>
+    <button class="btn-primary" onclick="go('s-reg1')">Создать аккаунт</button>
+    <button class="btn-outline" onclick="go('s-login')">Войти в аккаунт</button>
   </div>
-  <p style="text-align:center;font-size:11px;color:var(--sand);">Твои данные в безопасности 🔒</p>
+  <p style="text-align:center;font-size:11px;color:var(--sand);">80+ упражнений · ИИ подбор · Альтернативы 🤖</p>
 </div>
  
-<!-- ══════════ REGISTER ══════════ -->
-<div class="screen" id="s-register">
-  <div class="nav">
-    <button class="back-btn" onclick="go('s-splash')">← Назад</button>
-    <div class="steps-indicator">
-      <div class="sdot on"></div><div class="sdot"></div><div class="sdot"></div>
+<!-- ══════════ LOGIN ══════════ -->
+<div class="screen" id="s-login">
+  <div class="nav"><button class="back-btn" onclick="go('s-splash')">← Назад</button></div>
+  <div><div class="big-title">Войти</div><div class="form-sub">Рады видеть тебя снова!</div></div>
+  <div class="glass" style="display:flex;flex-direction:column;gap:14px;">
+    <div class="field">
+      <div class="field-label">Email</div>
+      <input class="glass-input" type="email" placeholder="anna@mail.ru" id="login-email"/>
+      <div class="field-error" id="login-email-err" style="display:none;"></div>
     </div>
+    <div class="field">
+      <div class="field-label">Пароль</div>
+      <input class="glass-input" type="password" placeholder="••••••••" id="login-pass"/>
+      <div class="field-error" id="login-pass-err" style="display:none;"></div>
+    </div>
+    <div class="field-error" id="login-err" style="display:none;text-align:center;padding:8px;background:rgba(192,57,43,0.08);border-radius:10px;"></div>
+    <button class="btn-primary" onclick="doLogin()">Войти</button>
+    <button class="btn-outline" onclick="go('s-reg1')">Нет аккаунта? Создать</button>
   </div>
-  <div>
-    <div class="big-title">Создай<br>аккаунт</div>
-    <div class="form-sub">Займёт меньше минуты</div>
-  </div>
+</div>
+ 
+<!-- ══════════ REG STEP 1 ══════════ -->
+<div class="screen" id="s-reg1">
+  <div class="nav"><button class="back-btn" onclick="go('s-splash')">← Назад</button><div class="steps-ind"><div class="sdot on"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+  <div><div class="big-title">Создай<br>аккаунт</div><div class="form-sub">Шаг 1 из 4 — регистрация</div></div>
   <div class="glass" style="display:flex;flex-direction:column;gap:14px;">
     <div class="field">
       <div class="field-label">Имя</div>
       <input class="glass-input" type="text" placeholder="Анна" id="reg-name"/>
+      <div class="field-error" id="err-name" style="display:none;">Введи имя</div>
     </div>
     <div class="field">
       <div class="field-label">Email</div>
       <input class="glass-input" type="email" placeholder="anna@mail.ru" id="reg-email"/>
+      <div class="field-error" id="err-email" style="display:none;">Введи корректный email</div>
     </div>
     <div class="field">
       <div class="field-label">Пароль</div>
-      <input class="glass-input" type="password" placeholder="••••••••" id="reg-pass"/>
+      <input class="glass-input" type="password" placeholder="Минимум 6 символов" id="reg-pass"/>
+      <div class="field-error" id="err-pass" style="display:none;">Минимум 6 символов</div>
+    </div>
+    <div class="field">
+      <div class="field-label">Повтори пароль</div>
+      <input class="glass-input" type="password" placeholder="••••••••" id="reg-pass2"/>
+      <div class="field-error" id="err-pass2" style="display:none;">Пароли не совпадают</div>
+    </div>
+    <!-- PROMO CODE -->
+    <div class="field">
+      <div class="field-label">Промокод <span style="color:var(--sand);font-weight:400;text-transform:none;letter-spacing:0;">(необязательно)</span></div>
+      <div class="promo-wrap">
+        <input class="glass-input" type="text" placeholder="Введи промокод" id="reg-promo" oninput="this.value=this.value.toUpperCase()" style="padding-right:80px;"/>
+        <button class="promo-btn" onclick="checkPromo()">Проверить</button>
+      </div>
+      <div id="promo-result" style="display:none;"></div>
     </div>
     <div class="field">
       <div class="field-label" style="margin-bottom:4px;">Пол</div>
       <div class="sel-grid">
-        <div class="sel-opt" id="opt-f" onclick="selectGender('female')">
-          <div class="icon">♀</div><div class="lbl">Женщина</div>
-        </div>
-        <div class="sel-opt" id="opt-m" onclick="selectGender('male')">
-          <div class="icon">♂</div><div class="lbl">Мужчина</div>
-        </div>
+        <div class="sel-opt" id="opt-f" onclick="selG('female')"><div class="icon">♀</div><div class="lbl">Женщина</div></div>
+        <div class="sel-opt" id="opt-m" onclick="selG('male')"><div class="icon">♂</div><div class="lbl">Мужчина</div></div>
       </div>
     </div>
-    <button class="btn-primary" onclick="goToGoals()">Продолжить</button>
+    <button class="btn-primary" onclick="reg1Next()">Продолжить</button>
+  </div>
+</div>
+ 
+<!-- ══════════ REG STEP 2 ══════════ -->
+<div class="screen" id="s-reg2">
+  <div class="nav"><button class="back-btn" onclick="go('s-reg1')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot on"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+  <div><div class="big-title">Параметры<br>тела</div><div class="form-sub">Шаг 2 из 4 — для точного подбора нагрузки</div></div>
+  <div class="glass" style="display:flex;flex-direction:column;gap:14px;">
+    <div class="sel-grid">
+      <div class="field"><div class="field-label">Возраст</div><input class="glass-input" type="number" placeholder="25" id="reg-age" min="14" max="80"/></div>
+      <div class="field"><div class="field-label">Вес (кг)</div><input class="glass-input" type="number" placeholder="60" id="reg-weight" min="30" max="250"/></div>
+    </div>
+    <div class="field"><div class="field-label">Рост (см)</div><input class="glass-input" type="number" placeholder="165" id="reg-height" min="140" max="220"/></div>
+    <div class="field">
+      <div class="field-label" style="margin-bottom:4px;">Где тренируешься?</div>
+      <div class="sel-grid">
+        <div class="sel-opt" id="opt-home" onclick="selPlace('home')"><div class="icon">🏠</div><div class="lbl">Дома</div></div>
+        <div class="sel-opt" id="opt-gym" onclick="selPlace('gym')"><div class="icon">🏋️</div><div class="lbl">В зале</div></div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="go('s-goals')">Продолжить</button>
   </div>
 </div>
  
 <!-- ══════════ GOALS ══════════ -->
 <div class="screen" id="s-goals">
-  <div class="nav">
-    <button class="back-btn" onclick="go('s-register')">← Назад</button>
-    <div class="steps-indicator">
-      <div class="sdot"></div><div class="sdot on"></div><div class="sdot"></div>
-    </div>
-  </div>
+  <div class="nav"><button class="back-btn" onclick="go('s-reg2')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div><div class="sdot"></div></div></div>
+  <div><div class="big-title">Твоя цель</div><div class="form-sub">Шаг 3 из 4</div></div>
   <div>
-    <div class="big-title">Твоя цель</div>
-    <div class="form-sub">Подберём программу именно под тебя</div>
-  </div>
-  <div>
-    <div class="goal-opt" id="g1" onclick="selGoal('g1','Похудеть')">
-      <div class="g-icon">🔥</div>
-      <div><div class="g-title">Похудеть</div><div class="g-sub">Кардио + жиросжигание</div></div>
-      <div class="radio"></div>
-    </div>
-    <div class="goal-opt" id="g2" onclick="selGoal('g2','Набрать мышцы')">
-      <div class="g-icon">💪</div>
-      <div><div class="g-title">Набрать мышцы</div><div class="g-sub">Силовые тренировки</div></div>
-      <div class="radio"></div>
-    </div>
-    <div class="goal-opt" id="g3" onclick="selGoal('g3','Гибкость и тонус')">
-      <div class="g-icon">🧘</div>
-      <div><div class="g-title">Гибкость и тонус</div><div class="g-sub">Растяжка + пилатес</div></div>
-      <div class="radio"></div>
-    </div>
-    <div class="goal-opt" id="g4" onclick="selGoal('g4','Выносливость')">
-      <div class="g-icon">⚡</div>
-      <div><div class="g-title">Выносливость</div><div class="g-sub">Функциональный тренинг</div></div>
-      <div class="radio"></div>
-    </div>
+    <div class="goal-opt" id="g1" onclick="selGoal('g1','Похудеть')"><div class="g-icon">🔥</div><div><div class="g-title">Похудеть</div><div class="g-sub">Кардио + жиросжигание</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g2" onclick="selGoal('g2','Набрать мышцы')"><div class="g-icon">💪</div><div><div class="g-title">Набрать мышцы</div><div class="g-sub">Силовые тренировки</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g3" onclick="selGoal('g3','Гибкость и тонус')"><div class="g-icon">🧘</div><div><div class="g-title">Гибкость и тонус</div><div class="g-sub">Растяжка + пилатес</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g4" onclick="selGoal('g4','Выносливость')"><div class="g-icon">⚡</div><div><div class="g-title">Выносливость</div><div class="g-sub">Функциональный тренинг</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g5" onclick="selGoal('g5','Поддержать форму')"><div class="g-icon">✨</div><div><div class="g-title">Поддержать форму</div><div class="g-sub">Общее здоровье и тонус</div></div><div class="radio"></div></div>
   </div>
   <button class="btn-primary" onclick="go('s-level')">Далее</button>
 </div>
  
 <!-- ══════════ LEVEL ══════════ -->
 <div class="screen" id="s-level">
-  <div class="nav">
-    <button class="back-btn" onclick="go('s-goals')">← Назад</button>
-    <div class="steps-indicator">
-      <div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div>
-    </div>
-  </div>
+  <div class="nav"><button class="back-btn" onclick="go('s-goals')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div></div></div>
+  <div><div class="big-title">Уровень<br>подготовки</div><div class="form-sub">Шаг 4 из 4 — последний!</div></div>
   <div>
-    <div class="big-title">Уровень<br>подготовки</div>
-    <div class="form-sub">Честно — это важно для безопасности</div>
+    <div class="goal-opt" id="l1" onclick="selLevel('l1','Новичок')"><div class="g-icon">🌱</div><div><div class="g-title">Новичок</div><div class="g-sub">Тренируюсь меньше 6 месяцев</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="l2" onclick="selLevel('l2','Средний уровень')"><div class="g-icon">🏃</div><div><div class="g-title">Средний уровень</div><div class="g-sub">Тренируюсь более полугода</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="l3" onclick="selLevel('l3','Продвинутый')"><div class="g-icon">🏆</div><div><div class="g-title">Продвинутый</div><div class="g-sub">Спортсмен / опытный атлет</div></div><div class="radio"></div></div>
   </div>
-  <div>
-    <div class="goal-opt" id="l1" onclick="selLevel('l1','Новичок')">
-      <div class="g-icon">🌱</div>
-      <div><div class="g-title">Новичок</div><div class="g-sub">Тренируюсь меньше 6 месяцев</div></div>
-      <div class="radio"></div>
-    </div>
-    <div class="goal-opt" id="l2" onclick="selLevel('l2','Средний уровень')">
-      <div class="g-icon">🏃</div>
-      <div><div class="g-title">Средний уровень</div><div class="g-sub">Тренируюсь более полугода</div></div>
-      <div class="radio"></div>
-    </div>
-    <div class="goal-opt" id="l3" onclick="selLevel('l3','Продвинутый')">
-      <div class="g-icon">🏆</div>
-      <div><div class="g-title">Продвинутый</div><div class="g-sub">Спортсмен / опытный атлет</div></div>
-      <div class="radio"></div>
+  <button class="btn-primary" onclick="finishReg()">Создать программу 🤖</button>
+</div>
+ 
+<!-- ══════════ LOADING ══════════ -->
+<div class="screen" id="s-loading">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;min-height:80vh;">
+    <div class="ai-loading">
+      <div class="spinner"></div>
+      <div class="ai-title">ИИ создаёт программу</div>
+      <div class="ai-sub" id="load-txt">Анализируем параметры...</div>
     </div>
   </div>
-  <button class="btn-primary" onclick="finishOnboarding()">Создать мою программу 🎯</button>
+</div>
+ 
+<!-- ══════════ PAYWALL ══════════ -->
+<div class="screen" id="s-paywall">
+  <div class="paywall-hero">
+    <div class="paywall-crown">👑</div>
+    <div class="paywall-title">FitForm Premium</div>
+    <div class="paywall-sub">Неограниченный доступ к ИИ-тренировкам, 80+ упражнений и персональным программам</div>
+  </div>
+ 
+  <div class="glass">
+    <div class="card-label">Что включено</div>
+    <div class="features-list">
+      <div class="feature-item"><div class="feature-check">🤖</div>ИИ генерирует программу под твои параметры</div>
+      <div class="feature-item"><div class="feature-check">💪</div>80+ упражнений с техникой и альтернативами</div>
+      <div class="feature-item"><div class="feature-check">📊</div>Отслеживание прогресса и статистика</div>
+      <div class="feature-item"><div class="feature-check">🔄</div>Программа обновляется каждую неделю</div>
+      <div class="feature-item"><div class="feature-check">🏠</div>Тренировки дома и в зале</div>
+    </div>
+  </div>
+ 
+  <div id="price-cards" style="display:flex;flex-direction:column;gap:10px;">
+    <div class="price-card on" id="pc-month" onclick="selPrice('month')">
+      <div class="price-icon">📅</div>
+      <div><div class="price-name">1 месяц</div><div class="price-desc">Попробуй без риска</div></div>
+      <div class="price-amount"><div class="price-val">299 ₽</div><div class="price-period">в месяц</div></div>
+    </div>
+    <div class="price-card" id="pc-year" onclick="selPrice('year')">
+      <div class="price-icon">🎯</div>
+      <div><div class="price-name">1 год</div><div class="price-desc">Экономия 40%</div></div>
+      <div class="price-amount"><div class="price-val">1 990 ₽</div><div class="price-period">в год</div></div>
+    </div>
+    <div class="price-card" id="pc-forever" onclick="selPrice('forever')">
+      <div class="price-icon">♾️</div>
+      <div><div class="price-name">Навсегда</div><div class="price-desc">Один раз и навсегда</div></div>
+      <div class="price-amount"><div class="price-val">4 990 ₽</div><div class="price-period">разово</div></div>
+    </div>
+  </div>
+ 
+  <div class="field" style="margin-top:4px;">
+    <div class="field-label">Уже есть промокод?</div>
+    <div class="promo-wrap">
+      <input class="glass-input" type="text" placeholder="Введи промокод" id="pay-promo" oninput="this.value=this.value.toUpperCase()" style="padding-right:80px;"/>
+      <button class="promo-btn" onclick="applyPaywallPromo()">Применить</button>
+    </div>
+    <div id="pay-promo-result" style="display:none;margin-top:6px;"></div>
+  </div>
+ 
+  <button class="btn-gold" id="pay-btn" onclick="doPurchase()">Оформить подписку — 299 ₽/мес</button>
+  <button class="btn-outline" onclick="goToApp()">Продолжить с ограниченным доступом</button>
+  <p style="text-align:center;font-size:11px;color:var(--sand);">Безопасная оплата · Отмена в любой момент</p>
 </div>
  
 <!-- ══════════ HOME ══════════ -->
 <div class="screen" id="s-home">
-  <div class="nav">
-    <div class="logo">FIT<b>form</b></div>
-    <button class="avatar" id="home-avatar" onclick="switchTab('s-profile','tab-p')">АН</button>
-  </div>
+  <div class="nav"><div class="logo">FIT<b>form</b></div><button class="avatar" id="home-ava" onclick="switchTab('s-profile','tab-p')">АН</button></div>
+ 
+  <!-- Access banner -->
+  <div id="access-banner" style="display:none;"></div>
+ 
   <div class="hero">
     <div class="hero-greet">Добро пожаловать</div>
     <div class="hero-name" id="hero-name">Анна 👋</div>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-v">12</div><div class="hstat-l">тренировок</div></div>
-      <div class="hstat"><div class="hstat-v">3</div><div class="hstat-l">неделя</div></div>
-      <div class="hstat"><div class="hstat-v">86%</div><div class="hstat-l">прогресс</div></div>
+      <div class="hstat"><div class="hstat-v" id="st-done">0</div><div class="hstat-l">выполнено</div></div>
+      <div class="hstat"><div class="hstat-v" id="st-total">0</div><div class="hstat-l">всего</div></div>
+      <div class="hstat"><div class="hstat-v" id="st-pct">0%</div><div class="hstat-l">прогресс</div></div>
     </div>
   </div>
-  <div>
-    <div class="sec-title">Тренировка сегодня</div>
-    <div class="sec-sub" id="home-sub">Похудеть · Новичок · 3 упражнения</div>
-  </div>
-  <div id="home-exercises" style="display:flex;flex-direction:column;gap:12px;"></div>
-</div>
- 
-<!-- ══════════ WORKOUT LIST ══════════ -->
-<div class="screen" id="s-workouts">
-  <div class="nav"><div class="logo">FIT<b>form</b></div></div>
-  <div class="filter-row">
-    <button class="chip on" onclick="filterEx(this,'all')">Все</button>
-    <button class="chip" onclick="filterEx(this,'female')">Женские</button>
-    <button class="chip" onclick="filterEx(this,'male')">Мужские</button>
-    <button class="chip" onclick="filterEx(this,'legs')">Ноги</button>
-    <button class="chip" onclick="filterEx(this,'chest')">Грудь</button>
-    <button class="chip" onclick="filterEx(this,'back')">Спина</button>
-    <button class="chip" onclick="filterEx(this,'arms')">Руки</button>
-    <button class="chip" onclick="filterEx(this,'core')">Кор</button>
-  </div>
-  <div id="ex-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+  <div><div class="sec-title">Твоя программа</div><div class="sec-sub" id="home-sub">Сгенерировано ИИ</div></div>
+  <div id="ai-plan"></div>
 </div>
  
 <!-- ══════════ DETAIL ══════════ -->
 <div class="screen" id="s-detail">
-  <button class="back-btn" id="detail-back">← Назад</button>
-  <img class="detail-img" id="d-img" src="" alt=""/>
-  <div>
-    <div class="detail-title" id="d-name"></div>
-    <div class="tags" id="d-tags"></div>
-  </div>
+  <button class="back-btn" id="d-back">← Назад</button>
+  <div id="d-img-wrap"><div class="detail-img-ph">🏋️</div></div>
+  <div><div class="detail-title" id="d-name"></div><div class="tags" id="d-tags"></div></div>
   <div class="stats-row">
     <div class="stat-box"><div class="stat-v" id="d-sets">3</div><div class="stat-l">Подхода</div></div>
     <div class="stat-box"><div class="stat-v" id="d-reps">15</div><div class="stat-l">Повторений</div></div>
@@ -330,8 +413,36 @@ body{
     <div class="card-label">Техника выполнения</div>
     <div class="steps" id="d-steps"></div>
   </div>
-  <button class="btn-primary" id="done-btn">✓ Упражнение выполнено</button>
+  <div class="glass" id="d-tip-block" style="display:none;">
+    <div class="card-label">Совет тренера</div>
+    <div id="d-tip" style="font-size:13px;line-height:1.6;"></div>
+  </div>
+  <div id="d-alts-block" style="display:none;">
+    <div class="sec-title" style="font-size:17px;margin-bottom:10px;">Альтернативы</div>
+    <div id="d-alts"></div>
+  </div>
+  <button class="btn-sage" id="done-btn">✓ Упражнение выполнено</button>
   <div style="height:10px;"></div>
+</div>
+ 
+<!-- ══════════ EXPLORE ══════════ -->
+<div class="screen" id="s-explore">
+  <div class="nav"><div class="logo">FIT<b>form</b></div></div>
+  <div class="filter-row" id="exp-filters">
+    <button class="chip on" onclick="fExp(this,'all')">Все</button>
+    <button class="chip" onclick="fExp(this,'home')">🏠 Дома</button>
+    <button class="chip" onclick="fExp(this,'gym')">🏋️ Зал</button>
+    <button class="chip" onclick="fExp(this,'legs')">Ноги</button>
+    <button class="chip" onclick="fExp(this,'glutes')">Ягодицы</button>
+    <button class="chip" onclick="fExp(this,'chest')">Грудь</button>
+    <button class="chip" onclick="fExp(this,'back')">Спина</button>
+    <button class="chip" onclick="fExp(this,'shoulders')">Плечи</button>
+    <button class="chip" onclick="fExp(this,'arms')">Руки</button>
+    <button class="chip" onclick="fExp(this,'core')">Кор</button>
+    <button class="chip" onclick="fExp(this,'cardio')">Кардио</button>
+    <button class="chip" onclick="fExp(this,'stretch')">Растяжка</button>
+  </div>
+  <div id="exp-list" style="display:flex;flex-direction:column;gap:10px;"></div>
 </div>
  
 <!-- ══════════ PROFILE ══════════ -->
@@ -340,258 +451,654 @@ body{
   <div class="profile-hero">
     <div class="p-ava" id="p-ava">АН</div>
     <div class="p-name" id="p-name">Анна</div>
-    <div class="p-email" id="p-email">anna@mail.ru</div>
+    <div class="p-email" id="p-email">—</div>
+    <div class="p-badge" id="p-badge"></div>
   </div>
   <div class="glass">
     <div class="info-list">
-      <div class="info-row"><span class="info-lbl">Цель</span><span class="info-val" id="p-goal">Похудеть</span></div>
-      <div class="info-row"><span class="info-lbl">Уровень</span><span class="info-val" id="p-level">Новичок</span></div>
-      <div class="info-row"><span class="info-lbl">Пол</span><span class="info-val" id="p-gender">Женщина</span></div>
-      <div class="info-row"><span class="info-lbl">Тренировок выполнено</span><span class="info-val">12</span></div>
-      <div class="info-row"><span class="info-lbl">Дней в приложении</span><span class="info-val">21</span></div>
+      <div class="info-row"><span class="info-lbl">Доступ</span><span class="info-val" id="p-access">—</span></div>
+      <div class="info-row"><span class="info-lbl">Действует до</span><span class="info-val" id="p-expires">—</span></div>
+      <div class="info-row"><span class="info-lbl">Цель</span><span class="info-val" id="p-goal">—</span></div>
+      <div class="info-row"><span class="info-lbl">Уровень</span><span class="info-val" id="p-level">—</span></div>
+      <div class="info-row"><span class="info-lbl">Пол</span><span class="info-val" id="p-gender">—</span></div>
+      <div class="info-row"><span class="info-lbl">Возраст</span><span class="info-val" id="p-age">—</span></div>
+      <div class="info-row"><span class="info-lbl">Вес</span><span class="info-val" id="p-weight">—</span></div>
+      <div class="info-row"><span class="info-lbl">Рост</span><span class="info-val" id="p-height">—</span></div>
+      <div class="info-row"><span class="info-lbl">Место тренировок</span><span class="info-val" id="p-place">—</span></div>
+      <div class="info-row"><span class="info-lbl">Выполнено упражнений</span><span class="info-val" id="p-done">0</span></div>
     </div>
   </div>
+  <button class="btn-gold" id="upgrade-btn" onclick="go('s-paywall')" style="display:none;">👑 Получить Premium</button>
+  <button class="btn-outline" onclick="regenPlan()">🤖 Обновить программу</button>
   <button class="btn-danger" onclick="logout()">Выйти из аккаунта</button>
 </div>
  
-<!-- ══════════ TAB BAR ══════════ -->
+<!-- TABBAR -->
 <div class="tabbar" id="tabbar">
   <button class="tab on" id="tab-h" onclick="switchTab('s-home','tab-h')">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Главная</span>
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Главная</span>
   </button>
-  <button class="tab" id="tab-w" onclick="switchTab('s-workouts','tab-w')">
-    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-    <span>Упражнения</span>
+  <button class="tab" id="tab-e" onclick="switchTab('s-explore','tab-e')">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Упражнения</span>
   </button>
   <button class="tab" id="tab-p" onclick="switchTab('s-profile','tab-p')">
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>Профиль</span>
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span>
   </button>
 </div>
  
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+ 
 <script>
-// ── DATA ──
-const EX = [
-  {id:0,name:"Приседания",gender:"female",cat:["legs"],
-   img:"https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_12_19_gghtjj.png",
-   sets:3,reps:"15",rest:"60с",tags:["Ноги","Ягодицы","Кор","Новичок"],muscles:"Квадрицепс, ягодицы",
-   steps:["Встань прямо, ноги на ширине плеч, носки чуть развёрнуты наружу",
-          "Медленно опускайся вниз — спина прямая, грудь вперёд",
-          "Колени не выходят за носки, пятки не отрываются от пола",
-          "Опустись до параллели бёдер с полом, затем встань выдыхая"]},
-  {id:1,name:"Подъём штанги на бицепс",gender:"male",cat:["arms"],
-   img:"https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_11_11_z79xyx.png",
-   sets:3,reps:"12",rest:"90с",tags:["Бицепс","Предплечья","Средний"],muscles:"Бицепс, брахиалис",
-   steps:["Встань прямо, штанга в руках хватом снизу на ширине плеч",
-          "Прижми локти к корпусу — они не двигаются во время упражнения",
-          "Подними штангу к груди, сжимая бицепс в верхней точке",
-          "Плавно опусти вниз, полностью выпрямляя руки"]},
-  {id:2,name:"Планка",gender:"female",cat:["core"],
-   img:"https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_21_14_qtmuac.png",
-   sets:3,reps:"30с",rest:"45с",tags:["Кор","Спина","Новичок"],muscles:"Пресс, поясница",
-   steps:["Ляг на живот, обопрись на предплечья и носки ног",
-          "Тело — прямая линия от головы до пяток",
-          "Напряги пресс и ягодицы — бёдра не провисают",
-          "Смотри в пол, шея в нейтральном положении"]},
-  {id:3,name:"Жим лёжа",gender:"male",cat:["chest"],
-   img:"https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_18_22_affdjg.png",
-   sets:4,reps:"10",rest:"120с",tags:["Грудь","Трицепс","Средний"],muscles:"Грудные, трицепс",
-   steps:["Ляг на скамью, ноги упираются в пол, хват чуть шире плеч",
-          "Сведи лопатки вместе, слегка прогни поясницу",
-          "Опусти штангу к нижней части груди, локти под 45°",
-          "Выжми штангу вверх, выдыхая в момент усилия"]},
-  {id:4,name:"Выпады",gender:"female",cat:["legs"],
-   img:"https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/3e0716533ed91ad1d0bda967b38a7e47_f7d40f20-4b1d-4e0e-ba88-4c8a4ac53701_cg7wr6.jpg",
-   sets:3,reps:"12",rest:"60с",tags:["Ноги","Ягодицы","Баланс"],muscles:"Квадрицепс, ягодицы",
-   steps:["Встань прямо, руки на поясе",
-          "Сделай широкий шаг вперёд, опусти бедро до параллели с полом",
-          "Колено задней ноги почти касается пола — корпус вертикально",
-          "Оттолкнись передней ногой и вернись в исходное положение"]},
-  {id:5,name:"Тяга верхнего блока",gender:"male",cat:["back"],
-   img:"https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_19_35_x78xs4.png",
-   sets:4,reps:"10",rest:"90с",tags:["Спина","Бицепс","Средний"],muscles:"Широчайшие, бицепс",
-   steps:["Сядь, зафиксируй бёдра, возьмись за гриф широким хватом",
-          "Слегка откинь корпус, сведи лопатки",
-          "Тяни гриф к верхней части груди, локти вниз и назад",
-          "Медленно верни гриф вверх, выпрямляя руки"]},
-  {id:6,name:"Отжимания",gender:"male",cat:["chest","core"],
-   img:"https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/6607d45b367227e69a6be68a9b7d05a5_fe2b7758-882a-4d27-9416-cc23c90b25e6_utw9rv.png",
-   sets:3,reps:"15",rest:"60с",tags:["Грудь","Трицепс","Кор"],muscles:"Грудные, трицепс",
-   steps:["Упор лёжа, руки чуть шире плеч, тело — прямая линия",
-          "Опускайся медленно, локти под углом 45° от корпуса",
-          "Грудь почти касается пола",
-          "Выжми тело вверх, выдыхая в момент усилия"]}
-];
+// ════════════════════════════════
+// ПРОМОКОДЫ
+// ════════════════════════════════
+var PROMOS = {
+  'FITFREE30':  {type:'month30',  label:'30 дней бесплатно',    days:30},
+  'FITFOREVER': {type:'forever',  label:'Пожизненный доступ',   days:36500},
+  'FITSTART':   {type:'month7',   label:'7 дней бесплатно',     days:7},
+  'FITPRO':     {type:'month90',  label:'90 дней бесплатно',    days:90}
+};
  
-// ── STATE ──
-var user = {name:'',email:'',gender:'female',goal:'Похудеть',level:'Новичок'};
-var selGender=null, selGoalId=null, selLevelId=null;
-var doneSet={};
-var fromScreen='s-home';
-var curFilter='all';
+// ════════════════════════════════
+// БАЗА УПРАЖНЕНИЙ
+// ════════════════════════════════
+var DB = {
+  squat_home:{name:'Приседания',emoji:'🦵',place:'home',cat:['legs'],alts:['squat_sumo_home','split_squat','wall_sit'],muscles:'Квадрицепс, ягодицы',img_f:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_12_19_gghtjj.png',img_m:null,steps:['Ноги на ширине плеч, носки чуть наружу','Опускайся как на стул — спина прямая','Колени не выходят за носки','Встань выдыхая, напрягая ягодицы']},
+  squat_sumo_home:{name:'Сумо-приседания',emoji:'🦵',place:'home',cat:['legs','glutes'],alts:['squat_home','split_squat','jump_squat'],muscles:'Внутренняя поверхность бедра, ягодицы',img_f:null,img_m:null,steps:['Ноги шире плеч, носки сильно наружу','Опускайся прямо вниз — спина вертикально','Колени идут по линии носков','Встань сжимая ягодицы']},
+  split_squat:{name:'Болгарские приседания',emoji:'🦵',place:'home',cat:['legs','glutes'],alts:['squat_home','lunge','step_up'],muscles:'Квадрицепс, ягодицы, бицепс бедра',img_f:null,img_m:null,steps:['Сзади стул — положи ногу на него','Переднюю ногу выставь вперёд','Опускайся вниз — колено передней ноги не за носок','Встань напрягая ягодицу']},
+  wall_sit:{name:'Стул у стены',emoji:'🧱',place:'home',cat:['legs'],alts:['squat_home','squat_sumo_home'],muscles:'Квадрицепс, ягодицы',img_f:null,img_m:null,steps:['Встань спиной к стене','Опустись до угла 90° в коленях','Бёдра параллельно полу','Держи позицию']},
+  jump_squat:{name:'Прыжковые приседания',emoji:'🦘',place:'home',cat:['legs','cardio'],alts:['squat_home','burpee','jump_lunge'],muscles:'Квадрицепс, ягодицы, икры',img_f:null,img_m:null,steps:['Присядь до параллели','Взрывно прыгни вверх','Мягко приземлись на носки','Сразу уходи в следующее']},
+  lunge:{name:'Выпады',emoji:'🚶',place:'home',cat:['legs','glutes'],alts:['reverse_lunge','side_lunge','split_squat'],muscles:'Квадрицепс, ягодицы, бицепс бедра',img_f:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/3e0716533ed91ad1d0bda967b38a7e47_f7d40f20-4b1d-4e0e-ba88-4c8a4ac53701_cg7wr6.jpg',img_m:null,steps:['Руки на поясе, спина прямая','Широкий шаг вперёд','Бедро до параллели с полом','Оттолкнись и вернись, чередуй ноги']},
+  reverse_lunge:{name:'Обратные выпады',emoji:'🚶',place:'home',cat:['legs','glutes'],alts:['lunge','side_lunge','split_squat'],muscles:'Квадрицепс, ягодицы — меньше нагрузки на колени',img_f:null,img_m:null,steps:['Стоя прямо','Шаг назад — опусти заднее колено к полу','Переднее бедро параллельно полу','Вернись и чередуй']},
+  side_lunge:{name:'Боковые выпады',emoji:'🚶',place:'home',cat:['legs','glutes'],alts:['lunge','squat_sumo_home'],muscles:'Внутренняя поверхность бедра, ягодицы',img_f:null,img_m:null,steps:['Ноги вместе','Широкий шаг в сторону — согни рабочую ногу','Другая нога прямая','Вернись и чередуй']},
+  step_up:{name:'Зашагивания',emoji:'🪜',place:'home',cat:['legs','glutes'],alts:['lunge','split_squat'],muscles:'Квадрицепс, ягодицы',img_f:null,img_m:null,steps:['Перед стулом или ступенькой','Поставь одну ногу на платформу','Поднимись, выпрями ногу','Спустись и смени ногу']},
+  glute_bridge:{name:'Ягодичный мост',emoji:'🍑',place:'home',cat:['glutes'],alts:['hip_thrust_home','donkey_kick','glute_kickback'],muscles:'Ягодицы, бицепс бедра',img_f:null,img_m:null,steps:['Лёжа на спине, ноги согнуты','Напряги ягодицы и подними таз','Прямая линия плечи-колени','Задержись, медленно опустись']},
+  hip_thrust_home:{name:'Мост с опорой',emoji:'🍑',place:'home',cat:['glutes'],alts:['glute_bridge','donkey_kick'],muscles:'Ягодицы, бицепс бедра',img_f:null,img_m:null,steps:['Плечи на диване, ноги согнуты','Опусти таз вниз','Взрывно подними — сожми ягодицы','Работай через пятки']},
+  donkey_kick:{name:'Ослиные удары',emoji:'🍑',place:'home',cat:['glutes'],alts:['glute_bridge','hip_thrust_home','glute_kickback'],muscles:'Большая ягодичная мышца',img_f:null,img_m:null,steps:['На четвереньках','Подними ногу согнутую под 90°','Толкай пятку к потолку','Медленно опусти не касаясь пола']},
+  glute_kickback:{name:'Отведение ноги',emoji:'🍑',place:'home',cat:['glutes'],alts:['donkey_kick','glute_bridge'],muscles:'Большая ягодичная мышца',img_f:null,img_m:null,steps:['На четвереньках или у стула','Отведи прямую ногу назад и вверх','Максимально напряги ягодицу','Медленно опусти']},
+  calf_raise_home:{name:'Подъём на носки',emoji:'🦶',place:'home',cat:['legs'],alts:['calf_raise_step'],muscles:'Икроножная, камбаловидная',img_f:null,img_m:null,steps:['У стены для баланса','Поднимись максимально на носки','Задержись секунду','Медленно опустись']},
+  deadlift_rom:{name:'Румынская тяга',emoji:'⚡',place:'home',cat:['legs','back'],alts:['glute_bridge','superman','good_morning'],muscles:'Бицепс бедра, ягодицы, поясница',img_f:null,img_m:null,steps:['Стоя, любой груз в руках','Наклоняйся с прямой спиной','Чувствуй растяжение бицепса бедра','Напряги ягодицы и вернись']},
+  good_morning:{name:'Доброе утро',emoji:'🌅',place:'home',cat:['legs','back'],alts:['deadlift_rom','superman'],muscles:'Бицепс бедра, поясница',img_f:null,img_m:null,steps:['Руки за головой, ноги чуть согнуты','Наклоняйся с прямой спиной','До параллели с полом','Разогнись напрягая ягодицы']},
+  pushup:{name:'Отжимания',emoji:'💪',place:'home',cat:['chest','arms'],alts:['pushup_wide','pushup_narrow','pushup_incline'],muscles:'Грудные, трицепс, дельты',img_f:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/6607d45b367227e69a6be68a9b7d05a5_fe2b7758-882a-4d27-9416-cc23c90b25e6_utw9rv.png',img_m:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/6607d45b367227e69a6be68a9b7d05a5_fe2b7758-882a-4d27-9416-cc23c90b25e6_utw9rv.png',steps:['Руки чуть шире плеч, тело прямое','Опускайся — локти под 45°','Грудь почти касается пола','Выжми вверх выдыхая']},
+  pushup_wide:{name:'Отжимания широкие',emoji:'💪',place:'home',cat:['chest'],alts:['pushup','pushup_incline','tricep_dip'],muscles:'Грудные (акцент — внешняя часть)',img_f:null,img_m:null,steps:['Руки значительно шире плеч','Локти идут строго в стороны','Акцент на растяжение груди внизу','Своди руки вверху']},
+  pushup_narrow:{name:'Отжимания узкие',emoji:'💪',place:'home',cat:['chest','arms'],alts:['pushup','tricep_dip','diamond_pushup'],muscles:'Трицепс, внутренняя часть груди',img_f:null,img_m:null,steps:['Руки близко друг к другу','Локти прижаты к корпусу','Тело прямое','Выжми через трицепс']},
+  diamond_pushup:{name:'Отжимания алмаз',emoji:'💎',place:'home',cat:['chest','arms'],alts:['pushup_narrow','tricep_dip','pushup'],muscles:'Трицепс — максимальная изоляция',img_f:null,img_m:null,steps:['Руки ромбом под грудью','Пальцы касаются','Тело прямое, опускайся медленно','Выжми разгибая локти']},
+  pushup_incline:{name:'Отжимания ноги вверх',emoji:'💪',place:'home',cat:['chest'],alts:['pushup','pushup_wide','bench_press'],muscles:'Верхняя часть груди, дельты',img_f:null,img_m:null,steps:['Ноги на диване, руки на полу','Тело прямое','Опускай голову к полу','Выжми — акцент на верхние грудные']},
+  tricep_dip:{name:'Отжимания на трицепс',emoji:'💺',place:'home',cat:['arms'],alts:['pushup_narrow','diamond_pushup'],muscles:'Трицепс, передние дельты',img_f:null,img_m:null,steps:['Руки на стуле, пальцы вперёд','Ноги вытянуты','Опускай — локти назад','Выжми через трицепс']},
+  pike_pushup:{name:'Отжимания пикой',emoji:'💪',place:'home',cat:['shoulders','arms'],alts:['lateral_raise_home','shoulder_tap'],muscles:'Передние дельты, трицепс',img_f:null,img_m:null,steps:['Упор лёжа — подними таз вверх (V)','Руки и ноги прямые','Опускай голову к полу','Выжми обратно']},
+  lateral_raise_home:{name:'Подъём с бутылками',emoji:'🤸',place:'home',cat:['shoulders'],alts:['pike_pushup','shoulder_tap'],muscles:'Средние дельты',img_f:null,img_m:null,steps:['Бутылки с водой в руках','Слегка согни локти','Поднимай в стороны до уровня плеч','Медленно опускай']},
+  plank:{name:'Планка',emoji:'🏊',place:'home',cat:['core'],alts:['side_plank','plank_shoulder_tap','dead_bug'],muscles:'Пресс, поясница, ягодицы',img_f:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_21_14_qtmuac.png',img_m:null,steps:['Упор на предплечья и носки','Тело — прямая линия','Напряги пресс и ягодицы','Дыши равномерно']},
+  side_plank:{name:'Боковая планка',emoji:'🏊',place:'home',cat:['core'],alts:['plank','russian_twist'],muscles:'Косые мышцы пресса',img_f:null,img_m:null,steps:['Упор на предплечье и ребро стопы','Подними таз','Тело — прямая линия','Держи, не давай таз опуститься']},
+  plank_shoulder_tap:{name:'Планка с касаниями',emoji:'🏊',place:'home',cat:['core'],alts:['plank','mountain_climber'],muscles:'Кор, стабилизаторы',img_f:null,img_m:null,steps:['Упор лёжа на прямых руках','Тело неподвижно','Коснись правой рукой левого плеча','Чередуй, не виляй бёдрами']},
+  crunches:{name:'Скручивания',emoji:'🔄',place:'home',cat:['core'],alts:['leg_raise','russian_twist','bicycle_crunch'],muscles:'Прямая мышца живота (верх)',img_f:null,img_m:null,steps:['Лёжа, ноги согнуты, руки за головой','Напряги пресс — оторви лопатки','Тянись грудью к коленям','Медленно опустись']},
+  leg_raise:{name:'Подъём ног',emoji:'🦵',place:'home',cat:['core'],alts:['crunches','reverse_crunch'],muscles:'Нижняя часть пресса',img_f:null,img_m:null,steps:['Лёжа, руки вдоль тела','Подними прямые ноги до 90°','Медленно опусти не касаясь пола','Поясница прижата']},
+  reverse_crunch:{name:'Обратные скручивания',emoji:'🔄',place:'home',cat:['core'],alts:['leg_raise','crunches'],muscles:'Нижняя часть пресса',img_f:null,img_m:null,steps:['Лёжа, ноги согнуты 90°','Подними таз от пола напрягая пресс','Колени к груди','Медленно опусти']},
+  bicycle_crunch:{name:'Велосипед',emoji:'🚴',place:'home',cat:['core'],alts:['russian_twist','crunches'],muscles:'Все мышцы пресса',img_f:null,img_m:null,steps:['Лёжа, руки за головой, ноги подняты','Скручивайся локтем к противоположному колену','Вытягивай другую ногу','Чередуй ритмично']},
+  russian_twist:{name:'Русский твист',emoji:'🔄',place:'home',cat:['core'],alts:['bicycle_crunch','side_plank'],muscles:'Косые мышцы пресса',img_f:null,img_m:null,steps:['Сидя, ноги приподняты','Корпус под 45°','Поворачивай из стороны в сторону','С грузом или без']},
+  dead_bug:{name:'Мёртвый жук',emoji:'🐛',place:'home',cat:['core'],alts:['bird_dog','plank'],muscles:'Глубокий кор',img_f:null,img_m:null,steps:['Лёжа, руки вверх, ноги 90°','Поясница прижата к полу','Опусти противоположные руку и ногу','Вернись и смени']},
+  mountain_climber:{name:'Скалолаз',emoji:'🧗',place:'home',cat:['core','cardio'],alts:['plank','bicycle_crunch','burpee'],muscles:'Пресс, сгибатели бедра',img_f:null,img_m:null,steps:['Упор лёжа — тело прямое','Подтяни колено к груди','Смени ногу в прыжке','Чередуй ритмично']},
+  superman:{name:'Супермен',emoji:'🦸',place:'home',cat:['back'],alts:['bird_dog','good_morning'],muscles:'Поясничные мышцы, ягодицы',img_f:null,img_m:null,steps:['Лёжа на животе, руки вперёд','Одновременно подними руки и ноги','Задержись 2 секунды','Плавно опустись']},
+  bird_dog:{name:'Птица-собака',emoji:'🐕',place:'home',cat:['back','core'],alts:['superman','dead_bug'],muscles:'Поясница, кор — стабилизация',img_f:null,img_m:null,steps:['На четвереньках','Вытяни противоположные руку и ногу','Задержись 3 секунды','Смени стороны']},
+  pullup:{name:'Подтягивания',emoji:'🤸',place:'home',cat:['back','arms'],alts:['inverted_row','chin_up'],muscles:'Широчайшие, бицепс',img_f:null,img_m:null,steps:['Хват шире плеч, ладони от себя','Подтягивайся грудью к перекладине','Лопатки своди в конце','Медленно опускайся']},
+  chin_up:{name:'Подтягивания обратным хватом',emoji:'🤸',place:'home',cat:['arms','back'],alts:['pullup','inverted_row'],muscles:'Бицепс, широчайшие',img_f:null,img_m:null,steps:['Хват снизу, уже плеч','Акцент на бицепс','Подбородок выше перекладины','Медленно опускайся']},
+  inverted_row:{name:'Горизонтальные подтягивания',emoji:'🤸',place:'home',cat:['back'],alts:['pullup','superman'],muscles:'Средняя спина, задние дельты',img_f:null,img_m:null,steps:['Под столом, держись за край','Тело прямое — пятки на полу','Подтягивай грудь к столу','Медленно опустись']},
+  burpee:{name:'Берпи',emoji:'💥',place:'home',cat:['cardio','chest','core'],alts:['jump_squat','mountain_climber'],muscles:'Всё тело',img_f:null,img_m:null,steps:['Присядь и поставь руки на пол','Прыжком в упор лёжа','Отжимание','Прыжком вернись и выпрыгни вверх']},
+  jump_lunge:{name:'Прыжковые выпады',emoji:'🦘',place:'home',cat:['legs','cardio'],alts:['lunge','jump_squat'],muscles:'Квадрицепс, ягодицы',img_f:null,img_m:null,steps:['Выпад','Прыгни смени ноги в воздухе','Приземлись в выпад на другую ногу','Сразу прыгай']},
+  high_knees:{name:'Высокие колени',emoji:'🏃',place:'home',cat:['cardio'],alts:['burpee','jumping_jacks'],muscles:'Кардио, сгибатели бедра',img_f:null,img_m:null,steps:['Бег на месте','Поднимай колени до пояса','Руки работают','Ровное дыхание']},
+  jumping_jacks:{name:'Прыжки джек',emoji:'⭐',place:'home',cat:['cardio'],alts:['high_knees','burpee'],muscles:'Кардио, отводящие мышцы',img_f:null,img_m:null,steps:['Ноги вместе, руки вниз','Прыжком разведи ноги и подними руки','Прыжком вернись','Ритмичный темп']},
+  shoulder_tap:{name:'Касание плеч в планке',emoji:'🏊',place:'home',cat:['core','shoulders'],alts:['plank','pike_pushup'],muscles:'Кор, плечи, стабилизаторы',img_f:null,img_m:null,steps:['Планка на прямых руках','Коснись правой рукой левого плеча','Верни, смени руку','Бёдра неподвижны']},
+  hip_flexor_stretch:{name:'Растяжка бедра',emoji:'🧘',place:'home',cat:['stretch'],alts:['hamstring_stretch','cat_cow'],muscles:'Сгибатели бедра, поясница',img_f:null,img_m:null,steps:['Выпад — заднее колено на полу','Подай таз вперёд и вниз','Почувствуй растяжение спереди бедра','Держи 30с, смени сторону']},
+  hamstring_stretch:{name:'Растяжка бицепса бедра',emoji:'🧘',place:'home',cat:['stretch'],alts:['hip_flexor_stretch','child_pose'],muscles:'Бицепс бедра, поясница',img_f:null,img_m:null,steps:['Лёжа, подтяни прямую ногу к себе','Носок на себя','Почувствуй растяжение','Держи 30с, смени']},
+  cat_cow:{name:'Кошка-корова',emoji:'🐱',place:'home',cat:['stretch','back'],alts:['child_pose','bird_dog'],muscles:'Позвоночник, поясница',img_f:null,img_m:null,steps:['На четвереньках','Выгни спину вверх (кошка)','Прогни вниз (корова)','Чередуй в ритме дыхания']},
+  child_pose:{name:'Поза ребёнка',emoji:'🧘',place:'home',cat:['stretch','back'],alts:['cat_cow'],muscles:'Поясница, широчайшие',img_f:null,img_m:null,steps:['Сядь на пятки, колени широко','Вытяни руки вперёд','Лоб на пол','Держи 30-60с']},
+  // GYM
+  bench_press:{name:'Жим штанги лёжа',emoji:'🏋️',place:'gym',cat:['chest'],alts:['dumbbell_press','incline_press','cable_fly'],muscles:'Грудные, трицепс, дельты',img_f:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_18_22_affdjg.png',img_m:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759973/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_18_22_affdjg.png',steps:['Хват чуть шире плеч','Сведи лопатки, прогни поясницу','Опусти штангу к нижней части груди','Выжми вверх']},
+  dumbbell_press:{name:'Жим гантелей лёжа',emoji:'🏋️',place:'gym',cat:['chest'],alts:['bench_press','incline_press','cable_fly'],muscles:'Грудные — большая амплитуда',img_f:null,img_m:null,steps:['Гантели у груди ладонями вперёд','Выжми вверх — своди в верхней точке','Опускай максимально низко','Медленный негатив']},
+  incline_press:{name:'Жим на наклонной',emoji:'🏋️',place:'gym',cat:['chest'],alts:['bench_press','dumbbell_press'],muscles:'Верхняя часть груди',img_f:null,img_m:null,steps:['Скамья 30-45°','Хват чуть шире плеч','Опускай к верхней части груди','Выжми вверх']},
+  cable_fly:{name:'Сведение на блоке',emoji:'🔁',place:'gym',cat:['chest'],alts:['dumbbell_press','pec_deck'],muscles:'Грудные — изоляция',img_f:null,img_m:null,steps:['Блоки на уровне плеч','Руки чуть согнуты','Своди перед грудью дугой','Медленно разведи с растяжением']},
+  pec_deck:{name:'Сведение в тренажёре',emoji:'🔁',place:'gym',cat:['chest'],alts:['cable_fly','dumbbell_press'],muscles:'Грудные — максимальная изоляция',img_f:null,img_m:null,steps:['Спина прижата к спинке','Предплечья на подушках','Своди — сожми грудные','Медленно разведи']},
+  lat_pulldown:{name:'Тяга верхнего блока',emoji:'🔝',place:'gym',cat:['back'],alts:['cable_row','dumbbell_row','barbell_row'],muscles:'Широчайшие, бицепс',img_f:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_19_35_x78xs4.png',img_m:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_19_35_x78xs4.png',steps:['Широкий хват, зафиксируй бёдра','Слегка откинь корпус','Тяни к груди локтями вниз','Медленно верни']},
+  cable_row:{name:'Тяга горизонтального блока',emoji:'🔙',place:'gym',cat:['back'],alts:['lat_pulldown','dumbbell_row','barbell_row'],muscles:'Средняя спина, бицепс',img_f:null,img_m:null,steps:['Сиди прямо','Тяни рукоятку к животу','Сведи лопатки','Медленно вернись']},
+  dumbbell_row:{name:'Тяга гантели',emoji:'🏋️',place:'gym',cat:['back'],alts:['cable_row','barbell_row','lat_pulldown'],muscles:'Широчайшие, ромбовидные',img_f:null,img_m:null,steps:['Колено и рука на скамье','Спина параллельна полу','Тяни локоть вверх и назад','Медленно опусти']},
+  barbell_row:{name:'Тяга штанги в наклоне',emoji:'⚡',place:'gym',cat:['back'],alts:['cable_row','dumbbell_row'],muscles:'Широчайшие, ромбовидные, поясница',img_f:null,img_m:null,steps:['Наклон ~45°, спина прямая','Тяни к нижней части живота','Локти вдоль тела назад','Медленно опусти']},
+  face_pull:{name:'Тяга к лицу',emoji:'🔁',place:'gym',cat:['back','shoulders'],alts:['reverse_fly','cable_row'],muscles:'Задние дельты, ромбовидные',img_f:null,img_m:null,steps:['Верхний блок на уровне лица','Тяни к лицу разводя руки','Локти выше плеч','Медленно верни']},
+  reverse_fly:{name:'Разводка в наклоне',emoji:'🏋️',place:'gym',cat:['back','shoulders'],alts:['face_pull','cable_row'],muscles:'Задние дельты, ромбовидные',img_f:null,img_m:null,steps:['Наклон ~45°','Руки чуть согнуты','Разводи назад — веди локтями','Сведи лопатки вверху']},
+  deadlift:{name:'Становая тяга',emoji:'⚡',place:'gym',cat:['back','legs'],alts:['deadlift_rom','barbell_row'],muscles:'Спина, ягодицы, бицепс бедра',img_f:null,img_m:null,steps:['Ноги на ширине бёдер','Хват чуть шире плеч, спина нейтральная','Оттолкнись пятками — выпрямляйся','Опускай контролируемо']},
+  squat_bar:{name:'Приседания со штангой',emoji:'🏋️',place:'gym',cat:['legs'],alts:['leg_press','hack_squat'],muscles:'Квадрицепс, ягодицы',img_f:null,img_m:null,steps:['Штанга на трапециях','Ноги на ширине плеч','До параллели — спина прямая','Вставай выдыхая']},
+  leg_press:{name:'Жим ногами',emoji:'🦵',place:'gym',cat:['legs'],alts:['squat_bar','hack_squat','leg_extension'],muscles:'Квадрицепс, ягодицы',img_f:null,img_m:null,steps:['Спина к спинке','Ноги на платформе','Опускай до 90°','Выжми не блокируя колени']},
+  hack_squat:{name:'Гак-приседания',emoji:'🦵',place:'gym',cat:['legs'],alts:['squat_bar','leg_press'],muscles:'Нижний квадрицепс, ягодицы',img_f:null,img_m:null,steps:['Плечи к подушкам','Ноги на ширине плеч','Опускайся до 90°','Выжми']},
+  leg_extension:{name:'Разгибание ног',emoji:'🦵',place:'gym',cat:['legs'],alts:['leg_press','squat_bar'],muscles:'Квадрицепс — изоляция',img_f:null,img_m:null,steps:['Валик под лодыжками','Разогни до максимума','Задержись секунду','Медленно опусти']},
+  leg_curl:{name:'Сгибание ног',emoji:'🦵',place:'gym',cat:['legs'],alts:['deadlift_rom','deadlift'],muscles:'Бицепс бедра — изоляция',img_f:null,img_m:null,steps:['Лёжа, валик над ахиллом','Согни ноги до максимума','Задержись вверху','Медленно опусти']},
+  hip_thrust_bar:{name:'Ягодичный мост со штангой',emoji:'🍑',place:'gym',cat:['glutes'],alts:['cable_pull_through','glute_machine'],muscles:'Ягодицы — максимальная изоляция',img_f:null,img_m:null,steps:['Плечи на скамье, штанга на бёдрах','Опусти таз вниз','Взрывно подними — сожми ягодицы','Задержись 1-2с']},
+  cable_pull_through:{name:'Тяга через ноги',emoji:'🍑',place:'gym',cat:['glutes'],alts:['hip_thrust_bar','glute_machine'],muscles:'Ягодицы, бицепс бедра',img_f:null,img_m:null,steps:['Спиной к нижнему блоку','Ноги шире плеч, наклонись','Тяни рукоятку через ноги вперёд','Сожми ягодицы в конце']},
+  glute_machine:{name:'Отведение в тренажёре',emoji:'🍑',place:'gym',cat:['glutes'],alts:['hip_thrust_bar','cable_pull_through'],muscles:'Большая и средняя ягодичная',img_f:null,img_m:null,steps:['В тренажёре, грудь к подушке','Рабочая нога на платформе','Отводи назад и вверх','Медленно возвращай']},
+  calf_raise_machine:{name:'Подъём на носки в тренажёре',emoji:'🦶',place:'gym',cat:['legs'],alts:['calf_raise_step','seated_calf'],muscles:'Икроножная мышца',img_f:null,img_m:null,steps:['Плечи под подушки','Носки на краю платформы','Поднимись максимально','Медленно опустись']},
+  seated_calf:{name:'Сидячий подъём на носки',emoji:'🦶',place:'gym',cat:['legs'],alts:['calf_raise_machine'],muscles:'Камбаловидная мышца',img_f:null,img_m:null,steps:['Сиди, вес на коленях','Носки на платформе','Подними пятки максимально','Медленно опусти']},
+  overhead_press:{name:'Жим штанги над головой',emoji:'🏋️',place:'gym',cat:['shoulders'],alts:['shoulder_press_db','arnold_press'],muscles:'Все дельты, трицепс',img_f:null,img_m:null,steps:['Штанга у ключиц','Корпус напряжён','Выжми строго вверх','Опусти контролируемо']},
+  shoulder_press_db:{name:'Жим гантелей сидя',emoji:'🏋️',place:'gym',cat:['shoulders'],alts:['overhead_press','arnold_press','lateral_raise'],muscles:'Передние и средние дельты',img_f:null,img_m:null,steps:['Гантели на уровне плеч','Ладони вперёд','Выжми вверх','Медленно опусти']},
+  arnold_press:{name:'Жим Арнольда',emoji:'🏋️',place:'gym',cat:['shoulders'],alts:['shoulder_press_db','overhead_press'],muscles:'Все три пучка дельт',img_f:null,img_m:null,steps:['Гантели перед лицом ладонями к себе','При выжимании вращай ладони наружу','В верхней точке — ладони вперёд','При опускании вращай обратно']},
+  lateral_raise:{name:'Подъём в стороны',emoji:'🏋️',place:'gym',cat:['shoulders'],alts:['cable_lateral_raise','shoulder_press_db'],muscles:'Средние дельты — изоляция',img_f:null,img_m:null,steps:['Гантели у бёдер','Локти чуть согнуты','Поднимай до уровня плеч','Медленно опусти']},
+  cable_lateral_raise:{name:'Подъём на блоке',emoji:'🔁',place:'gym',cat:['shoulders'],alts:['lateral_raise'],muscles:'Средние дельты — постоянное натяжение',img_f:null,img_m:null,steps:['Боком к нижнему блоку','Рабочая рука берёт рукоятку снизу','Поднимай в сторону до плеч','Медленно опусти']},
+  bicep_curl:{name:'Подъём штанги на бицепс',emoji:'💪',place:'gym',cat:['arms'],alts:['dumbbell_curl','hammer_curl','concentration_curl'],muscles:'Бицепс, брахиалис',img_f:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_11_11_z79xyx.png',img_m:'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778759972/ChatGPT_Image_13_%D0%BC%D0%B0%D1%8F_2026_%D0%B3._22_11_11_z79xyx.png',steps:['Хват снизу на ширине плеч','Локти прижаты','Подними к груди сжимая бицепс','Медленно опусти']},
+  dumbbell_curl:{name:'Подъём гантелей',emoji:'💪',place:'gym',cat:['arms'],alts:['bicep_curl','hammer_curl'],muscles:'Бицепс — большая амплитуда',img_f:null,img_m:null,steps:['Гантели в руках','Поднимай одну поворачивая ладонь','Сожми бицепс вверху','Смени руку']},
+  hammer_curl:{name:'Молотковые сгибания',emoji:'🔨',place:'gym',cat:['arms'],alts:['bicep_curl','dumbbell_curl'],muscles:'Брахиалис, длинная головка бицепса',img_f:null,img_m:null,steps:['Нейтральный хват — ладони друг к другу','Локти прижаты','Поднимай не поворачивая запястье','Медленно опускай']},
+  concentration_curl:{name:'Концентрированные сгибания',emoji:'💪',place:'gym',cat:['arms'],alts:['dumbbell_curl','bicep_curl'],muscles:'Бицепс — пик изоляция',img_f:null,img_m:null,steps:['Сидя, локоть в бедро','Медленно подними к плечу','Максимально сожми бицепс','Медленно опусти']},
+  tricep_pushdown:{name:'Разгибание на блоке',emoji:'💪',place:'gym',cat:['arms'],alts:['overhead_ext','skull_crusher'],muscles:'Трицепс — все три головки',img_f:null,img_m:null,steps:['Локти прижаты к телу','Тяни вниз до полного выпрямления','Задержись — сожми трицепс','Медленно верни']},
+  overhead_ext:{name:'Разгибание над головой',emoji:'🏋️',place:'gym',cat:['arms'],alts:['tricep_pushdown','skull_crusher'],muscles:'Длинная головка трицепса',img_f:null,img_m:null,steps:['Гантель двумя руками над головой','Локти у ушей — неподвижны','Опускай за голову','Выжми полностью']},
+  skull_crusher:{name:'Французский жим',emoji:'🏋️',place:'gym',cat:['arms'],alts:['tricep_pushdown','overhead_ext'],muscles:'Трицепс — изоляция лёжа',img_f:null,img_m:null,steps:['Лёжа, штанга над лицом','Локти неподвижны','Опускай гриф ко лбу','Выжми разгибая полностью']},
+  cable_crunch:{name:'Скручивания на блоке',emoji:'🔩',place:'gym',cat:['core'],alts:['crunches','hanging_leg_raise'],muscles:'Прямая мышца живота',img_f:null,img_m:null,steps:['На коленях лицом к блоку','Рукоятку у головы','Скручивайся вниз напрягая пресс','Медленно вернись']},
+  hanging_leg_raise:{name:'Подъём ног в висе',emoji:'🤸',place:'gym',cat:['core'],alts:['cable_crunch','leg_raise'],muscles:'Нижний пресс',img_f:null,img_m:null,steps:['Вис на перекладине','Подними прямые ноги до 90°','Задержись','Медленно опусти без раскачки']},
+  ab_machine:{name:'Пресс в тренажёре',emoji:'🔩',place:'gym',cat:['core'],alts:['cable_crunch','crunches'],muscles:'Прямая мышца живота',img_f:null,img_m:null,steps:['Сядь, ноги под валики','Руки на рукоятках','Скручивайся напрягая пресс','Медленно вернись']},
+  box_jump:{name:'Запрыгивания',emoji:'📦',place:'gym',cat:['cardio','legs'],alts:['jump_squat','step_up'],muscles:'Квадрицепс, ягодицы, взрывная сила',img_f:null,img_m:null,steps:['Перед платформой','Полуприсядь','Взрывно запрыгни','Мягко спрыгни назад']},
+  rowing_machine:{name:'Гребной тренажёр',emoji:'🚣',place:'gym',cat:['cardio','back'],alts:['cable_row','burpee'],muscles:'Спина, ноги, кардио',img_f:null,img_m:null,steps:['Ноги согнуты, держись за ручки','Оттолкнись ногами','Тяни ручки к поясу','Вернись вперёд']}
+};
  
-// ── NAV ──
+// ════════════════════════════════
+// STATE & AUTH
+// ════════════════════════════════
+var U = {};
+var plan = null;
+var done = {};
+var fromScr = 's-home';
+var expFlt = 'all';
+ 
+// Temp reg data
+var regTemp = {gender:null, place:null, goal:null, level:null};
+ 
+// ════════════════════════════════
+// STORAGE HELPERS
+// ════════════════════════════════
+function saveUsers(users){ try{localStorage.setItem('ff_users', JSON.stringify(users));}catch(e){} }
+function loadUsers(){ try{return JSON.parse(localStorage.getItem('ff_users'))||{};}catch(e){return {};} }
+function saveSession(email){ try{localStorage.setItem('ff_session', email);}catch(e){} }
+function loadSession(){ try{return localStorage.getItem('ff_session')||null;}catch(e){return null;} }
+function clearSession(){ try{localStorage.removeItem('ff_session');}catch(e){} }
+function savePlan(email, p){ try{localStorage.setItem('ff_plan_'+email, JSON.stringify(p));}catch(e){} }
+function loadPlan(email){ try{return JSON.parse(localStorage.getItem('ff_plan_'+email))||null;}catch(e){return null;} }
+function saveDone(email, d){ try{localStorage.setItem('ff_done_'+email, JSON.stringify(d));}catch(e){} }
+function loadDone(email){ try{return JSON.parse(localStorage.getItem('ff_done_'+email))||{};}catch(e){return {};} }
+ 
+// ════════════════════════════════
+// ACCESS CONTROL
+// ════════════════════════════════
+function getAccessInfo(user) {
+  var now = Date.now();
+  if(user.access === 'forever') return {type:'forever', label:'Пожизненный', valid:true, daysLeft:-1};
+  if(user.access === 'promo' && user.accessExpires) {
+    var left = Math.ceil((user.accessExpires - now) / 86400000);
+    if(left > 0) return {type:'promo', label:'Промокод', valid:true, daysLeft:left};
+  }
+  if(user.access === 'paid' && user.accessExpires) {
+    var left2 = Math.ceil((user.accessExpires - now) / 86400000);
+    if(left2 > 0) return {type:'paid', label:'Premium', valid:true, daysLeft:left2};
+  }
+  // Trial
+  var trialDays = 7;
+  var trialLeft = Math.ceil((user.registeredAt + trialDays*86400000 - now) / 86400000);
+  if(trialLeft > 0) return {type:'trial', label:'Пробный период', valid:true, daysLeft:trialLeft};
+  return {type:'expired', label:'Истёк', valid:false, daysLeft:0};
+}
+ 
+function checkAccessAndRoute() {
+  var info = getAccessInfo(U);
+  if(!info.valid) { go('s-paywall'); return false; }
+  return true;
+}
+ 
+// ════════════════════════════════
+// PROMO CODE LOGIC
+// ════════════════════════════════
+function checkPromo() {
+  var code = document.getElementById('reg-promo').value.trim().toUpperCase();
+  var res = document.getElementById('promo-result');
+  var input = document.getElementById('reg-promo');
+  if(!code) { showPromoResult(res, input, false, 'Введи промокод'); return; }
+  var promo = PROMOS[code];
+  if(promo) {
+    showPromoResult(res, input, true, '✅ ' + promo.label + ' активированы!');
+  } else {
+    showPromoResult(res, input, false, '❌ Промокод не найден');
+  }
+}
+ 
+function showPromoResult(el, input, ok, msg) {
+  el.style.display = 'block';
+  el.innerHTML = '<div class="'+(ok?'field-success':'field-error')+'">'+msg+'</div>';
+  input.className = 'glass-input ' + (ok ? 'promo-ok' : 'error');
+}
+ 
+function applyPaywallPromo() {
+  var code = document.getElementById('pay-promo').value.trim().toUpperCase();
+  var res = document.getElementById('pay-promo-result');
+  if(!code) { res.style.display='block'; res.innerHTML='<div class="field-error">Введи промокод</div>'; return; }
+  var promo = PROMOS[code];
+  if(!promo) { res.style.display='block'; res.innerHTML='<div class="field-error">❌ Промокод не найден</div>'; return; }
+  // Apply promo
+  var users = loadUsers();
+  if(promo.type === 'forever') {
+    users[U.email].access = 'forever';
+    users[U.email].accessExpires = null;
+    U.access = 'forever'; U.accessExpires = null;
+  } else {
+    users[U.email].access = 'promo';
+    users[U.email].accessExpires = Date.now() + promo.days * 86400000;
+    U.access = 'promo'; U.accessExpires = users[U.email].accessExpires;
+  }
+  saveUsers(users);
+  res.style.display='block';
+  res.innerHTML='<div class="field-success">✅ '+promo.label+' активированы! Добро пожаловать!</div>';
+  setTimeout(function(){ goToApp(); }, 1200);
+}
+ 
+// ════════════════════════════════
+// LOGIN / REGISTER
+// ════════════════════════════════
+function doLogin() {
+  var email = document.getElementById('login-email').value.trim().toLowerCase();
+  var pass = document.getElementById('login-pass').value;
+  var err = document.getElementById('login-err');
+  err.style.display='none';
+ 
+  if(!email || !pass) { err.style.display='block'; err.textContent='Заполни все поля'; return; }
+ 
+  var users = loadUsers();
+  if(!users[email]) { err.style.display='block'; err.textContent='Аккаунт не найден. Создай его!'; return; }
+  if(users[email].pass !== btoa(pass)) { err.style.display='block'; err.textContent='Неверный пароль'; return; }
+ 
+  U = users[email];
+  done = loadDone(email);
+  plan = loadPlan(email);
+  saveSession(email);
+  updUI();
+ 
+  if(!plan) {
+    go('s-loading');
+    document.getElementById('load-txt').textContent='Загружаем программу...';
+    setTimeout(function(){ plan=fallback(); savePlan(email,plan); renderPlan(); checkAccessAndRoute() ? switchTab('s-home','tab-h') : null; }, 1200);
+  } else {
+    renderPlan();
+    if(checkAccessAndRoute()) switchTab('s-home','tab-h');
+  }
+}
+ 
+function reg1Next() {
+  var name = document.getElementById('reg-name').value.trim();
+  var email = document.getElementById('reg-email').value.trim().toLowerCase();
+  var pass = document.getElementById('reg-pass').value;
+  var pass2 = document.getElementById('reg-pass2').value;
+  var ok = true;
+ 
+  document.getElementById('err-name').style.display = name ? 'none' : 'block'; if(!name) ok=false;
+  var emailOk = email && email.indexOf('@') > 0 && email.indexOf('.') > 0;
+  document.getElementById('err-email').style.display = emailOk ? 'none' : 'block'; if(!emailOk) ok=false;
+  document.getElementById('err-pass').style.display = pass.length>=6 ? 'none' : 'block'; if(pass.length<6) ok=false;
+  document.getElementById('err-pass2').style.display = pass===pass2 ? 'none' : 'block'; if(pass!==pass2) ok=false;
+ 
+  if(!ok) return;
+ 
+  var users = loadUsers();
+  if(users[email]) { document.getElementById('err-email').style.display='block'; document.getElementById('err-email').textContent='Email уже зарегистрирован'; return; }
+ 
+  // Check promo
+  var promoCode = document.getElementById('reg-promo').value.trim().toUpperCase();
+  var promoData = PROMOS[promoCode] || null;
+ 
+  var accessData = {access:'trial', accessExpires:null};
+  if(promoData) {
+    if(promoData.type==='forever') { accessData={access:'forever',accessExpires:null}; }
+    else { accessData={access:'promo',accessExpires:Date.now()+promoData.days*86400000}; }
+  }
+ 
+  regTemp.name = name;
+  regTemp.email = email;
+  regTemp.pass = btoa(pass);
+  regTemp.promo = promoCode;
+  regTemp.promoData = promoData;
+  regTemp.accessData = accessData;
+ 
+  go('s-reg2');
+}
+ 
+function finishReg() {
+  var users = loadUsers();
+  var email = regTemp.email;
+ 
+  U = {
+    name: regTemp.name,
+    email: email,
+    pass: regTemp.pass,
+    gender: regTemp.gender || 'female',
+    age: document.getElementById('reg-age').value || '25',
+    weight: document.getElementById('reg-weight').value || '70',
+    height: document.getElementById('reg-height').value || '170',
+    place: regTemp.place || 'home',
+    goal: regTemp.goal || 'Похудеть',
+    level: regTemp.level || 'Новичок',
+    promo: regTemp.promo || '',
+    access: regTemp.accessData.access,
+    accessExpires: regTemp.accessData.accessExpires,
+    registeredAt: Date.now()
+  };
+ 
+  users[email] = U;
+  saveUsers(users);
+  saveSession(email);
+  done = {};
+  updUI();
+  callAI();
+}
+ 
+// ════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════
 function go(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  var noTab=['s-splash','s-register','s-goals','s-level','s-detail'];
-  document.getElementById('tabbar').style.display = noTab.indexOf(id)>=0 ? 'none' : 'flex';
+  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-loading','s-detail','s-paywall'];
+  document.getElementById('tabbar').style.display=noTab.indexOf(id)>=0?'none':'flex';
 }
- 
-function switchTab(screenId, tabId){
-  go(screenId);
+function switchTab(sid,tid){
+  go(sid);
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
-  document.getElementById(tabId).classList.add('on');
-  if(screenId==='s-workouts') buildList(curFilter);
+  document.getElementById(tid).classList.add('on');
+  if(sid==='s-explore') buildExplore();
 }
  
-// ── ONBOARDING ──
-function selectGender(g){
-  selGender=g;
-  document.getElementById('opt-f').classList.toggle('on',g==='female');
-  document.getElementById('opt-m').classList.toggle('on',g==='male');
+// ════════════════════════════════
+// ONBOARDING SELECTORS
+// ════════════════════════════════
+function selG(g){regTemp.gender=g;document.getElementById('opt-f').classList.toggle('on',g==='female');document.getElementById('opt-m').classList.toggle('on',g==='male');}
+function selPlace(p){regTemp.place=p;document.getElementById('opt-home').classList.toggle('on',p==='home');document.getElementById('opt-gym').classList.toggle('on',p==='gym');}
+function selGoal(id,lbl){if(regTemp.goalId)document.getElementById(regTemp.goalId).classList.remove('on');regTemp.goalId=id;document.getElementById(id).classList.add('on');regTemp.goal=lbl;U.goal=lbl;}
+function selLevel(id,lbl){if(regTemp.levelId)document.getElementById(regTemp.levelId).classList.remove('on');regTemp.levelId=id;document.getElementById(id).classList.add('on');regTemp.level=lbl;U.level=lbl;}
+ 
+// ════════════════════════════════
+// PAYWALL
+// ════════════════════════════════
+var selPriceKey = 'month';
+var priceLabels = {month:'299 ₽/мес', year:'1 990 ₽/год', forever:'4 990 ₽ навсегда'};
+ 
+function selPrice(key) {
+  selPriceKey = key;
+  ['month','year','forever'].forEach(function(k){ document.getElementById('pc-'+k).classList.toggle('on',k===key); });
+  document.getElementById('pay-btn').textContent = 'Оформить — ' + priceLabels[key];
 }
  
-function selGoal(id,label){
-  if(selGoalId) document.getElementById(selGoalId).classList.remove('on');
-  selGoalId=id;
-  document.getElementById(id).classList.add('on');
-  user.goal=label;
+function doPurchase() {
+  // В реальном приложении здесь будет платёжная система
+  showToast('Платёжная система подключается в следующем обновлении 🚀');
 }
  
-function selLevel(id,label){
-  if(selLevelId) document.getElementById(selLevelId).classList.remove('on');
-  selLevelId=id;
-  document.getElementById(id).classList.add('on');
-  user.level=label;
+function goToApp() {
+  if(checkAccessAndRoute()) switchTab('s-home','tab-h');
 }
  
-function goToGoals(){
-  user.name=document.getElementById('reg-name').value||'Пользователь';
-  user.email=document.getElementById('reg-email').value||'user@mail.ru';
-  user.gender=selGender||'female';
-  go('s-goals');
+// ════════════════════════════════
+// AI / FALLBACK
+// ════════════════════════════════
+function callAI(){
+  go('s-loading');
+  var msgs=['Анализируем параметры...','Подбираем упражнения...','Рассчитываем нагрузку...','Формируем программу на 5 дней...'];
+  var mi=0;
+  var iv=setInterval(function(){if(++mi<msgs.length)document.getElementById('load-txt').textContent=msgs[mi];},1200);
+ 
+  var keys=Object.keys(DB).filter(function(k){return DB[k].place===U.place;});
+  var list=keys.map(function(k){return k+': '+DB[k].name+' ['+DB[k].cat.join(',')+']';}).join('\n');
+ 
+  var prompt='Персональный фитнес-тренер. Программа на 5 дней (Пн-Пт):\n'
+    +'Пол: '+(U.gender==='female'?'Женщина':'Мужчина')+', Возраст: '+U.age+', Вес: '+U.weight+'кг, Рост: '+U.height+'см\n'
+    +'Место: '+(U.place==='gym'?'Зал':'Дома')+', Цель: '+U.goal+', Уровень: '+U.level+'\n\n'
+    +'Используй ТОЛЬКО эти ключи:\n'+list+'\n\n'
+    +'Ответь СТРОГО только JSON без лишнего текста:\n'
+    +'{"plan":[{"day":"Понедельник","focus":"Ноги","exercises":[{"key":"squat_home","sets":3,"reps":"15","rest":"60с","tip":"совет"}]}]}\n'
+    +'Каждый день 4-5 упражнений. Чередуй группы мышц. Учитывай вес и уровень.';
+ 
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:prompt}]})
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    clearInterval(iv);
+    try{var txt=d.content[0].text;var m=txt.match(/\{[\s\S]*\}/);if(!m)throw new Error();plan=JSON.parse(m[0]);if(!plan.plan||!plan.plan.length)throw new Error();}
+    catch(e){plan=fallback();}
+    savePlan(U.email,plan);renderPlan();
+    if(checkAccessAndRoute()) switchTab('s-home','tab-h');
+  })
+  .catch(function(){clearInterval(iv);plan=fallback();savePlan(U.email,plan);renderPlan();if(checkAccessAndRoute())switchTab('s-home','tab-h');});
 }
  
-function finishOnboarding(){
-  var parts=user.name.trim().split(' ');
-  var ini=(parts[0]?parts[0][0]:'U').toUpperCase()+(parts[1]?parts[1][0]:'').toUpperCase();
-  document.getElementById('home-avatar').textContent=ini||'АН';
-  document.getElementById('hero-name').textContent=(parts[0]||'Пользователь')+' 👋';
-  document.getElementById('home-sub').textContent=user.goal+' · '+user.level+' · 3 упражнения';
-  document.getElementById('p-ava').textContent=ini||'АН';
-  document.getElementById('p-name').textContent=user.name;
-  document.getElementById('p-email').textContent=user.email;
-  document.getElementById('p-goal').textContent=user.goal;
-  document.getElementById('p-level').textContent=user.level;
-  document.getElementById('p-gender').textContent=user.gender==='female'?'Женщина':'Мужчина';
-  buildHome();
-  switchTab('s-home','tab-h');
+function fallback(){
+  if(U.place==='gym'){return{plan:[
+    {day:'Понедельник',focus:'Грудь и трицепс',exercises:[{key:'bench_press',sets:4,reps:'10',rest:'90с',tip:'Сведи лопатки перед жимом'},{key:'incline_press',sets:3,reps:'12',rest:'75с',tip:'Угол 30-45°'},{key:'cable_fly',sets:3,reps:'15',rest:'60с',tip:'Акцент на растяжение'},{key:'tricep_pushdown',sets:3,reps:'12',rest:'60с',tip:'Локти неподвижны'},{key:'skull_crusher',sets:3,reps:'10',rest:'75с',tip:'Медленный негатив'}]},
+    {day:'Вторник',focus:'Спина и бицепс',exercises:[{key:'deadlift',sets:4,reps:'8',rest:'120с',tip:'Спина нейтральна'},{key:'lat_pulldown',sets:4,reps:'10',rest:'90с',tip:'Тяни локтями'},{key:'cable_row',sets:3,reps:'12',rest:'75с',tip:'Сводь лопатки'},{key:'bicep_curl',sets:3,reps:'12',rest:'60с',tip:'Локти прижаты'}]},
+    {day:'Среда',focus:'Ноги',exercises:[{key:'squat_bar',sets:4,reps:'10',rest:'120с',tip:'Смотри вперёд'},{key:'leg_press',sets:4,reps:'12',rest:'90с',tip:'Полная амплитуда'},{key:'leg_curl',sets:3,reps:'15',rest:'60с',tip:'Медленный негатив'},{key:'calf_raise_machine',sets:4,reps:'20',rest:'45с',tip:'Полная амплитуда'}]},
+    {day:'Четверг',focus:'Плечи',exercises:[{key:'overhead_press',sets:4,reps:'10',rest:'90с',tip:'Корпус напряжён'},{key:'lateral_raise',sets:4,reps:'15',rest:'60с',tip:'Мизинец выше'},{key:'face_pull',sets:3,reps:'15',rest:'60с',tip:'Локти выше плеч'},{key:'arnold_press',sets:3,reps:'12',rest:'75с',tip:'Медленное вращение'}]},
+    {day:'Пятница',focus:'Ягодицы и кор',exercises:[{key:'hip_thrust_bar',sets:4,reps:'12',rest:'90с',tip:'Максимальное сжатие'},{key:'cable_pull_through',sets:3,reps:'15',rest:'60с',tip:'Акцент на ягодицы'},{key:'cable_crunch',sets:4,reps:'20',rest:'45с',tip:'Скручивайся'},{key:'hanging_leg_raise',sets:3,reps:'15',rest:'60с',tip:'Без раскачки'}]}
+  ]};}
+  return{plan:[
+    {day:'Понедельник',focus:'Ноги и ягодицы',exercises:[{key:'squat_home',sets:4,reps:'20',rest:'60с',tip:'Спина прямая'},{key:'lunge',sets:3,reps:'12',rest:'60с',tip:'Чередуй ноги'},{key:'glute_bridge',sets:4,reps:'20',rest:'45с',tip:'Сожми ягодицы'},{key:'calf_raise_home',sets:3,reps:'25',rest:'45с',tip:'Медленно'}]},
+    {day:'Вторник',focus:'Верх тела — тяга',exercises:[{key:'pullup',sets:3,reps:'8',rest:'90с',tip:'Помогай ногами если сложно'},{key:'inverted_row',sets:3,reps:'12',rest:'75с',tip:'Сводь лопатки'},{key:'superman',sets:3,reps:'15',rest:'45с',tip:'Задержи 2с вверху'},{key:'bird_dog',sets:3,reps:'10',rest:'45с',tip:'Не двигай тазом'}]},
+    {day:'Среда',focus:'Грудь и трицепс',exercises:[{key:'pushup',sets:4,reps:'15',rest:'60с',tip:'Тело прямое'},{key:'pushup_wide',sets:3,reps:'12',rest:'60с',tip:'Акцент на грудь'},{key:'diamond_pushup',sets:3,reps:'10',rest:'60с',tip:'Медленно'},{key:'tricep_dip',sets:3,reps:'15',rest:'60с',tip:'Локти назад'}]},
+    {day:'Четверг',focus:'Кор',exercises:[{key:'plank',sets:4,reps:'45с',rest:'30с',tip:'Дыши ровно'},{key:'bicycle_crunch',sets:3,reps:'20',rest:'45с',tip:'Медленно — качество'},{key:'leg_raise',sets:3,reps:'15',rest:'45с',tip:'Поясница прижата'},{key:'russian_twist',sets:3,reps:'20',rest:'45с',tip:'С грузом если можешь'}]},
+    {day:'Пятница',focus:'HIIT и ягодицы',exercises:[{key:'hip_thrust_home',sets:4,reps:'20',rest:'45с',tip:'Через пятки'},{key:'jump_squat',sets:3,reps:'15',rest:'75с',tip:'Мягко приземляйся'},{key:'burpee',sets:3,reps:'10',rest:'90с',tip:'Техника важнее скорости'},{key:'high_knees',sets:3,reps:'30с',rest:'45с',tip:'Колени выше пояса'}]}
+  ]};
 }
  
-function quickLogin(){
-  user={name:'Анна Николаева',email:'anna@mail.ru',gender:'female',goal:'Похудеть',level:'Новичок'};
-  finishOnboarding();
-}
- 
-function logout(){ go('s-splash'); }
- 
-// ── HOME ──
-function buildHome(){
-  var ids=[0,2,4];
-  var el=document.getElementById('home-exercises');
-  el.innerHTML=ids.map(function(id){
-    var ex=EX[id];
-    var done=doneSet[id];
-    return '<div class="ex-card" onclick="openDetail('+id+',\'s-home\')">'
-      +'<img src="'+ex.img+'" alt="'+ex.name+'" loading="lazy"/>'
-      +'<div class="ex-body">'
-      +(done?'<div class="done-banner"><div class="done-check">✓</div><span>Выполнено сегодня</span></div>':'')
-      +'<div class="ex-name">'+ex.name+'</div>'
-      +'<div class="ex-meta">'+ex.sets+' подхода · '+ex.reps+' повторений · '+ex.muscles+'</div>'
-      +'<div class="tags">'+ex.tags.map(function(t){return '<span class="tag">'+t+'</span>';}).join('')+'</div>'
-      +'</div></div>';
-  }).join('');
-}
- 
-// ── LIST ──
-function buildList(filter){
-  curFilter=filter;
-  var filtered=filter==='all'?EX:EX.filter(function(ex){
-    return ex.gender===filter||ex.cat.indexOf(filter)>=0;
+// ════════════════════════════════
+// RENDER PLAN
+// ════════════════════════════════
+function renderPlan(){
+  if(!plan)return;
+  var html='';
+  plan.plan.forEach(function(day){
+    html+='<div class="plan-day"><div class="plan-day-title">'+day.day+'</div><div class="plan-day-sub">'+day.focus+'</div>';
+    (day.exercises||[]).forEach(function(ex){
+      var e=DB[ex.key];if(!e||!ex.key)return;
+      var isDone=done[ex.key];
+      html+='<div class="plan-ex" onclick="openDetail(\''+ex.key+'\','+ex.sets+',\''+ex.reps+'\',\''+ex.rest+'\',\''+esc(ex.tip||'')+'\',\'s-home\')">';
+      html+='<div class="plan-ex-icon">'+(isDone?'✅':e.emoji)+'</div>';
+      html+='<div style="flex:1"><div class="plan-ex-name">'+e.name+'</div><div class="plan-ex-meta">'+ex.sets+' × '+ex.reps+' · отдых '+ex.rest+'</div></div>';
+      html+='<div class="plan-ex-arr">›</div></div>';
+    });
+    html+='</div>';
   });
-  var el=document.getElementById('ex-list');
-  el.innerHTML=filtered.map(function(ex){
-    return '<div class="mini-card" onclick="openDetail('+ex.id+',\'s-workouts\')">'
-      +'<img class="mini-thumb" src="'+ex.img+'" alt="'+ex.name+'" loading="lazy"/>'
-      +'<div class="mini-info">'
-      +'<div class="mini-name">'+ex.name+'</div>'
-      +'<div class="mini-meta">'+ex.sets+' подхода · '+ex.reps+' · '+ex.muscles+'</div>'
-      +'<div class="tags" style="margin-top:5px;">'+ex.tags.slice(0,2).map(function(t){return '<span class="tag">'+t+'</span>';}).join('')+'</div>'
-      +'</div>'
-      +'<span class="mini-badge">'+(ex.gender==='female'?'♀':'♂')+'</span>'
-      +'</div>';
-  }).join('');
+  document.getElementById('ai-plan').innerHTML=html;
+  updStats();
 }
  
-function filterEx(chip,filter){
-  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
-  chip.classList.add('on');
-  buildList(filter);
+function updStats(){
+  if(!plan)return;
+  var total=0,d=0;
+  plan.plan.forEach(function(day){(day.exercises||[]).forEach(function(ex){if(DB[ex.key]){total++;if(done[ex.key])d++;}});});
+  document.getElementById('st-done').textContent=d;
+  document.getElementById('st-total').textContent=total;
+  document.getElementById('st-pct').textContent=total>0?Math.round(d/total*100)+'%':'0%';
+  document.getElementById('p-done').textContent=Object.keys(done).length;
 }
  
-// ── DETAIL ──
-function openDetail(id,from){
-  fromScreen=from;
-  var ex=EX[id];
-  document.getElementById('d-img').src=ex.img;
-  document.getElementById('d-name').textContent=ex.name;
-  document.getElementById('d-tags').innerHTML=ex.tags.map(function(t){return '<span class="tag">'+t+'</span>';}).join('');
-  document.getElementById('d-sets').textContent=ex.sets;
-  document.getElementById('d-reps').textContent=ex.reps;
-  document.getElementById('d-rest').textContent=ex.rest;
-  document.getElementById('d-steps').innerHTML=ex.steps.map(function(s,i){
+// ════════════════════════════════
+// DETAIL
+// ════════════════════════════════
+function openDetail(key,sets,reps,rest,tip,from){
+  fromScr=from||'s-home';
+  var e=DB[key];if(!e)return;
+  var imgUrl=U.gender==='female'?e.img_f:e.img_m;
+  document.getElementById('d-img-wrap').innerHTML=imgUrl
+    ?'<img class="detail-img" src="'+imgUrl+'" alt="'+e.name+'" loading="lazy"/>'
+    :'<div class="detail-img-ph">'+e.emoji+'</div>';
+  document.getElementById('d-name').textContent=e.name;
+  document.getElementById('d-tags').innerHTML='<span class="tag">'+e.muscles+'</span><span class="tag tag-dark">'+(e.place==='gym'?'🏋️ Зал':'🏠 Дома')+'</span>';
+  document.getElementById('d-sets').textContent=sets||3;
+  document.getElementById('d-reps').textContent=reps||'12';
+  document.getElementById('d-rest').textContent=rest||'60с';
+  document.getElementById('d-steps').innerHTML=(e.steps||[]).map(function(s,i){
     return '<div class="step"><div class="step-n">'+(i+1)+'</div><div class="step-t">'+s+'</div></div>';
   }).join('');
+  var tb=document.getElementById('d-tip-block');
+  if(tip&&tip.length>2){document.getElementById('d-tip').textContent='💡 '+tip;tb.style.display='block';}
+  else tb.style.display='none';
+  var alts=(e.alts||[]).filter(function(k){return DB[k];});
+  var ab=document.getElementById('d-alts-block');
+  if(alts.length>0){
+    document.getElementById('d-alts').innerHTML=alts.map(function(ak){
+      var ae=DB[ak];
+      return '<div class="alt-card" onclick="openDetail(\''+ak+'\',3,\'12\',\'60с\',\'\',\'s-detail\')">'
+        +'<div style="font-size:20px;flex-shrink:0">'+ae.emoji+'</div>'
+        +'<div><div style="font-size:13px;font-weight:500">'+ae.name+'</div><div style="font-size:11px;color:var(--sage);margin-top:2px">'+ae.muscles+'</div></div>'
+        +'<div style="margin-left:auto;color:var(--sand);font-size:18px;">›</div></div>';
+    }).join('');
+    ab.style.display='block';
+  } else ab.style.display='none';
   var btn=document.getElementById('done-btn');
-  if(doneSet[id]){
-    btn.textContent='✓ Выполнено!';
-    btn.style.background='var(--sage)';
+  if(done[key]){btn.textContent='✅ Уже выполнено';btn.style.background='var(--sand)';}
+  else{btn.textContent='✓ Упражнение выполнено';btn.style.background='';}
+  btn.onclick=function(){markDone(key);};
+  document.getElementById('d-back').onclick=function(){var t=fromScr==='s-detail'?'s-home':fromScr;go(t);document.getElementById('tabbar').style.display='flex';};
+  go('s-detail');document.getElementById('tabbar').style.display='none';
+}
+ 
+function markDone(key){
+  done[key]=true;
+  saveDone(U.email,done);
+  var btn=document.getElementById('done-btn');
+  btn.textContent='✅ Выполнено!';btn.style.background='var(--sage)';
+  renderPlan();updStats();
+  showToast('Отличная работа! 💪');
+  setTimeout(function(){go('s-home');document.getElementById('tabbar').style.display='flex';},700);
+}
+ 
+// ════════════════════════════════
+// EXPLORE
+// ════════════════════════════════
+function buildExplore(){
+  var keys=Object.keys(DB).filter(function(k){
+    var e=DB[k];
+    if(expFlt==='all')return true;
+    if(expFlt==='home')return e.place==='home';
+    if(expFlt==='gym')return e.place==='gym';
+    return e.cat.indexOf(expFlt)>=0;
+  });
+  document.getElementById('exp-list').innerHTML=keys.map(function(k){
+    var e=DB[k];
+    var imgUrl=U.gender==='female'?e.img_f:e.img_m;
+    var thumb=imgUrl?'<img class="mini-thumb" src="'+imgUrl+'" alt="'+e.name+'" loading="lazy"/>':'<div class="mini-thumb-ph">'+e.emoji+'</div>';
+    var altC=(e.alts||[]).length;
+    return '<div class="mini-card" onclick="openDetail(\''+k+'\',3,\'12\',\'60с\',\'\',\'s-explore\')">'
+      +thumb+'<div class="mini-info"><div class="mini-name">'+e.name+'</div><div class="mini-meta">'+e.muscles+'</div>'
+      +'<div class="tags"><span class="tag">'+(e.place==='gym'?'🏋️ Зал':'🏠 Дома')+'</span>'
+      +(altC>0?'<span class="tag tag-alt">'+altC+' альт.</span>':'')+'</div></div>'
+      +'<div style="padding-right:12px;color:var(--sand);font-size:18px;">›</div></div>';
+  }).join('');
+}
+ 
+function fExp(chip,f){
+  expFlt=f;
+  document.querySelectorAll('#exp-filters .chip').forEach(function(c){c.classList.remove('on');});
+  chip.classList.add('on');buildExplore();
+}
+ 
+// ════════════════════════════════
+// PROFILE UI
+// ════════════════════════════════
+function updUI(){
+  if(!U.name) return;
+  var parts=U.name.trim().split(' ');
+  var ini=(parts[0]?parts[0][0]:'?').toUpperCase()+(parts[1]?parts[1][0]:'').toUpperCase();
+  document.getElementById('home-ava').textContent=ini;
+  document.getElementById('hero-name').textContent=(parts[0]||'Пользователь')+' 👋';
+  document.getElementById('home-sub').textContent=(U.goal||'Тренировки')+' · '+(U.level||'')+' · '+(U.place==='gym'?'Зал':'Дома');
+  document.getElementById('p-ava').textContent=ini;
+  document.getElementById('p-name').textContent=U.name;
+  document.getElementById('p-email').textContent=U.email||'—';
+  document.getElementById('p-goal').textContent=U.goal||'—';
+  document.getElementById('p-level').textContent=U.level||'—';
+  document.getElementById('p-gender').textContent=U.gender==='female'?'Женщина':'Мужчина';
+  document.getElementById('p-age').textContent=U.age?U.age+' лет':'—';
+  document.getElementById('p-weight').textContent=U.weight?U.weight+' кг':'—';
+  document.getElementById('p-height').textContent=U.height?U.height+' см':'—';
+  document.getElementById('p-place').textContent=U.place==='gym'?'Тренажёрный зал':'Дома';
+ 
+  // Access info
+  var info = getAccessInfo(U);
+  var accessLabels = {trial:'Пробный период',promo:'Промокод',paid:'Premium',forever:'Пожизненный ♾️',expired:'Истёк'};
+  var badgeClasses = {trial:'badge-trial',promo:'badge-promo',paid:'badge-promo',forever:'badge-forever',expired:'badge-free'};
+  document.getElementById('p-access').textContent=accessLabels[info.type]||'—';
+  document.getElementById('p-badge').textContent=accessLabels[info.type]||'';
+  document.getElementById('p-badge').className='p-badge '+(badgeClasses[info.type]||'badge-free');
+ 
+  var expText='—';
+  if(info.type==='forever') expText='Навсегда ♾️';
+  else if(info.valid && info.daysLeft>0) expText='Ещё '+info.daysLeft+' дн.';
+  else if(info.type==='expired') expText='Истёк — нужно продлить';
+  document.getElementById('p-expires').textContent=expText;
+ 
+  // Show/hide upgrade btn
+  var needUpgrade = info.type==='trial' || info.type==='expired';
+  document.getElementById('upgrade-btn').style.display=needUpgrade?'block':'none';
+ 
+  // Access banner on home
+  var banner=document.getElementById('access-banner');
+  if(info.type==='trial'){
+    banner.style.display='block';
+    banner.innerHTML='<div class="access-banner banner-trial">⏳ Пробный период — осталось <b>'+info.daysLeft+' дн.</b> <span onclick="go(\'s-paywall\')" style="text-decoration:underline;cursor:pointer;margin-left:4px;">Продлить →</span></div>';
+  } else if(info.type==='promo' && info.daysLeft<=7){
+    banner.style.display='block';
+    banner.innerHTML='<div class="access-banner banner-trial">🎟 Промокод истекает через <b>'+info.daysLeft+' дн.</b> <span onclick="go(\'s-paywall\')" style="text-decoration:underline;cursor:pointer;margin-left:4px;">Продлить →</span></div>';
+  } else if(info.type==='forever'){
+    banner.style.display='block';
+    banner.innerHTML='<div class="access-banner banner-forever">♾️ У тебя <b>пожизненный доступ</b> — наслаждайся!</div>';
   } else {
-    btn.textContent='✓ Упражнение выполнено';
-    btn.style.background='';
+    banner.style.display='none';
   }
-  btn.onclick=function(){ markDone(id); };
-  document.getElementById('detail-back').onclick=function(){ go(from); };
-  go('s-detail');
-  document.getElementById('tabbar').style.display='none';
 }
  
-function markDone(id){
-  doneSet[id]=true;
-  var btn=document.getElementById('done-btn');
-  btn.textContent='✓ Выполнено!';
-  btn.style.background='var(--sage)';
-  setTimeout(function(){
-    go(fromScreen);
-    if(fromScreen==='s-home') buildHome();
-    document.getElementById('tabbar').style.display='flex';
-  },700);
+function regenPlan(){go('s-loading');document.getElementById('load-txt').textContent='Обновляем программу...';setTimeout(callAI,200);}
+ 
+function logout(){
+  clearSession();
+  U={};plan=null;done={};
+  go('s-splash');
 }
  
-// ── TELEGRAM ──
-try{
-  var tg=window.Telegram.WebApp;
-  tg.ready();
-  tg.expand();
-  if(tg.initDataUnsafe&&tg.initDataUnsafe.user){
-    var u=tg.initDataUnsafe.user;
-    user.name=[u.first_name,u.last_name].filter(Boolean).join(' ')||'Пользователь';
-    document.getElementById('reg-name').value=user.name;
+// ════════════════════════════════
+// TOAST
+// ════════════════════════════════
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2200);
+}
+ 
+function esc(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
+ 
+// ════════════════════════════════
+// INIT — проверяем сессию
+// ════════════════════════════════
+(function init(){
+  var session = loadSession();
+  if(!session) { go('s-splash'); return; }
+  var users = loadUsers();
+  if(!users[session]) { clearSession(); go('s-splash'); return; }
+  U = users[session];
+  done = loadDone(session);
+  plan = loadPlan(session);
+  updUI();
+  if(!plan) {
+    go('s-loading');
+    document.getElementById('load-txt').textContent='Загружаем программу...';
+    setTimeout(function(){ plan=fallback(); savePlan(session,plan); renderPlan(); if(checkAccessAndRoute())switchTab('s-home','tab-h'); }, 1000);
+  } else {
+    renderPlan();
+    if(checkAccessAndRoute()) switchTab('s-home','tab-h');
   }
-}catch(e){}
+})();
+ 
+// Telegram
+try{var tg=window.Telegram.WebApp;tg.ready();tg.expand();}catch(e){}
 </script>
 </body>
 </html>
+ 
