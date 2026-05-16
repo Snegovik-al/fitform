@@ -245,6 +245,37 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .sec-title-dark{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#fff;margin-bottom:10px;}
 .btn-done-dark{background:rgba(123,143,122,0.85);backdrop-filter:blur(12px);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;}
 
+
+/* HOME FULLSCREEN */
+#s-home{padding:0!important;gap:0!important;position:relative;min-height:100vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.home-bg{position:fixed;inset:0;z-index:0;background-size:cover;background-position:top center;background-repeat:no-repeat;}
+.home-bg-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(246,244,239,0.15) 0%,rgba(246,244,239,0.05) 25%,rgba(30,30,25,0.5) 55%,rgba(20,20,15,0.92) 100%);}
+.home-scroll{position:relative;z-index:2;display:flex;flex-direction:column;min-height:100vh;}
+.home-spacer{min-height:38vh;}
+.home-top-nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:52px 20px 12px;}
+.home-logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:#fff;letter-spacing:.02em;}
+.home-logo b{color:rgba(201,168,76,0.9);font-weight:400;}
+.home-avatar-btn{width:38px;height:38px;background:rgba(255,255,255,0.15);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:500;cursor:pointer;border:none;}
+.home-banner-wrap{padding:0 16px 8px;}
+.home-banner-dark{border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-size:13px;background:rgba(0,0,0,0.3);backdrop-filter:blur(16px);border:0.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);}
+.home-hero-block{padding:0 20px 20px;}
+.home-greet{font-size:11px;color:rgba(255,255,255,0.6);letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px;}
+.home-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:#fff;margin-bottom:16px;line-height:1.1;}
+.home-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.home-stat{background:rgba(0,0,0,0.28);backdrop-filter:blur(16px);border:0.5px solid rgba(255,255,255,0.12);border-radius:14px;padding:12px;text-align:center;}
+.home-stat-v{font-size:22px;font-weight:500;color:#fff;}
+.home-stat-l{font-size:10px;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+.home-content{display:flex;flex-direction:column;gap:12px;padding:16px 16px 100px;}
+.home-sec-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:#fff;}
+.home-sec-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-top:3px;}
+.plan-day-dark{background:rgba(0,0,0,0.3);backdrop-filter:blur(20px);border:0.5px solid rgba(255,255,255,0.1);border-radius:18px;padding:16px;}
+.plan-day-title-dark{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;margin-bottom:2px;color:#fff;}
+.plan-day-sub-dark{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:12px;}
+.plan-ex-dark{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid rgba(255,255,255,0.08);cursor:pointer;}
+.plan-ex-dark:last-child{border:none;padding-bottom:0;}
+.plan-ex-name-dark{font-size:13px;font-weight:500;color:#fff;}
+.plan-ex-meta-dark{font-size:11px;color:rgba(255,255,255,0.5);margin-top:1px;}
+
 /* REST TIMER */
 .rest-timer{background:linear-gradient(135deg,rgba(123,143,122,0.92),rgba(65,70,75,0.95));border-radius:20px;padding:20px;color:#fff;text-align:center;position:relative;overflow:hidden;}
 .rest-timer::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,0.07);border-radius:50%;pointer-events:none;}
@@ -574,22 +605,47 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 
 <!-- ══════════ HOME ══════════ -->
 <div class="screen" id="s-home">
-  <div class="nav"><div class="logo">FIT<b>form</b></div><button class="avatar" id="home-ava" onclick="switchTab('s-profile','tab-p')">АН</button></div>
 
-  <!-- Access banner -->
-  <div id="access-banner" style="display:none;"></div>
+  <!-- Фон — картинка на весь экран (меняется по полу) -->
+  <div class="home-bg" id="home-bg"></div>
+  <div class="home-bg-overlay"></div>
 
-  <div class="hero">
-    <div class="hero-greet">Добро пожаловать</div>
-    <div class="hero-name" id="hero-name">Анна 👋</div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-v" id="st-done">0</div><div class="hstat-l">выполнено</div></div>
-      <div class="hstat"><div class="hstat-v" id="st-total">0</div><div class="hstat-l">всего</div></div>
-      <div class="hstat"><div class="hstat-v" id="st-pct">0%</div><div class="hstat-l">прогресс</div></div>
-    </div>
+  <!-- Фиксированный nav поверх -->
+  <div class="home-top-nav">
+    <div class="home-logo">FIT<b>form</b></div>
+    <button class="home-avatar-btn" id="home-ava" onclick="switchTab('s-profile','tab-p')">АН</button>
   </div>
-  <div><div class="sec-title">Твоя программа</div><div class="sec-sub" id="home-sub">Сгенерировано ИИ</div></div>
-  <div id="ai-plan"></div>
+
+  <!-- Скроллируемый контент -->
+  <div class="home-scroll">
+
+    <!-- Пространство под картинку -->
+    <div class="home-spacer"></div>
+
+    <!-- Баннер доступа -->
+    <div class="home-banner-wrap" id="access-banner" style="display:none;"></div>
+
+    <!-- Имя и статистика -->
+    <div class="home-hero-block">
+      <div class="home-greet">Добро пожаловать</div>
+      <div class="home-name" id="hero-name">Анна</div>
+      <div class="home-stats-row">
+        <div class="home-stat"><div class="home-stat-v" id="st-done">0</div><div class="home-stat-l">выполнено</div></div>
+        <div class="home-stat"><div class="home-stat-v" id="st-total">0</div><div class="home-stat-l">всего</div></div>
+        <div class="home-stat"><div class="home-stat-v" id="st-pct">0%</div><div class="home-stat-l">прогресс</div></div>
+      </div>
+    </div>
+
+    <!-- Программа и остальной контент -->
+    <div class="home-content">
+      <div>
+        <div class="home-sec-title">Твоя программа</div>
+        <div class="home-sec-sub" id="home-sub">Сгенерировано ИИ</div>
+      </div>
+      <div id="ai-plan"></div>
+    </div>
+
+  </div>
 </div>
 
 <!-- ══════════ DETAIL ══════════ -->
@@ -1319,8 +1375,15 @@ function updUI(){
   var parts=U.name.trim().split(' ');
   var ini=(parts[0]?parts[0][0]:'?').toUpperCase()+(parts[1]?parts[1][0]:'').toUpperCase();
   document.getElementById('home-ava').textContent=ini;
-  document.getElementById('hero-name').textContent=(parts[0]||'Пользователь')+' 👋';
-  var dpw=U.days_per_week||regTemp.days||3; document.getElementById('home-sub').textContent=(U.goal||'Тренировки')+' · '+(U.level||'')+' · '+dpw+' дн/нед · '+(U.place==='gym'?'Зал':'Дома');
+  document.getElementById('hero-name').textContent=(parts[0]||'Пользователь');
+  var dpw=U.days_per_week||regTemp.days||3; var bgEl=document.getElementById('home-bg');
+  if(bgEl){
+    var bgUrl=U.gender==='female'
+      ?'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778963511/home_bg_f_loq5ok.jpg'
+      :'https://res.cloudinary.com/djulwrsdk/image/upload/q_auto/f_auto/v1778963513/home_bg_m_d0emj1.jpg';
+    bgEl.style.backgroundImage='url('+bgUrl+')';
+  }
+  document.getElementById('home-sub').textContent=(U.goal||'Тренировки')+' · '+(U.level||'')+' · '+dpw+' дн/нед · '+(U.place==='gym'?'Зал':'Дома');
   document.getElementById('p-ava').textContent=ini;
   document.getElementById('p-name').textContent=U.name;
   document.getElementById('p-email').textContent=U.email||'—';
@@ -1355,10 +1418,9 @@ function updUI(){
     banner.innerHTML='<div class="access-banner banner-trial">⏳ Пробный период — осталось <b>'+access.days_left+' дн.</b> <span onclick="go(\'s-paywall\')" style="text-decoration:underline;cursor:pointer;margin-left:4px;">Продлить →</span></div>';
   } else if(access.type==='promo' && access.days_left<=7){
     banner.style.display='block';
-    banner.innerHTML='<div class="access-banner banner-trial">🎟 Промокод истекает через <b>'+access.days_left+' дн.</b></div>';
+    banner.innerHTML='<div class="home-banner-dark">Промокод истекает через <b>'+access.days_left+' дн.</b></div>';
   } else if(access.type==='forever'){
-    banner.style.display='block';
-    banner.innerHTML='<div class="access-banner banner-forever">♾️ У тебя <b>пожизненный доступ</b> — наслаждайся!</div>';
+    banner.style.display='none';
   } else {
     banner.style.display='none';
   }
