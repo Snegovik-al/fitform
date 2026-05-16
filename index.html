@@ -1,3 +1,6 @@
+Index · HTML
+Copy
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -1032,7 +1035,7 @@ function callAI(){
   var keyList = keys.map(function(k){ return k+': '+DB[k].name+' ['+DB[k].cat.join(',')+']'; });
   // Берём ограничения из regTemp (при первом входе) или из U (при обновлении)
   var restrictions = regTemp.restrictions || U.restrictions || '';
-  var daysPerWeek = regTemp.days || U.days_per_week || 3;
+  var daysPerWeek = (regTemp.days && regTemp.days > 0) ? regTemp.days : (U.days_per_week || 3);
  
   api('POST','/api/workout/generate',{exercise_keys:keyList, restrictions:restrictions, days_per_week:daysPerWeek},function(e,d){
     clearInterval(iv);
@@ -1048,6 +1051,9 @@ function callAI(){
 }
  
 function regenPlan(){
+  // Сбрасываем regTemp.days чтобы callAI взял актуальное значение из U
+  regTemp.days = U.days_per_week || 3;
+  regTemp.restrictions = U.restrictions || '';
   go('s-loading');
   document.getElementById('load-txt').textContent='Обновляем программу...';
   setTimeout(callAI, 200);
@@ -1057,20 +1063,30 @@ function regenPlan(){
 // FALLBACK PLAN
 // ════════════════════════════════
 function fallback(){
-  if(U.place==='gym'){return{plan:[
-    {day:'Понедельник',focus:'Грудь и трицепс',exercises:[{key:'bench_press',sets:4,reps:'10',rest:'90с',tip:'Сведи лопатки перед жимом'},{key:'incline_press',sets:3,reps:'12',rest:'75с',tip:'Угол 30-45°'},{key:'cable_fly',sets:3,reps:'15',rest:'60с',tip:'Акцент на растяжение'},{key:'tricep_pushdown',sets:3,reps:'12',rest:'60с',tip:'Локти неподвижны'},{key:'skull_crusher',sets:3,reps:'10',rest:'75с',tip:'Медленный негатив'}]},
+  var dpw = (regTemp.days && regTemp.days > 0) ? regTemp.days : (U.days_per_week || 3);
+ 
+  // Все возможные дни — выбираем нужное количество
+  var gymDays = [
+    {day:'Понедельник',focus:'Грудь и трицепс',exercises:[{key:'bench_press',sets:4,reps:'10',rest:'90с',tip:'Сведи лопатки'},{key:'incline_press',sets:3,reps:'12',rest:'75с',tip:'Угол 30-45°'},{key:'cable_fly',sets:3,reps:'15',rest:'60с',tip:'Растяжение'},{key:'tricep_pushdown',sets:3,reps:'12',rest:'60с',tip:'Локти неподвижны'}]},
     {day:'Вторник',focus:'Спина и бицепс',exercises:[{key:'deadlift',sets:4,reps:'8',rest:'120с',tip:'Спина нейтральна'},{key:'lat_pulldown',sets:4,reps:'10',rest:'90с',tip:'Тяни локтями'},{key:'cable_row',sets:3,reps:'12',rest:'75с',tip:'Сводь лопатки'},{key:'bicep_curl',sets:3,reps:'12',rest:'60с',tip:'Локти прижаты'}]},
     {day:'Среда',focus:'Ноги',exercises:[{key:'squat_bar',sets:4,reps:'10',rest:'120с',tip:'Смотри вперёд'},{key:'leg_press',sets:4,reps:'12',rest:'90с',tip:'Полная амплитуда'},{key:'leg_curl',sets:3,reps:'15',rest:'60с',tip:'Медленный негатив'},{key:'calf_raise_machine',sets:4,reps:'20',rest:'45с',tip:'Полная амплитуда'}]},
     {day:'Четверг',focus:'Плечи',exercises:[{key:'overhead_press',sets:4,reps:'10',rest:'90с',tip:'Корпус напряжён'},{key:'lateral_raise',sets:4,reps:'15',rest:'60с',tip:'Мизинец выше'},{key:'face_pull',sets:3,reps:'15',rest:'60с',tip:'Локти выше плеч'},{key:'arnold_press',sets:3,reps:'12',rest:'75с',tip:'Медленное вращение'}]},
-    {day:'Пятница',focus:'Ягодицы и кор',exercises:[{key:'hip_thrust_bar',sets:4,reps:'12',rest:'90с',tip:'Максимальное сжатие'},{key:'cable_pull_through',sets:3,reps:'15',rest:'60с',tip:'Акцент на ягодицы'},{key:'cable_crunch',sets:4,reps:'20',rest:'45с',tip:'Скручивайся'},{key:'hanging_leg_raise',sets:3,reps:'15',rest:'60с',tip:'Без раскачки'}]}
-  ]};}
-  return{plan:[
+    {day:'Пятница',focus:'Ягодицы и кор',exercises:[{key:'hip_thrust_bar',sets:4,reps:'12',rest:'90с',tip:'Максимальное сжатие'},{key:'cable_pull_through',sets:3,reps:'15',rest:'60с',tip:'Акцент на ягодицы'},{key:'cable_crunch',sets:4,reps:'20',rest:'45с',tip:'Скручивайся'},{key:'hanging_leg_raise',sets:3,reps:'15',rest:'60с',tip:'Без раскачки'}]},
+    {day:'Суббота',focus:'Функциональный тренинг',exercises:[{key:'box_jump',sets:3,reps:'10',rest:'90с',tip:'Мягко приземляйся'},{key:'rowing_machine',sets:3,reps:'10мин',rest:'—',tip:'Ровный темп'},{key:'plank',sets:3,reps:'60с',rest:'45с',tip:'Дыши ровно'}]}
+  ];
+ 
+  var homeDays = [
     {day:'Понедельник',focus:'Ноги и ягодицы',exercises:[{key:'squat_home',sets:4,reps:'20',rest:'60с',tip:'Спина прямая'},{key:'lunge',sets:3,reps:'12',rest:'60с',tip:'Чередуй ноги'},{key:'glute_bridge',sets:4,reps:'20',rest:'45с',tip:'Сожми ягодицы'},{key:'calf_raise_home',sets:3,reps:'25',rest:'45с',tip:'Медленно'}]},
     {day:'Вторник',focus:'Верх тела',exercises:[{key:'pullup',sets:3,reps:'8',rest:'90с',tip:'Помогай ногами если сложно'},{key:'inverted_row',sets:3,reps:'12',rest:'75с',tip:'Сводь лопатки'},{key:'superman',sets:3,reps:'15',rest:'45с',tip:'Задержи 2с вверху'},{key:'bird_dog',sets:3,reps:'10',rest:'45с',tip:'Не двигай тазом'}]},
     {day:'Среда',focus:'Грудь и трицепс',exercises:[{key:'pushup',sets:4,reps:'15',rest:'60с',tip:'Тело прямое'},{key:'pushup_wide',sets:3,reps:'12',rest:'60с',tip:'Акцент на грудь'},{key:'diamond_pushup',sets:3,reps:'10',rest:'60с',tip:'Медленно'},{key:'tricep_dip',sets:3,reps:'15',rest:'60с',tip:'Локти назад'}]},
     {day:'Четверг',focus:'Кор',exercises:[{key:'plank',sets:4,reps:'45с',rest:'30с',tip:'Дыши ровно'},{key:'bicycle_crunch',sets:3,reps:'20',rest:'45с',tip:'Медленно'},{key:'leg_raise',sets:3,reps:'15',rest:'45с',tip:'Поясница прижата'},{key:'russian_twist',sets:3,reps:'20',rest:'45с',tip:'С грузом если можешь'}]},
-    {day:'Пятница',focus:'HIIT и ягодицы',exercises:[{key:'hip_thrust_home',sets:4,reps:'20',rest:'45с',tip:'Через пятки'},{key:'jump_squat',sets:3,reps:'15',rest:'75с',tip:'Мягко приземляйся'},{key:'burpee',sets:3,reps:'10',rest:'90с',tip:'Техника важнее скорости'},{key:'high_knees',sets:3,reps:'30с',rest:'45с',tip:'Колени выше пояса'}]}
-  ]};
+    {day:'Пятница',focus:'HIIT и ягодицы',exercises:[{key:'hip_thrust_home',sets:4,reps:'20',rest:'45с',tip:'Через пятки'},{key:'jump_squat',sets:3,reps:'15',rest:'75с',tip:'Мягко приземляйся'},{key:'burpee',sets:3,reps:'10',rest:'90с',tip:'Техника важнее скорости'},{key:'high_knees',sets:3,reps:'30с',rest:'45с',tip:'Колени выше пояса'}]},
+    {day:'Суббота',focus:'Растяжка и восстановление',exercises:[{key:'cat_cow',sets:3,reps:'15',rest:'30с',tip:'В ритме дыхания'},{key:'hip_flexor_stretch',sets:2,reps:'45с',rest:'30с',tip:'Держи позицию'},{key:'child_pose',sets:3,reps:'60с',rest:'30с',tip:'Глубоко дыши'},{key:'hamstring_stretch',sets:2,reps:'45с',rest:'30с',tip:'Не тяни через боль'}]}
+  ];
+ 
+  var allDays = U.place==='gym' ? gymDays : homeDays;
+  // Берём только нужное количество дней
+  return {plan: allDays.slice(0, dpw)};
 }
  
 // ════════════════════════════════
