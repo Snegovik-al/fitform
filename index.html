@@ -1,4 +1,4 @@
-
+Index · HTML
 Copy
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ Copy
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;}
 :root{--cream:#F6F4EF;--sand:#D9D2C3;--sage:#7B8F7A;--dark:#41464B;--glass:rgba(246,244,239,0.65);--gb:rgba(217,210,195,0.85);--red:#c0392b;--gold:#b8860b;}
 html{height:100%;}
 body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);background:linear-gradient(160deg,#F6F4EF 0%,#EDE8DF 45%,#D9D2C3 100%);background-attachment:fixed;}
@@ -87,7 +87,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .form-sub{font-size:13px;color:var(--sage);}
 .field{display:flex;flex-direction:column;gap:7px;}
 .field-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);}
-.glass-input{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--dark);font-family:'DM Sans',sans-serif;outline:none;width:100%;}
+.glass-input{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--dark);font-family:'DM Sans',sans-serif;outline:none;width:100%;user-select:text;-webkit-user-select:text;}
 .glass-input:focus{border-color:var(--sage);}
 .glass-input::placeholder{color:rgba(65,70,75,0.38);}
 .glass-input.error{border-color:var(--red);}
@@ -190,6 +190,23 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 /* TOAST */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;}
+ 
+ 
+/* REST TIMER */
+.rest-timer{background:linear-gradient(135deg,rgba(123,143,122,0.92),rgba(65,70,75,0.95));border-radius:20px;padding:20px;color:#fff;text-align:center;position:relative;overflow:hidden;}
+.rest-timer::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,0.07);border-radius:50%;pointer-events:none;}
+.timer-label{font-size:11px;opacity:.7;letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px;}
+.timer-display{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:500;line-height:1;margin-bottom:14px;letter-spacing:.02em;}
+.timer-ring{position:relative;width:90px;height:90px;margin:0 auto 14px;}
+.timer-ring svg{transform:rotate(-90deg);}
+.timer-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:#fff;}
+.timer-btns{display:flex;gap:10px;}
+.timer-btn{flex:1;padding:12px;border-radius:14px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;}
+.timer-btn-start{background:rgba(255,255,255,0.18);color:#fff;}
+.timer-btn-skip{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);}
+.timer-presets{display:flex;gap:8px;justify-content:center;margin-bottom:12px;}
+.timer-preset{padding:5px 14px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.timer-preset.on{background:rgba(255,255,255,0.25);color:#fff;}
  
 /* RESTRICTIONS */
 .restr-grid{display:flex;flex-wrap:wrap;gap:8px;}
@@ -490,6 +507,29 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <div class="sec-title" style="font-size:17px;margin-bottom:10px;">Альтернативы</div>
     <div id="d-alts"></div>
   </div>
+  <!-- REST TIMER -->
+  <div class="rest-timer" id="rest-timer-block">
+    <div class="timer-label">Таймер отдыха</div>
+    <div class="timer-presets">
+      <div class="timer-preset" onclick="setTimerPreset(30)">30с</div>
+      <div class="timer-preset on" onclick="setTimerPreset(60)">60с</div>
+      <div class="timer-preset" onclick="setTimerPreset(90)">90с</div>
+      <div class="timer-preset" onclick="setTimerPreset(120)">120с</div>
+    </div>
+    <div class="timer-ring">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" stroke="rgba(255,255,255,0.15)" stroke-width="5" fill="none"/>
+        <circle id="timer-arc" cx="45" cy="45" r="38" stroke="rgba(255,255,255,0.85)" stroke-width="5" fill="none"
+          stroke-dasharray="238.76" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset .9s linear;"/>
+      </svg>
+      <div class="timer-ring-num" id="timer-num">60</div>
+    </div>
+    <div class="timer-btns">
+      <button class="timer-btn timer-btn-start" id="timer-start-btn" onclick="toggleTimer()">▶ Старт</button>
+      <button class="timer-btn timer-btn-skip" onclick="resetTimer()">↺ Сброс</button>
+    </div>
+  </div>
+ 
   <button class="btn-sage" id="done-btn">✓ Упражнение выполнено</button>
   <div style="height:10px;"></div>
 </div>
@@ -978,13 +1018,23 @@ function openDetail(key,sets,reps,rest,tip,from){
   document.getElementById('d-sets').textContent=sets||3;
   document.getElementById('d-reps').textContent=reps||'12';
   document.getElementById('d-rest').textContent=rest||'60с';
+  // Init timer with current rest time
+  initTimerForExercise(rest);
   document.getElementById('d-steps').innerHTML=(e.steps||[]).map(function(s,i){
     return '<div class="step"><div class="step-n">'+(i+1)+'</div><div class="step-t">'+s+'</div></div>';
   }).join('');
   var tb=document.getElementById('d-tip-block');
   if(tip&&tip.length>2){document.getElementById('d-tip').textContent='💡 '+tip;tb.style.display='block';}
   else tb.style.display='none';
-  var alts=(e.alts||[]).filter(function(k){return DB[k];});
+  // Collect all exercise keys already in today's plan to exclude from alternatives
+  var todayKeys = {};
+  if(plan && plan.plan) {
+    plan.plan.forEach(function(day){
+      (day.exercises||[]).forEach(function(ex){ if(ex.key) todayKeys[ex.key]=true; });
+    });
+  }
+  // Filter: must exist in DB, not be the current exercise, not be already in plan
+  var alts=(e.alts||[]).filter(function(k){ return DB[k] && k!==key && !todayKeys[k]; });
   var ab=document.getElementById('d-alts-block');
   if(alts.length>0){
     document.getElementById('d-alts').innerHTML=alts.map(function(ak){
@@ -995,7 +1045,11 @@ function openDetail(key,sets,reps,rest,tip,from){
         +'<div style="margin-left:auto;color:var(--sand);font-size:18px;">›</div></div>';
     }).join('');
     ab.style.display='block';
-  } else ab.style.display='none';
+  } else {
+    // All alts are in today's plan - show message
+    document.getElementById('d-alts').innerHTML='<div style="font-size:13px;color:var(--sage);padding:4px 0;">Все альтернативы уже есть в твоей программе на сегодня 💪</div>';
+    ab.style.display='block';
+  }
   var btn=document.getElementById('done-btn');
   if(done[key]){btn.textContent='✅ Уже выполнено';btn.style.background='var(--sand)';}
   else{btn.textContent='✓ Упражнение выполнено';btn.style.background='';}
@@ -1127,6 +1181,99 @@ function logout(){
   clearToken();
   TOKEN=null; U={}; plan=null; done={};
   go('s-splash');
+}
+ 
+ 
+// ════════════════════════════════
+// REST TIMER
+// ════════════════════════════════
+var timerInterval = null;
+var timerTotal = 60;
+var timerLeft  = 60;
+var timerRunning = false;
+var FULL_DASH = 238.76; // 2 * PI * 38
+ 
+function setTimerPreset(sec) {
+  // Update preset UI
+  document.querySelectorAll('.timer-preset').forEach(function(el){
+    el.classList.toggle('on', el.textContent === sec+'с');
+  });
+  timerTotal = sec;
+  timerLeft  = sec;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  document.getElementById('timer-start-btn').textContent = '▶ Старт';
+  updateTimerUI();
+}
+ 
+function toggleTimer() {
+  if(timerRunning) {
+    // Pause
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('timer-start-btn').textContent = '▶ Продолжить';
+  } else {
+    // Start
+    if(timerLeft <= 0) { timerLeft = timerTotal; }
+    timerRunning = true;
+    document.getElementById('timer-start-btn').textContent = '⏸ Пауза';
+    timerInterval = setInterval(function(){
+      timerLeft--;
+      updateTimerUI();
+      if(timerLeft <= 0) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('timer-start-btn').textContent = '▶ Старт';
+        // Вибрация и уведомление
+        try{ window.Telegram.WebApp.HapticFeedback.notificationOccurred('success'); }catch(e){}
+        showToast('⏰ Отдых завершён! Следующий подход!');
+      }
+    }, 1000);
+  }
+}
+ 
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerLeft = timerTotal;
+  document.getElementById('timer-start-btn').textContent = '▶ Старт';
+  updateTimerUI();
+}
+ 
+function updateTimerUI() {
+  var numEl = document.getElementById('timer-num');
+  var arcEl = document.getElementById('timer-arc');
+  if(!numEl || !arcEl) return;
+  numEl.textContent = timerLeft;
+  var pct = timerTotal > 0 ? timerLeft / timerTotal : 1;
+  arcEl.style.strokeDashoffset = FULL_DASH * (1 - pct);
+  // Color change when low
+  if(timerLeft <= 5 && timerLeft > 0) {
+    arcEl.style.stroke = '#ff6b6b';
+    numEl.style.color  = '#ff6b6b';
+  } else {
+    arcEl.style.stroke = 'rgba(255,255,255,0.85)';
+    numEl.style.color  = '#fff';
+  }
+}
+ 
+function initTimerForExercise(restStr) {
+  // Parse rest string like "60с", "90с", "120с", "30с"
+  clearInterval(timerInterval);
+  timerRunning = false;
+  var sec = 60;
+  if(restStr) {
+    var match = restStr.match(/(\d+)/);
+    if(match) sec = parseInt(match[1]);
+  }
+  timerTotal = sec;
+  timerLeft  = sec;
+  // Update preset buttons
+  document.querySelectorAll('.timer-preset').forEach(function(el){
+    el.classList.toggle('on', el.textContent === sec+'с');
+  });
+  document.getElementById('timer-start-btn').textContent = '▶ Старт';
+  updateTimerUI();
 }
  
 // ════════════════════════════════
