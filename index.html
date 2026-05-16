@@ -220,7 +220,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="field-error" id="login-pass-err" style="display:none;"></div>
     </div>
     <div class="field-error" id="login-err" style="display:none;text-align:center;padding:8px;background:rgba(192,57,43,0.08);border-radius:10px;"></div>
-    <button class="btn-primary" onclick="doLogin()">Войти</button>
+    <button class="btn-primary" id="login-btn" onclick="doLogin()">Войти</button>
     <button class="btn-outline" onclick="go('s-reg1')">Нет аккаунта? Создать</button>
   </div>
 </div>
@@ -314,7 +314,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <div class="goal-opt" id="l2" onclick="selLevel('l2','Средний уровень')"><div class="g-icon">🏃</div><div><div class="g-title">Средний уровень</div><div class="g-sub">Тренируюсь более полугода</div></div><div class="radio"></div></div>
     <div class="goal-opt" id="l3" onclick="selLevel('l3','Продвинутый')"><div class="g-icon">🏆</div><div><div class="g-title">Продвинутый</div><div class="g-sub">Спортсмен / опытный атлет</div></div><div class="radio"></div></div>
   </div>
-  <button class="btn-primary" onclick="finishReg()">Создать программу 🤖</button>
+  <button class="btn-primary" id="finish-btn" onclick="finishReg()">Создать программу 🤖</button>
 </div>
  
 <!-- ══════════ LOADING ══════════ -->
@@ -594,7 +594,7 @@ var DB = {
   rowing_machine:{name:'Гребной тренажёр',emoji:'🚣',place:'gym',cat:['cardio','back'],alts:['cable_row','burpee'],muscles:'Спина, ноги, кардио',img_f:null,img_m:null,steps:['Ноги согнуты, держись за ручки','Оттолкнись ногами','Тяни ручки к поясу','Вернись вперёд']}
 };
  
-<script>
+ 
  
 // ════════════════════════════════
 // CONFIG & STATE
