@@ -1,12 +1,10 @@
-Index · HTML
-Copy
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>FitForm</title>
+<meta name="title" content="FitForm"/>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -1317,7 +1315,16 @@ function esc(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
 })();
  
 // Telegram
-try{var tg=window.Telegram.WebApp;tg.ready();tg.expand();}catch(e){}
+try{
+  var tg=window.Telegram.WebApp;
+  tg.ready();
+  tg.expand();
+  // Убираем заголовок и кнопку закрытия
+  if(tg.setHeaderColor) tg.setHeaderColor('#F6F4EF');
+  if(tg.setBackgroundColor) tg.setBackgroundColor('#F6F4EF');
+  if(tg.disableVerticalSwipes) tg.disableVerticalSwipes();
+  if(tg.isFullscreen === false && tg.requestFullscreen) tg.requestFullscreen();
+}catch(e){}
 </script>
 </body>
 </html>
