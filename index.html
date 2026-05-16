@@ -15,16 +15,16 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .screen{display:none;flex-direction:column;gap:14px;padding:16px 16px 100px;min-height:100vh;}
 #s-detail{overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .screen.active{display:flex;}
- 
+
 /* NAV */
 .nav{display:flex;align-items:center;justify-content:space-between;padding:8px 0;}
 .logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--dark);}
 .logo b{color:var(--sage);font-weight:500;}
 .avatar{width:38px;height:38px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:500;cursor:pointer;border:none;}
- 
+
 /* GLASS */
 .glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:0.5px solid var(--gb);border-radius:20px;padding:18px;}
- 
+
 /* HERO */
 .hero{background:linear-gradient(135deg,rgba(123,143,122,0.92),rgba(65,70,75,0.95));border-radius:24px;padding:22px;color:#fff;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;top:-40px;right:-30px;width:140px;height:140px;background:rgba(255,255,255,0.07);border-radius:50%;pointer-events:none;}
@@ -34,11 +34,11 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .hstat{text-align:center;}
 .hstat-v{font-size:22px;font-weight:500;}
 .hstat-l{font-size:10px;opacity:.65;text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
- 
+
 /* SECTION */
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;}
 .sec-sub{font-size:12px;color:var(--sage);margin-top:3px;}
- 
+
 /* CARDS */
 .mini-card{background:var(--glass);backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;display:flex;align-items:center;overflow:hidden;cursor:pointer;}
 .mini-thumb{width:78px;height:78px;object-fit:cover;object-position:top center;flex-shrink:0;background:linear-gradient(135deg,#0a1628,#1a2d4a);}
@@ -50,13 +50,13 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .tag{font-size:10px;padding:3px 9px;border-radius:20px;background:rgba(123,143,122,0.13);color:var(--sage);}
 .tag-dark{background:rgba(65,70,75,0.09);color:var(--dark);}
 .tag-alt{background:rgba(217,210,195,0.5);color:var(--dark);}
- 
+
 /* FILTER */
 .filter-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
 .filter-row::-webkit-scrollbar{display:none;}
 .chip{padding:7px 14px;border-radius:20px;border:0.5px solid var(--gb);background:var(--glass);backdrop-filter:blur(8px);font-size:12px;color:var(--sage);cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;flex-shrink:0;}
 .chip.on{background:var(--sage);color:#fff;border-color:var(--sage);}
- 
+
 /* DETAIL */
 .back-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;font-size:14px;color:var(--sage);cursor:pointer;font-family:'DM Sans',sans-serif;padding:4px 0;}
 .detail-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
@@ -73,14 +73,14 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .step-t{font-size:13px;line-height:1.6;padding-top:2px;}
 .alt-card{background:rgba(217,210,195,0.3);border:0.5px solid var(--gb);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:8px;}
 .alt-card:last-child{margin-bottom:0;}
- 
+
 /* BUTTONS */
 .btn-primary{background:var(--dark);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;display:block;text-align:center;}
 .btn-sage{background:var(--sage);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;display:block;}
 .btn-outline{background:transparent;border:0.5px solid rgba(65,70,75,0.25);color:var(--dark);border-radius:16px;padding:15px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;width:100%;display:block;}
 .btn-danger{background:transparent;border:0.5px solid rgba(180,60,60,0.3);color:#b44;border-radius:16px;padding:14px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;width:100%;display:block;}
 .btn-gold{background:linear-gradient(135deg,#c9a84c,#8B6914);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;display:block;text-align:center;}
- 
+
 /* FORM */
 .big-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;line-height:1.1;margin-bottom:6px;}
 .form-sub{font-size:13px;color:var(--sage);}
@@ -93,14 +93,14 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .glass-input.promo-ok{border-color:var(--sage);background:rgba(123,143,122,0.08);}
 .field-error{font-size:12px;color:var(--red);margin-top:2px;}
 .field-success{font-size:12px;color:var(--sage);margin-top:2px;display:flex;align-items:center;gap:4px;}
- 
+
 .sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .sel-opt{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;}
 .sel-opt.on{background:rgba(123,143,122,0.2);border-color:var(--sage);}
 .place-opt.on{border:2px solid var(--sage);box-shadow:0 0 0 2px rgba(123,143,122,0.3);}
 .sel-opt .icon{font-size:28px;margin-bottom:6px;}
 .sel-opt .lbl{font-size:13px;font-weight:500;}
- 
+
 .goal-opt{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:15px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;}
 .goal-opt.on{background:rgba(123,143,122,0.16);border-color:var(--sage);}
 .g-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0;}.g-icon:empty{width:0;margin:0;}
@@ -108,11 +108,11 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .g-sub{font-size:12px;color:var(--sage);margin-top:2px;}
 .radio{margin-left:auto;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(65,70,75,0.28);flex-shrink:0;}
 .goal-opt.on .radio{background:var(--sage);border-color:var(--sage);}
- 
+
 .steps-ind{display:flex;gap:6px;align-items:center;}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--sand);}
 .sdot.on{width:20px;border-radius:3px;background:var(--sage);}
- 
+
 /* PROFILE */
 .profile-hero{background:linear-gradient(135deg,rgba(123,143,122,0.92),rgba(65,70,75,0.95));border-radius:24px;padding:26px;color:#fff;text-align:center;}
 .p-ava{width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 10px;}
@@ -123,31 +123,31 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .badge-trial{background:rgba(255,200,0,0.25);color:#ffd700;}
 .badge-promo{background:rgba(100,200,100,0.25);color:#90ee90;}
 .badge-forever{background:linear-gradient(135deg,rgba(201,168,76,0.4),rgba(139,105,20,0.4));color:#ffd700;border:0.5px solid rgba(255,215,0,0.3);}
- 
+
 .info-list{display:flex;flex-direction:column;}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:.5px solid rgba(217,210,195,0.5);font-size:14px;}
 .info-row:last-child{border:none;}
 .info-lbl{color:var(--sage);}
 .info-val{font-weight:500;}
- 
+
 /* TAB BAR */
 .tabbar{position:fixed;bottom:0;left:0;right:0;background:rgba(246,244,239,0.92);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:.5px solid var(--gb);display:none;padding:8px 0 20px;z-index:999;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;font-size:10px;color:rgba(65,70,75,0.38);padding:4px;border:none;background:none;font-family:'DM Sans',sans-serif;}
 .tab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
 .tab.on{color:var(--sage);}
- 
+
 /* SPLASH */
 .splash-img{width:100%;height:220px;object-fit:cover;border-radius:22px;display:block;}
 .splash-logo{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;text-align:center;color:var(--dark);margin:8px 0 4px;}
 .splash-sub{text-align:center;font-size:14px;color:var(--sage);line-height:1.6;max-width:260px;margin:0 auto;}
- 
+
 /* LOADING */
 .ai-loading{text-align:center;padding:32px 20px;}
 .spinner{width:48px;height:48px;border:3px solid rgba(123,143,122,0.2);border-top-color:var(--sage);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 16px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .ai-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;margin-bottom:8px;}
 .ai-sub{font-size:13px;color:var(--sage);line-height:1.6;}
- 
+
 /* PLAN */
 .plan-day{background:var(--glass);backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;padding:16px;}
 .plan-day-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;margin-bottom:2px;}
@@ -158,7 +158,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .plan-ex-name{font-size:13px;font-weight:500;}
 .plan-ex-meta{font-size:11px;color:var(--sage);margin-top:1px;}
 .plan-ex-arr{color:var(--sand);font-size:18px;margin-left:auto;flex-shrink:0;}
- 
+
 /* PAYWALL */
 .paywall-hero{background:linear-gradient(135deg,#c9a84c,#8B6914);border-radius:24px;padding:28px 22px;color:#fff;text-align:center;position:relative;overflow:hidden;}
 .paywall-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:rgba(255,255,255,0.08);border-radius:50%;}
@@ -176,26 +176,26 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .features-list{display:flex;flex-direction:column;gap:10px;}
 .feature-item{display:flex;align-items:center;gap:10px;font-size:13px;}
 .feature-check{width:22px;height:22px;border-radius:50%;background:rgba(123,143,122,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
- 
+
 /* ACCESS BANNER */
 .access-banner{border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px;}
 .banner-trial{background:rgba(255,200,0,0.1);border:0.5px solid rgba(255,200,0,0.3);color:#8B6914;}
 .banner-promo{background:rgba(123,143,122,0.1);border:0.5px solid rgba(123,143,122,0.3);color:var(--sage);}
 .banner-forever{background:rgba(201,168,76,0.1);border:0.5px solid rgba(201,168,76,0.4);color:#8B6914;}
- 
+
 /* PROMO INPUT WRAP */
 .promo-wrap{position:relative;}
 .promo-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--sage);color:#fff;border:none;border-radius:10px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;}
- 
+
 /* TOAST */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;}
- 
- 
- 
+
+
+
 /* SPLASH FULLSCREEN */
 #s-splash{padding:0!important;gap:0!important;}
- 
+
 /* GLASS BUTTONS for splash */
 .btn-glass-light{
   background:rgba(255,255,255,0.22);
@@ -208,7 +208,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   transition:background .2s;
 }
 .btn-glass-light:active{background:rgba(255,255,255,0.32);}
- 
+
 .btn-glass-dark{
   background:rgba(0,0,0,0.18);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -220,15 +220,15 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   transition:background .2s;
 }
 .btn-glass-dark:active{background:rgba(0,0,0,0.3);}
- 
- 
+
+
 /* DETAIL FULLSCREEN */
 #s-detail{padding:0!important;gap:0!important;position:relative;min-height:100vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .detail-bg{position:fixed;inset:0;z-index:0;}
 .detail-bg img,.detail-bg .detail-img-ph{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
 .detail-bg-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.1) 30%,rgba(0,0,0,0.55) 60%,rgba(15,15,15,0.92) 100%);}
 .detail-scroll{position:relative;z-index:2;display:flex;flex-direction:column;min-height:100vh;padding-bottom:30px;}
-.detail-back-abs{position:fixed;top:16px;left:16px;z-index:20;background:rgba(0,0,0,0.25);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:7px 16px;color:#fff;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.detail-back-abs{position:fixed;top:calc(env(safe-area-inset-top) + 56px);left:16px;z-index:20;background:rgba(0,0,0,0.35);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:0.5px solid rgba(255,255,255,0.25);border-radius:22px;padding:8px 18px;color:#fff;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;}
 .detail-hero-info{padding:80px 20px 20px;margin-top:auto;}
 .detail-hero-spacer{flex:1;min-height:45vh;}
 .detail-hero-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;color:#fff;margin-bottom:8px;line-height:1.1;}
@@ -244,7 +244,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .alt-card-dark{background:rgba(20,20,20,0.35);border:0.5px solid rgba(255,255,255,0.1);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:8px;}
 .sec-title-dark{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#fff;margin-bottom:10px;}
 .btn-done-dark{background:rgba(123,143,122,0.85);backdrop-filter:blur(12px);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;}
- 
+
 /* REST TIMER */
 .rest-timer{background:linear-gradient(135deg,rgba(123,143,122,0.92),rgba(65,70,75,0.95));border-radius:20px;padding:20px;color:#fff;text-align:center;position:relative;overflow:hidden;}
 .rest-timer::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,0.07);border-radius:50%;pointer-events:none;}
@@ -260,7 +260,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .timer-presets{display:flex;gap:8px;justify-content:center;margin-bottom:12px;}
 .timer-preset{padding:5px 14px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .timer-preset.on{background:rgba(255,255,255,0.25);color:#fff;}
- 
+
 /* RESTRICTIONS */
 .restr-grid{display:flex;flex-wrap:wrap;gap:8px;}
 .restr-chip{padding:8px 14px;border-radius:20px;border:0.5px solid var(--gb);background:rgba(246,244,239,0.5);font-size:12px;color:var(--dark);cursor:pointer;transition:all .2s;user-select:none;-webkit-user-select:none;}
@@ -269,7 +269,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 </style>
 </head>
 <body>
- 
+
 <!-- ══════════ SPLASH ══════════ -->
 <div class="screen active" id="s-splash" style="padding:0;gap:0;position:relative;min-height:100vh;overflow:hidden;">
   <!-- Full screen background image -->
@@ -289,7 +289,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-top:20px;letter-spacing:.03em;">80+ упражнений · ИИ подбор · Альтернативы</p>
   </div>
 </div>
- 
+
 <!-- ══════════ LOGIN ══════════ -->
 <div class="screen" id="s-login">
   <div class="nav"><button class="back-btn" onclick="go('s-splash')">← Назад</button></div>
@@ -310,7 +310,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <button class="btn-outline" onclick="go('s-reg1')">Нет аккаунта? Создать</button>
   </div>
 </div>
- 
+
 <!-- ══════════ REG STEP 1 ══════════ -->
 <div class="screen" id="s-reg1">
   <div class="nav"><button class="back-btn" onclick="go('s-splash')">← Назад</button><div class="steps-ind"><div class="sdot on"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
@@ -355,7 +355,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <button class="btn-primary" onclick="reg1Next()">Продолжить</button>
   </div>
 </div>
- 
+
 <!-- ══════════ REG STEP 2 ══════════ -->
 <div class="screen" id="s-reg2">
   <div class="nav"><button class="back-btn" onclick="go('s-reg1')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot on"></div><div class="sdot"></div><div class="sdot"></div></div></div>
@@ -388,7 +388,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <button class="btn-primary" onclick="go('s-goals')">Продолжить</button>
   </div>
 </div>
- 
+
 <!-- ══════════ GOALS ══════════ -->
 <div class="screen" id="s-goals">
   <div class="nav"><button class="back-btn" onclick="go('s-reg2')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div><div class="sdot"></div></div></div>
@@ -402,7 +402,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   </div>
   <button class="btn-primary" onclick="go('s-level')">Далее</button>
 </div>
- 
+
 <!-- ══════════ LEVEL ══════════ -->
 <div class="screen" id="s-level">
   <div class="nav"><button class="back-btn" onclick="go('s-goals')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div></div></div>
@@ -414,12 +414,12 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   </div>
   <button class="btn-primary" onclick="go('s-days')">Далее</button>
 </div>
- 
+
 <!-- ══════════ DAYS PER WEEK ══════════ -->
 <div class="screen" id="s-days">
   <div class="nav"><button class="back-btn" onclick="go('s-level')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div></div></div>
   <div><div class="big-title">Сколько дней<br>в неделю?</div><div class="form-sub">Шаг 5 из 5 — составим план под твой график</div></div>
- 
+
   <div style="display:flex;flex-direction:column;gap:10px;">
     <div class="goal-opt" id="d2" onclick="selDays('d2',2)">
       <div class="g-icon">2</div>
@@ -449,12 +449,12 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   </div>
   <button class="btn-primary" onclick="go('s-restrictions')">Далее</button>
 </div>
- 
+
 <!-- ══════════ RESTRICTIONS ══════════ -->
 <div class="screen" id="s-restrictions">
   <div class="nav"><button class="back-btn" onclick="go('s-days')">← Назад</button><div style="font-size:12px;color:var(--sage);">Последний шаг</div></div>
   <div><div class="big-title">Ограничения<br>и особенности</div><div class="form-sub">Поможет ИИ составить безопасную программу</div></div>
- 
+
   <!-- INJURIES -->
   <div class="glass">
     <div class="card-label" style="margin-bottom:12px;">Травмы и боли</div>
@@ -469,7 +469,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="restr-chip" id="r-elbow" onclick="toggleRestr('r-elbow','Боль в локте')">💪 Локоть</div>
     </div>
   </div>
- 
+
   <!-- HEALTH -->
   <div class="glass">
     <div class="card-label" style="margin-bottom:12px;">Состояние здоровья</div>
@@ -484,7 +484,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="restr-chip" id="r-osteo" onclick="toggleRestr('r-osteo','Остеохондроз')">🦴 Остеохондроз</div>
     </div>
   </div>
- 
+
   <!-- PREFERENCES -->
   <div class="glass">
     <div class="card-label" style="margin-bottom:12px;">Предпочтения</div>
@@ -497,19 +497,19 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="restr-chip" id="r-dumbbell" onclick="toggleRestr('r-dumbbell','Только гантели')">🏋️ Только гантели</div>
     </div>
   </div>
- 
+
   <!-- CUSTOM TEXT -->
   <div class="glass">
     <div class="card-label" style="margin-bottom:8px;">Расскажи подробнее</div>
     <div class="form-sub" style="margin-bottom:12px;">Опиши свои особенности — ИИ учтёт всё</div>
     <textarea class="glass-input" id="custom-notes" rows="4" placeholder="Например: у меня протрузия L4-L5, не могу делать становую тягу и приседания со штангой. Также плоскостопие — прыжки даются тяжело. Хочу акцент на ягодицы и пресс..." style="resize:none;line-height:1.5;font-family:inherit;"></textarea>
   </div>
- 
+
   <button class="btn-primary" id="finish-btn" onclick="finishReg()">Создать мою программу 🤖</button>
   <button class="btn-outline" onclick="finishReg()" style="font-size:13px;padding:12px;">Пропустить — нет ограничений</button>
   <div style="height:8px;"></div>
 </div>
- 
+
 <!-- ══════════ LOADING ══════════ -->
 <div class="screen" id="s-loading">
   <div style="flex:1;display:flex;align-items:center;justify-content:center;min-height:80vh;">
@@ -520,7 +520,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     </div>
   </div>
 </div>
- 
+
 <!-- ══════════ PAYWALL ══════════ -->
 <div class="screen" id="s-paywall">
   <div class="paywall-hero">
@@ -528,7 +528,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <div class="paywall-title">FitForm Premium</div>
     <div class="paywall-sub">Неограниченный доступ к ИИ-тренировкам, 80+ упражнений и персональным программам</div>
   </div>
- 
+
   <div class="glass">
     <div class="card-label">Что включено</div>
     <div class="features-list">
@@ -539,7 +539,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="feature-item"><div class="feature-check">🏠</div>Тренировки дома и в зале</div>
     </div>
   </div>
- 
+
   <div id="price-cards" style="display:flex;flex-direction:column;gap:10px;">
     <div class="price-card on" id="pc-month" onclick="selPrice('month')">
       <div class="price-icon">📅</div>
@@ -557,7 +557,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="price-amount"><div class="price-val">4 990 ₽</div><div class="price-period">разово</div></div>
     </div>
   </div>
- 
+
   <div class="field" style="margin-top:4px;">
     <div class="field-label">Уже есть промокод?</div>
     <div class="promo-wrap">
@@ -566,19 +566,19 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     </div>
     <div id="pay-promo-result" style="display:none;margin-top:6px;"></div>
   </div>
- 
+
   <button class="btn-gold" id="pay-btn" onclick="doPurchase()">Оформить подписку — 299 ₽/мес</button>
   <button class="btn-outline" onclick="goToApp()">Продолжить с ограниченным доступом</button>
   <p style="text-align:center;font-size:11px;color:var(--sand);">Безопасная оплата · Отмена в любой момент</p>
 </div>
- 
+
 <!-- ══════════ HOME ══════════ -->
 <div class="screen" id="s-home">
   <div class="nav"><div class="logo">FIT<b>form</b></div><button class="avatar" id="home-ava" onclick="switchTab('s-profile','tab-p')">АН</button></div>
- 
+
   <!-- Access banner -->
   <div id="access-banner" style="display:none;"></div>
- 
+
   <div class="hero">
     <div class="hero-greet">Добро пожаловать</div>
     <div class="hero-name" id="hero-name">Анна 👋</div>
@@ -591,59 +591,59 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   <div><div class="sec-title">Твоя программа</div><div class="sec-sub" id="home-sub">Сгенерировано ИИ</div></div>
   <div id="ai-plan"></div>
 </div>
- 
+
 <!-- ══════════ DETAIL ══════════ -->
 <div class="screen" id="s-detail">
- 
+
   <!-- Фон — картинка на весь экран -->
   <div class="detail-bg" id="d-img-wrap">
     <div class="detail-img-ph">🏋️</div>
   </div>
   <div class="detail-bg-overlay"></div>
- 
+
   <!-- Кнопка назад — фиксированная -->
   <button class="detail-back-abs" id="d-back">← Назад</button>
- 
+
   <!-- Весь скроллируемый контент поверх картинки -->
   <div class="detail-scroll">
- 
+
     <!-- Пустое пространство — показываем картинку -->
     <div class="detail-hero-spacer"></div>
- 
+
     <!-- Название и теги -->
     <div style="padding:0 20px 16px;">
       <div class="detail-hero-title" id="d-name"></div>
       <div class="detail-hero-tags" id="d-tags"></div>
     </div>
- 
+
     <!-- Весь контент поверх фото -->
     <div class="detail-body">
- 
+
       <!-- Статистика -->
       <div class="stats-row">
         <div class="stat-box-dark"><div class="stat-v-dark" id="d-sets">3</div><div class="stat-l-dark">Подхода</div></div>
         <div class="stat-box-dark"><div class="stat-v-dark" id="d-reps">15</div><div class="stat-l-dark">Повторений</div></div>
         <div class="stat-box-dark"><div class="stat-v-dark" id="d-rest">60с</div><div class="stat-l-dark">Отдых</div></div>
       </div>
- 
+
       <!-- Техника -->
       <div class="glass-dark">
         <div class="card-label-dark">Техника выполнения</div>
         <div class="steps" id="d-steps"></div>
       </div>
- 
+
       <!-- Совет тренера -->
       <div class="glass-dark" id="d-tip-block" style="display:none;">
         <div class="card-label-dark">Совет тренера</div>
         <div id="d-tip" style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.85);"></div>
       </div>
- 
+
       <!-- Альтернативы -->
       <div id="d-alts-block" style="display:none;">
         <div class="sec-title-dark">Альтернативы</div>
         <div id="d-alts"></div>
       </div>
- 
+
       <!-- Таймер отдыха -->
       <div class="rest-timer" id="rest-timer-block">
         <div class="timer-label">Таймер отдыха</div>
@@ -666,14 +666,14 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
           <button class="timer-btn timer-btn-skip" onclick="resetTimer()">Сброс</button>
         </div>
       </div>
- 
+
       <!-- Кнопка выполнено -->
       <button class="btn-done-dark" id="done-btn">Упражнение выполнено</button>
- 
+
     </div>
   </div>
 </div>
- 
+
 <!-- ══════════ EXPLORE ══════════ -->
 <div class="screen" id="s-explore">
   <div class="nav"><div class="logo">FIT<b>form</b></div></div>
@@ -693,7 +693,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   </div>
   <div id="exp-list" style="display:flex;flex-direction:column;gap:10px;"></div>
 </div>
- 
+
 <!-- ══════════ PROFILE ══════════ -->
 <div class="screen" id="s-profile">
   <div class="nav"><div class="logo">FIT<b>form</b></div></div>
@@ -723,7 +723,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   <button class="btn-outline" onclick="regenPlan()">Обновить текущую программу</button>
   <button class="btn-danger" onclick="logout()">Выйти из аккаунта</button>
 </div>
- 
+
 <!-- TABBAR -->
 <div class="tabbar" id="tabbar">
   <button class="tab on" id="tab-h" onclick="switchTab('s-home','tab-h')">
@@ -736,10 +736,10 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span>
   </button>
 </div>
- 
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
- 
+
 <script>
 // ════════════════════════════════
 // ПРОМОКОДЫ
@@ -750,7 +750,7 @@ var PROMOS = {
   'FITSTART':   {type:'month7',   label:'7 дней бесплатно',     days:7},
   'FITPRO':     {type:'month90',  label:'90 дней бесплатно',    days:90}
 };
- 
+
 // ════════════════════════════════
 // БАЗА УПРАЖНЕНИЙ
 // ════════════════════════════════
@@ -844,9 +844,9 @@ var DB = {
   box_jump:{name:'Запрыгивания',emoji:'📦',place:'gym',cat:['cardio','legs'],alts:['jump_squat','step_up'],muscles:'Квадрицепс, ягодицы, взрывная сила',img_f:null,img_m:null,steps:['Перед платформой','Полуприсядь','Взрывно запрыгни','Мягко спрыгни назад']},
   rowing_machine:{name:'Гребной тренажёр',emoji:'🚣',place:'gym',cat:['cardio','back'],alts:['cable_row','burpee'],muscles:'Спина, ноги, кардио',img_f:null,img_m:null,steps:['Ноги согнуты, держись за ручки','Оттолкнись ногами','Тяни ручки к поясу','Вернись вперёд']}
 };
- 
- 
- 
+
+
+
 // ════════════════════════════════
 // CONFIG & STATE
 // ════════════════════════════════
@@ -861,14 +861,14 @@ var regTemp = {gender:null, place:null, goal:null, level:null, days:3, daysId:nu
 var selectedRestr = {}; // выбранные ограничения
 var selPriceKey = 'month';
 var priceLabels = {month:'299 ₽/мес', year:'1 990 ₽/год', forever:'4 990 ₽ навсегда'};
- 
+
 // ════════════════════════════════
 // TOKEN STORAGE
 // ════════════════════════════════
 function saveToken(t){ try{localStorage.setItem('ff_token',t);}catch(e){} }
 function loadToken(){ try{return localStorage.getItem('ff_token')||null;}catch(e){return null;} }
 function clearToken(){ try{localStorage.removeItem('ff_token');}catch(e){} }
- 
+
 // ════════════════════════════════
 // API HELPER
 // ════════════════════════════════
@@ -881,7 +881,7 @@ function api(method, path, body, cb) {
     .then(function(d){ cb(null, d); })
     .catch(function(e){ cb(e, null); });
 }
- 
+
 // ════════════════════════════════
 // ACCESS CONTROL
 // ════════════════════════════════
@@ -890,7 +890,7 @@ function checkAccessAndRoute() {
   if(!access.valid) { go('s-paywall'); return false; }
   return true;
 }
- 
+
 // ════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════
@@ -907,23 +907,23 @@ function switchTab(sid,tid){
   document.getElementById(tid).classList.add('on');
   if(sid==='s-explore') buildExplore();
 }
- 
+
 // ════════════════════════════════
 // ONBOARDING SELECTORS
 // ════════════════════════════════
 function selG(g){regTemp.gender=g;document.getElementById('opt-f').classList.toggle('on',g==='female');document.getElementById('opt-m').classList.toggle('on',g==='male');}
 function selPlace(p){regTemp.place=p;document.getElementById('opt-home').classList.toggle('on',p==='home');document.getElementById('opt-gym').classList.toggle('on',p==='gym');}
- 
+
 function selDays(id, days) {
   if(regTemp.daysId) document.getElementById(regTemp.daysId).classList.remove('on');
   regTemp.daysId = id;
   regTemp.days = days;
   document.getElementById(id).classList.add('on');
 }
- 
+
 function selGoal(id,lbl){if(regTemp.goalId)document.getElementById(regTemp.goalId).classList.remove('on');regTemp.goalId=id;document.getElementById(id).classList.add('on');regTemp.goal=lbl;}
 function selLevel(id,lbl){if(regTemp.levelId)document.getElementById(regTemp.levelId).classList.remove('on');regTemp.levelId=id;document.getElementById(id).classList.add('on');regTemp.level=lbl;}
- 
+
 // ════════════════════════════════
 // PROMO CHECK
 // ════════════════════════════════
@@ -938,13 +938,13 @@ function checkPromo() {
     else { showPromoResult(res,input,false,'❌ '+d.error); }
   });
 }
- 
+
 function showPromoResult(el,input,ok,msg){
   el.style.display='block';
   el.innerHTML='<div class="'+(ok?'field-success':'field-error')+'">'+msg+'</div>';
   input.className='glass-input '+(ok?'promo-ok':'error');
 }
- 
+
 function applyPaywallPromo(){
   var code = document.getElementById('pay-promo').value.trim().toUpperCase();
   var res  = document.getElementById('pay-promo-result');
@@ -960,8 +960,8 @@ function applyPaywallPromo(){
     setTimeout(function(){ if(checkAccessAndRoute()) switchTab('s-home','tab-h'); }, 1200);
   });
 }
- 
- 
+
+
 // ════════════════════════════════
 // RESTRICTIONS
 // ════════════════════════════════
@@ -975,7 +975,7 @@ function toggleRestr(id, label) {
     el.classList.add('on');
   }
 }
- 
+
 function getRestrictionsText() {
   var chips = Object.values(selectedRestr);
   var notes = (document.getElementById('custom-notes') || {}).value || '';
@@ -984,7 +984,7 @@ function getRestrictionsText() {
   if(notes.trim()) parts.push('Дополнительно от пользователя: ' + notes.trim());
   return parts.join('. ');
 }
- 
+
 // ════════════════════════════════
 // LOGIN
 // ════════════════════════════════
@@ -994,7 +994,7 @@ function doLogin(){
   var err   = document.getElementById('login-err');
   err.style.display='none';
   if(!email||!pass){ err.style.display='block'; err.textContent='Заполни все поля'; return; }
- 
+
   showBtnLoading('login-btn', true);
   api('POST','/api/login',{email:email,password:pass},function(e,d){
     showBtnLoading('login-btn', false);
@@ -1009,7 +1009,7 @@ function doLogin(){
     else { renderPlan(); if(checkAccessAndRoute()) switchTab('s-home','tab-h'); }
   });
 }
- 
+
 // ════════════════════════════════
 // REGISTER
 // ════════════════════════════════
@@ -1031,10 +1031,10 @@ function reg1Next(){
   regTemp.promo = document.getElementById('reg-promo').value.trim().toUpperCase();
   go('s-reg2');
 }
- 
+
 function finishReg(){
   regTemp.restrictions = getRestrictionsText();
- 
+
   // Если пользователь уже залогинен — обновляем параметры через API
   if(TOKEN && U.email) {
     go('s-loading');
@@ -1055,7 +1055,7 @@ function finishReg(){
     });
     return;
   }
- 
+
   // Новый пользователь — регистрация
   go('s-loading');
   document.getElementById('load-txt').textContent='Создаём аккаунт...';
@@ -1088,7 +1088,7 @@ function finishReg(){
     callAI();
   });
 }
- 
+
 // ════════════════════════════════
 // AI WORKOUT GENERATION
 // ════════════════════════════════
@@ -1098,13 +1098,13 @@ function callAI(){
   var mi=0;
   document.getElementById('load-txt').textContent=msgs[0];
   var iv=setInterval(function(){if(++mi<msgs.length)document.getElementById('load-txt').textContent=msgs[mi];},1400);
- 
+
   var keys = Object.keys(DB).filter(function(k){ return DB[k].place===U.place; });
   var keyList = keys.map(function(k){ return k+': '+DB[k].name+' ['+DB[k].cat.join(',')+']'; });
   // Берём ограничения из regTemp (при первом входе) или из U (при обновлении)
   var restrictions = regTemp.restrictions || U.restrictions || '';
   var daysPerWeek = (regTemp.days && regTemp.days > 0) ? regTemp.days : (U.days_per_week || 3);
- 
+
   api('POST','/api/workout/generate',{exercise_keys:keyList, restrictions:restrictions, days_per_week:daysPerWeek},function(e,d){
     clearInterval(iv);
     if(e||!d||d.error||d.source==='error'){
@@ -1117,7 +1117,7 @@ function callAI(){
     if(checkAccessAndRoute()) switchTab('s-home','tab-h');
   });
 }
- 
+
 function regenPlan(){
   // Сбрасываем regTemp.days чтобы callAI взял актуальное значение из U
   regTemp.days = U.days_per_week || 3;
@@ -1126,13 +1126,13 @@ function regenPlan(){
   document.getElementById('load-txt').textContent='Обновляем программу...';
   setTimeout(callAI, 200);
 }
- 
+
 // ════════════════════════════════
 // FALLBACK PLAN
 // ════════════════════════════════
 function fallback(){
   var dpw = (regTemp.days && regTemp.days > 0) ? regTemp.days : (U.days_per_week || 3);
- 
+
   // Все возможные дни — выбираем нужное количество
   var gymDays = [
     {day:'Понедельник',focus:'Грудь и трицепс',exercises:[{key:'bench_press',sets:4,reps:'10',rest:'90с',tip:'Сведи лопатки'},{key:'incline_press',sets:3,reps:'12',rest:'75с',tip:'Угол 30-45°'},{key:'cable_fly',sets:3,reps:'15',rest:'60с',tip:'Растяжение'},{key:'tricep_pushdown',sets:3,reps:'12',rest:'60с',tip:'Локти неподвижны'}]},
@@ -1142,7 +1142,7 @@ function fallback(){
     {day:'Пятница',focus:'Ягодицы и кор',exercises:[{key:'hip_thrust_bar',sets:4,reps:'12',rest:'90с',tip:'Максимальное сжатие'},{key:'cable_pull_through',sets:3,reps:'15',rest:'60с',tip:'Акцент на ягодицы'},{key:'cable_crunch',sets:4,reps:'20',rest:'45с',tip:'Скручивайся'},{key:'hanging_leg_raise',sets:3,reps:'15',rest:'60с',tip:'Без раскачки'}]},
     {day:'Суббота',focus:'Функциональный тренинг',exercises:[{key:'box_jump',sets:3,reps:'10',rest:'90с',tip:'Мягко приземляйся'},{key:'rowing_machine',sets:3,reps:'10мин',rest:'—',tip:'Ровный темп'},{key:'plank',sets:3,reps:'60с',rest:'45с',tip:'Дыши ровно'}]}
   ];
- 
+
   var homeDays = [
     {day:'Понедельник',focus:'Ноги и ягодицы',exercises:[{key:'squat_home',sets:4,reps:'20',rest:'60с',tip:'Спина прямая'},{key:'lunge',sets:3,reps:'12',rest:'60с',tip:'Чередуй ноги'},{key:'glute_bridge',sets:4,reps:'20',rest:'45с',tip:'Сожми ягодицы'},{key:'calf_raise_home',sets:3,reps:'25',rest:'45с',tip:'Медленно'}]},
     {day:'Вторник',focus:'Верх тела',exercises:[{key:'pullup',sets:3,reps:'8',rest:'90с',tip:'Помогай ногами если сложно'},{key:'inverted_row',sets:3,reps:'12',rest:'75с',tip:'Сводь лопатки'},{key:'superman',sets:3,reps:'15',rest:'45с',tip:'Задержи 2с вверху'},{key:'bird_dog',sets:3,reps:'10',rest:'45с',tip:'Не двигай тазом'}]},
@@ -1151,12 +1151,12 @@ function fallback(){
     {day:'Пятница',focus:'HIIT и ягодицы',exercises:[{key:'hip_thrust_home',sets:4,reps:'20',rest:'45с',tip:'Через пятки'},{key:'jump_squat',sets:3,reps:'15',rest:'75с',tip:'Мягко приземляйся'},{key:'burpee',sets:3,reps:'10',rest:'90с',tip:'Техника важнее скорости'},{key:'high_knees',sets:3,reps:'30с',rest:'45с',tip:'Колени выше пояса'}]},
     {day:'Суббота',focus:'Растяжка и восстановление',exercises:[{key:'cat_cow',sets:3,reps:'15',rest:'30с',tip:'В ритме дыхания'},{key:'hip_flexor_stretch',sets:2,reps:'45с',rest:'30с',tip:'Держи позицию'},{key:'child_pose',sets:3,reps:'60с',rest:'30с',tip:'Глубоко дыши'},{key:'hamstring_stretch',sets:2,reps:'45с',rest:'30с',tip:'Не тяни через боль'}]}
   ];
- 
+
   var allDays = U.place==='gym' ? gymDays : homeDays;
   // Берём только нужное количество дней
   return {plan: allDays.slice(0, dpw)};
 }
- 
+
 // ════════════════════════════════
 // RENDER PLAN
 // ════════════════════════════════
@@ -1177,7 +1177,7 @@ function renderPlan(){
   document.getElementById('ai-plan').innerHTML = html;
   updStats();
 }
- 
+
 function updStats(){
   if(!plan) return;
   var total=0, d=0;
@@ -1189,7 +1189,7 @@ function updStats(){
   document.getElementById('st-pct').textContent=total>0?Math.round(d/total*100)+'%':'0%';
   document.getElementById('p-done').textContent=Object.keys(done).length;
 }
- 
+
 // ════════════════════════════════
 // EXERCISE DETAIL
 // ════════════════════════════════
@@ -1251,7 +1251,7 @@ function openDetail(key,sets,reps,rest,tip,from){
   go('s-detail');
   document.getElementById('tabbar').style.display='none';
 }
- 
+
 function markDone(key){
   done[key]=true;
   api('POST','/api/progress/done',{key:key},function(){});
@@ -1261,7 +1261,7 @@ function markDone(key){
   showToast('Отличная работа! 💪');
   setTimeout(function(){go('s-home');document.getElementById('tabbar').style.display='flex';},700);
 }
- 
+
 // ════════════════════════════════
 // EXPLORE
 // ════════════════════════════════
@@ -1287,13 +1287,13 @@ function buildExplore(){
       +'<div style="padding-right:12px;color:var(--sand);font-size:18px;">›</div></div>';
   }).join('');
 }
- 
+
 function fExp(chip,f){
   expFlt=f;
   document.querySelectorAll('#exp-filters .chip').forEach(function(c){c.classList.remove('on');});
   chip.classList.add('on'); buildExplore();
 }
- 
+
 // ════════════════════════════════
 // PAYWALL
 // ════════════════════════════════
@@ -1302,15 +1302,15 @@ function selPrice(key){
   ['month','year','forever'].forEach(function(k){ document.getElementById('pc-'+k).classList.toggle('on',k===key); });
   document.getElementById('pay-btn').textContent='Оформить — '+priceLabels[key];
 }
- 
+
 function doPurchase(){
   showToast('Платёжная система подключается скоро 🚀');
 }
- 
+
 function goToApp(){
   if(checkAccessAndRoute()) switchTab('s-home','tab-h');
 }
- 
+
 // ════════════════════════════════
 // PROFILE UI
 // ════════════════════════════════
@@ -1332,23 +1332,23 @@ function updUI(){
   document.getElementById('p-height').textContent=U.height?U.height+' см':'—';
   document.getElementById('p-place').textContent=U.place==='gym'?'Тренажёрный зал':'Дома';
   var pdays=document.getElementById('p-days'); if(pdays) pdays.textContent=(U.days_per_week||3)+' дней в неделю';
- 
+
   var access = U.access || {};
   var accessLabels = {trial:'Пробный период',promo:'Промокод',paid:'Premium',forever:'Пожизненный ♾️',expired:'Истёк'};
   var badgeClasses = {trial:'badge-trial',promo:'badge-promo',paid:'badge-promo',forever:'badge-forever',expired:'badge-free'};
   document.getElementById('p-access').textContent  = accessLabels[access.type]||'—';
   document.getElementById('p-badge').textContent   = accessLabels[access.type]||'';
   document.getElementById('p-badge').className     = 'p-badge '+(badgeClasses[access.type]||'badge-free');
- 
+
   var expText='—';
   if(access.type==='forever') expText='Навсегда ♾️';
   else if(access.valid && access.days_left>0) expText='Ещё '+access.days_left+' дн.';
   else if(access.type==='expired') expText='Истёк — нужно продлить';
   document.getElementById('p-expires').textContent=expText;
- 
+
   var needUpgrade = access.type==='trial'||access.type==='expired'||!access.valid;
   document.getElementById('upgrade-btn').style.display=needUpgrade?'block':'none';
- 
+
   var banner=document.getElementById('access-banner');
   if(access.type==='trial'){
     banner.style.display='block';
@@ -1363,11 +1363,11 @@ function updUI(){
     banner.style.display='none';
   }
 }
- 
+
 // ════════════════════════════════
 // LOGOUT
 // ════════════════════════════════
- 
+
 // ════════════════════════════════
 // NEW PROGRAM — сброс и повторный онбординг
 // ════════════════════════════════
@@ -1375,26 +1375,26 @@ function startNewProgram() {
   // Сбрасываем выборы онбординга
   regTemp = {gender:U.gender||null, place:U.place||null, goal:null, level:null, days:U.days_per_week||3, daysId:null};
   selectedRestr = {};
- 
+
   // Восстанавливаем визуальное состояние селекторов
   // Пол
   document.getElementById('opt-f').classList.toggle('on', U.gender==='female');
   document.getElementById('opt-m').classList.toggle('on', U.gender==='male');
- 
+
   // Место
   document.getElementById('opt-home').classList.toggle('on', U.place==='home');
   document.getElementById('opt-gym').classList.toggle('on',  U.place==='gym');
- 
+
   // Цели — сбрасываем все
   ['g1','g2','g3','g4','g5'].forEach(function(id){
     document.getElementById(id).classList.remove('on');
   });
- 
+
   // Уровни — сбрасываем все
   ['l1','l2','l3'].forEach(function(id){
     document.getElementById(id).classList.remove('on');
   });
- 
+
   // Дни — сбрасываем все
   ['d2','d3','d4','d5','d6'].forEach(function(id){
     document.getElementById(id).classList.remove('on');
@@ -1403,24 +1403,24 @@ function startNewProgram() {
   var curDayId = 'd'+(U.days_per_week||3);
   var curDayEl = document.getElementById(curDayId);
   if(curDayEl){ curDayEl.classList.add('on'); regTemp.daysId=curDayId; }
- 
+
   // Ограничения — очищаем
   document.querySelectorAll('.restr-chip').forEach(function(c){ c.classList.remove('on'); });
   var notesEl = document.getElementById('custom-notes');
   if(notesEl) notesEl.value = '';
- 
+
   // Переходим на экран выбора цели (пол и параметры уже известны)
   go('s-goals');
 }
- 
+
 function logout(){
   api('POST','/api/logout',null,function(){});
   clearToken();
   TOKEN=null; U={}; plan=null; done={};
   go('s-splash');
 }
- 
- 
+
+
 // ════════════════════════════════
 // REST TIMER
 // ════════════════════════════════
@@ -1429,7 +1429,7 @@ var timerTotal = 60;
 var timerLeft  = 60;
 var timerRunning = false;
 var FULL_DASH = 238.76; // 2 * PI * 38
- 
+
 function setTimerPreset(sec) {
   // Update preset UI
   document.querySelectorAll('.timer-preset').forEach(function(el){
@@ -1442,7 +1442,7 @@ function setTimerPreset(sec) {
   document.getElementById('timer-start-btn').textContent = 'Старт';
   updateTimerUI();
 }
- 
+
 function toggleTimer() {
   if(timerRunning) {
     // Pause
@@ -1468,7 +1468,7 @@ function toggleTimer() {
     }, 1000);
   }
 }
- 
+
 function resetTimer() {
   clearInterval(timerInterval);
   timerRunning = false;
@@ -1476,7 +1476,7 @@ function resetTimer() {
   document.getElementById('timer-start-btn').textContent = 'Старт';
   updateTimerUI();
 }
- 
+
 function updateTimerUI() {
   var numEl = document.getElementById('timer-num');
   var arcEl = document.getElementById('timer-arc');
@@ -1493,7 +1493,7 @@ function updateTimerUI() {
     numEl.style.color  = '#fff';
   }
 }
- 
+
 function initTimerForExercise(restStr) {
   // Parse rest string like "60с", "90с", "120с", "30с"
   clearInterval(timerInterval);
@@ -1512,7 +1512,7 @@ function initTimerForExercise(restStr) {
   document.getElementById('timer-start-btn').textContent = 'Старт';
   updateTimerUI();
 }
- 
+
 // ════════════════════════════════
 // HELPERS
 // ════════════════════════════════
@@ -1521,7 +1521,7 @@ function showToast(msg){
   t.textContent=msg; t.classList.add('show');
   setTimeout(function(){t.classList.remove('show');},2200);
 }
- 
+
 function showBtnLoading(id, loading){
   var btn=document.getElementById(id);
   if(!btn) return;
@@ -1529,19 +1529,19 @@ function showBtnLoading(id, loading){
   if(loading) btn.dataset.orig=btn.textContent, btn.textContent='Загрузка...';
   else btn.textContent=btn.dataset.orig||btn.textContent;
 }
- 
+
 function esc(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
- 
+
 // ════════════════════════════════
 // INIT — проверяем токен
 // ════════════════════════════════
 (function init(){
   TOKEN = loadToken();
   if(!TOKEN){ go('s-splash'); return; }
- 
+
   go('s-loading');
   document.getElementById('load-txt').textContent='Загружаем профиль...';
- 
+
   api('GET','/api/me',null,function(e,d){
     if(e||!d||d.error){ clearToken(); TOKEN=null; go('s-splash'); return; }
     U    = d.user; U.access = d.access;
@@ -1552,7 +1552,7 @@ function esc(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
     else { renderPlan(); if(checkAccessAndRoute()) switchTab('s-home','tab-h'); }
   });
 })();
- 
+
 // Telegram
 try{
   var tg=window.Telegram.WebApp;
@@ -1567,4 +1567,3 @@ try{
 </script>
 </body>
 </html>
- 
