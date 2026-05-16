@@ -58,9 +58,9 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
  
 /* DETAIL */
 .back-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;font-size:14px;color:var(--sage);cursor:pointer;font-family:'DM Sans',sans-serif;padding:4px 0;}
-.detail-img{width:100%;height:300px;object-fit:cover;object-position:top center;border-radius:22px;display:block;box-shadow:0 0 0 0.5px rgba(217,210,195,0.8);}
-.detail-img-ph{width:100%;height:300px;border-radius:22px;background:linear-gradient(135deg,#0a1628,#1a2d4a);display:flex;align-items:center;justify-content:center;font-size:80px;}
-.detail-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;margin-bottom:6px;}
+.detail-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+.detail-img-ph{width:100%;height:100%;background:linear-gradient(135deg,#1a2010,#2a3520);display:flex;align-items:center;justify-content:center;font-size:80px;}
+.detail-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:6px;color:var(--dark);}
 .stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .stat-box{background:var(--glass);backdrop-filter:blur(10px);border:0.5px solid var(--gb);border-radius:16px;padding:14px;text-align:center;}
 .stat-v{font-size:22px;font-weight:500;}
@@ -102,7 +102,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
  
 .goal-opt{background:var(--glass);backdrop-filter:blur(8px);border:0.5px solid var(--gb);border-radius:15px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;}
 .goal-opt.on{background:rgba(123,143,122,0.16);border-color:var(--sage);}
-.g-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0;}
+.g-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0;}.g-icon:empty{width:0;margin:0;}
 .g-title{font-size:14px;font-weight:500;}
 .g-sub{font-size:12px;color:var(--sage);margin-top:2px;}
 .radio{margin-left:auto;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(65,70,75,0.28);flex-shrink:0;}
@@ -219,6 +219,18 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   transition:background .2s;
 }
 .btn-glass-dark:active{background:rgba(0,0,0,0.3);}
+ 
+ 
+/* DETAIL FULLSCREEN */
+#s-detail{padding:0!important;gap:0!important;position:relative;min-height:100vh;}
+.detail-hero{position:relative;width:100%;height:55vh;min-height:340px;overflow:hidden;flex-shrink:0;}
+.detail-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0.55) 100%);z-index:1;}
+.detail-back-abs{position:absolute;top:16px;left:16px;z-index:10;background:rgba(246,244,239,0.25);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:6px 14px;color:#fff;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;}
+.detail-hero-info{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:20px 20px 24px;}
+.detail-hero-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:500;color:#fff;margin-bottom:6px;line-height:1.1;}
+.detail-hero-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.detail-hero-tag{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);color:rgba(255,255,255,0.9);}
+.detail-body{display:flex;flex-direction:column;gap:14px;padding:20px 16px 100px;background:linear-gradient(180deg,#F6F4EF 0%,#EDE8DF 100%);flex:1;}
  
 /* REST TIMER */
 .rest-timer{background:linear-gradient(135deg,rgba(123,143,122,0.92),rgba(65,70,75,0.95));border-radius:20px;padding:20px;color:#fff;text-align:center;position:relative;overflow:hidden;}
@@ -369,11 +381,11 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   <div class="nav"><button class="back-btn" onclick="go('s-reg2')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div><div class="sdot"></div></div></div>
   <div><div class="big-title">Твоя цель</div><div class="form-sub">Шаг 3 из 4</div></div>
   <div>
-    <div class="goal-opt" id="g1" onclick="selGoal('g1','Похудеть')"><div class="g-icon">🔥</div><div><div class="g-title">Похудеть</div><div class="g-sub">Кардио + жиросжигание</div></div><div class="radio"></div></div>
-    <div class="goal-opt" id="g2" onclick="selGoal('g2','Набрать мышцы')"><div class="g-icon">💪</div><div><div class="g-title">Набрать мышцы</div><div class="g-sub">Силовые тренировки</div></div><div class="radio"></div></div>
-    <div class="goal-opt" id="g3" onclick="selGoal('g3','Гибкость и тонус')"><div class="g-icon">🧘</div><div><div class="g-title">Гибкость и тонус</div><div class="g-sub">Растяжка + пилатес</div></div><div class="radio"></div></div>
-    <div class="goal-opt" id="g4" onclick="selGoal('g4','Выносливость')"><div class="g-icon">⚡</div><div><div class="g-title">Выносливость</div><div class="g-sub">Функциональный тренинг</div></div><div class="radio"></div></div>
-    <div class="goal-opt" id="g5" onclick="selGoal('g5','Поддержать форму')"><div class="g-icon">✨</div><div><div class="g-title">Поддержать форму</div><div class="g-sub">Общее здоровье и тонус</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g1" onclick="selGoal('g1','Похудеть')"><div class="g-icon"></div><div><div class="g-title">Похудеть</div><div class="g-sub">Кардио + жиросжигание</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g2" onclick="selGoal('g2','Набрать мышцы')"><div class="g-icon"></div><div><div class="g-title">Набрать мышцы</div><div class="g-sub">Силовые тренировки</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g3" onclick="selGoal('g3','Гибкость и тонус')"><div class="g-icon"></div><div><div class="g-title">Гибкость и тонус</div><div class="g-sub">Растяжка + пилатес</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g4" onclick="selGoal('g4','Выносливость')"><div class="g-icon"></div><div><div class="g-title">Выносливость</div><div class="g-sub">Функциональный тренинг</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="g5" onclick="selGoal('g5','Поддержать форму')"><div class="g-icon"></div><div><div class="g-title">Поддержать форму</div><div class="g-sub">Общее здоровье и тонус</div></div><div class="radio"></div></div>
   </div>
   <button class="btn-primary" onclick="go('s-level')">Далее</button>
 </div>
@@ -383,9 +395,9 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   <div class="nav"><button class="back-btn" onclick="go('s-goals')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div></div></div>
   <div><div class="big-title">Уровень<br>подготовки</div><div class="form-sub">Шаг 4 из 5</div></div>
   <div>
-    <div class="goal-opt" id="l1" onclick="selLevel('l1','Новичок')"><div class="g-icon">🌱</div><div><div class="g-title">Новичок</div><div class="g-sub">Тренируюсь меньше 6 месяцев</div></div><div class="radio"></div></div>
-    <div class="goal-opt" id="l2" onclick="selLevel('l2','Средний уровень')"><div class="g-icon">🏃</div><div><div class="g-title">Средний уровень</div><div class="g-sub">Тренируюсь более полугода</div></div><div class="radio"></div></div>
-    <div class="goal-opt" id="l3" onclick="selLevel('l3','Продвинутый')"><div class="g-icon">🏆</div><div><div class="g-title">Продвинутый</div><div class="g-sub">Спортсмен / опытный атлет</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="l1" onclick="selLevel('l1','Новичок')"><div class="g-icon"></div><div><div class="g-title">Новичок</div><div class="g-sub">Тренируюсь меньше 6 месяцев</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="l2" onclick="selLevel('l2','Средний уровень')"><div class="g-icon"></div><div><div class="g-title">Средний уровень</div><div class="g-sub">Тренируюсь более полугода</div></div><div class="radio"></div></div>
+    <div class="goal-opt" id="l3" onclick="selLevel('l3','Продвинутый')"><div class="g-icon"></div><div><div class="g-title">Продвинутый</div><div class="g-sub">Спортсмен / опытный атлет</div></div><div class="radio"></div></div>
   </div>
   <button class="btn-primary" onclick="go('s-days')">Далее</button>
 </div>
@@ -569,51 +581,75 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
  
 <!-- ══════════ DETAIL ══════════ -->
 <div class="screen" id="s-detail">
-  <button class="back-btn" id="d-back">← Назад</button>
-  <div id="d-img-wrap"><div class="detail-img-ph">🏋️</div></div>
-  <div><div class="detail-title" id="d-name"></div><div class="tags" id="d-tags"></div></div>
-  <div class="stats-row">
-    <div class="stat-box"><div class="stat-v" id="d-sets">3</div><div class="stat-l">Подхода</div></div>
-    <div class="stat-box"><div class="stat-v" id="d-reps">15</div><div class="stat-l">Повторений</div></div>
-    <div class="stat-box"><div class="stat-v" id="d-rest">60с</div><div class="stat-l">Отдых</div></div>
-  </div>
-  <div class="glass">
-    <div class="card-label">Техника выполнения</div>
-    <div class="steps" id="d-steps"></div>
-  </div>
-  <div class="glass" id="d-tip-block" style="display:none;">
-    <div class="card-label">Совет тренера</div>
-    <div id="d-tip" style="font-size:13px;line-height:1.6;"></div>
-  </div>
-  <div id="d-alts-block" style="display:none;">
-    <div class="sec-title" style="font-size:17px;margin-bottom:10px;">Альтернативы</div>
-    <div id="d-alts"></div>
-  </div>
-  <!-- REST TIMER -->
-  <div class="rest-timer" id="rest-timer-block">
-    <div class="timer-label">Таймер отдыха</div>
-    <div class="timer-presets">
-      <div class="timer-preset" onclick="setTimerPreset(30)">30с</div>
-      <div class="timer-preset on" onclick="setTimerPreset(60)">60с</div>
-      <div class="timer-preset" onclick="setTimerPreset(90)">90с</div>
-      <div class="timer-preset" onclick="setTimerPreset(120)">120с</div>
-    </div>
-    <div class="timer-ring">
-      <svg width="90" height="90" viewBox="0 0 90 90">
-        <circle cx="45" cy="45" r="38" stroke="rgba(255,255,255,0.15)" stroke-width="5" fill="none"/>
-        <circle id="timer-arc" cx="45" cy="45" r="38" stroke="rgba(255,255,255,0.85)" stroke-width="5" fill="none"
-          stroke-dasharray="238.76" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset .9s linear;"/>
-      </svg>
-      <div class="timer-ring-num" id="timer-num">60</div>
-    </div>
-    <div class="timer-btns">
-      <button class="timer-btn timer-btn-start" id="timer-start-btn" onclick="toggleTimer()">Старт</button>
-      <button class="timer-btn timer-btn-skip" onclick="resetTimer()">Сброс</button>
+ 
+  <!-- HERO — картинка во весь экран -->
+  <div class="detail-hero">
+    <div id="d-img-wrap"><div class="detail-img-ph">🏋️</div></div>
+    <div class="detail-hero-overlay"></div>
+    <!-- Кнопка назад поверх картинки -->
+    <button class="detail-back-abs" id="d-back">← Назад</button>
+    <!-- Название и теги поверх картинки -->
+    <div class="detail-hero-info">
+      <div class="detail-hero-title" id="d-name"></div>
+      <div class="detail-hero-tags" id="d-tags"></div>
     </div>
   </div>
  
-  <button class="btn-sage" id="done-btn">Упражнение выполнено</button>
-  <div style="height:10px;"></div>
+  <!-- BODY — контент под картинкой -->
+  <div class="detail-body">
+ 
+    <!-- Статистика -->
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-v" id="d-sets">3</div><div class="stat-l">Подхода</div></div>
+      <div class="stat-box"><div class="stat-v" id="d-reps">15</div><div class="stat-l">Повторений</div></div>
+      <div class="stat-box"><div class="stat-v" id="d-rest">60с</div><div class="stat-l">Отдых</div></div>
+    </div>
+ 
+    <!-- Техника -->
+    <div class="glass">
+      <div class="card-label">Техника выполнения</div>
+      <div class="steps" id="d-steps"></div>
+    </div>
+ 
+    <!-- Совет тренера -->
+    <div class="glass" id="d-tip-block" style="display:none;">
+      <div class="card-label">Совет тренера</div>
+      <div id="d-tip" style="font-size:13px;line-height:1.6;"></div>
+    </div>
+ 
+    <!-- Альтернативы -->
+    <div id="d-alts-block" style="display:none;">
+      <div class="sec-title" style="font-size:17px;margin-bottom:10px;">Альтернативы</div>
+      <div id="d-alts"></div>
+    </div>
+ 
+    <!-- Таймер отдыха -->
+    <div class="rest-timer" id="rest-timer-block">
+      <div class="timer-label">Таймер отдыха</div>
+      <div class="timer-presets">
+        <div class="timer-preset" onclick="setTimerPreset(30)">30с</div>
+        <div class="timer-preset on" onclick="setTimerPreset(60)">60с</div>
+        <div class="timer-preset" onclick="setTimerPreset(90)">90с</div>
+        <div class="timer-preset" onclick="setTimerPreset(120)">120с</div>
+      </div>
+      <div class="timer-ring">
+        <svg width="90" height="90" viewBox="0 0 90 90">
+          <circle cx="45" cy="45" r="38" stroke="rgba(255,255,255,0.15)" stroke-width="5" fill="none"/>
+          <circle id="timer-arc" cx="45" cy="45" r="38" stroke="rgba(255,255,255,0.85)" stroke-width="5" fill="none"
+            stroke-dasharray="238.76" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset .9s linear;"/>
+        </svg>
+        <div class="timer-ring-num" id="timer-num">60</div>
+      </div>
+      <div class="timer-btns">
+        <button class="timer-btn timer-btn-start" id="timer-start-btn" onclick="toggleTimer()">Старт</button>
+        <button class="timer-btn timer-btn-skip" onclick="resetTimer()">Сброс</button>
+      </div>
+    </div>
+ 
+    <!-- Кнопка выполнено -->
+    <button class="btn-sage" id="done-btn">Упражнение выполнено</button>
+ 
+  </div>
 </div>
  
 <!-- ══════════ EXPLORE ══════════ -->
@@ -1143,7 +1179,7 @@ function openDetail(key,sets,reps,rest,tip,from){
     ? '<img class="detail-img" src="'+imgUrl+'" alt="'+e.name+'" loading="lazy"/>'
     : '<div class="detail-img-ph">'+e.emoji+'</div>';
   document.getElementById('d-name').textContent=e.name;
-  document.getElementById('d-tags').innerHTML='<span class="tag">'+e.muscles+'</span><span class="tag tag-dark">'+(e.place==='gym'?'🏋️ Зал':'🏠 Дома')+'</span>';
+  document.getElementById('d-tags').innerHTML='<span class="detail-hero-tag">'+e.muscles+'</span><span class="detail-hero-tag">'+(e.place==='gym'?'Зал':'Дома')+'</span>';
   document.getElementById('d-sets').textContent=sets||3;
   document.getElementById('d-reps').textContent=reps||'12';
   document.getElementById('d-rest').textContent=rest||'60с';
