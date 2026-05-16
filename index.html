@@ -368,18 +368,53 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 <!-- ══════════ LEVEL ══════════ -->
 <div class="screen" id="s-level">
   <div class="nav"><button class="back-btn" onclick="go('s-goals')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div></div></div>
-  <div><div class="big-title">Уровень<br>подготовки</div><div class="form-sub">Шаг 4 из 4 — последний!</div></div>
+  <div><div class="big-title">Уровень<br>подготовки</div><div class="form-sub">Шаг 4 из 5</div></div>
   <div>
     <div class="goal-opt" id="l1" onclick="selLevel('l1','Новичок')"><div class="g-icon">🌱</div><div><div class="g-title">Новичок</div><div class="g-sub">Тренируюсь меньше 6 месяцев</div></div><div class="radio"></div></div>
     <div class="goal-opt" id="l2" onclick="selLevel('l2','Средний уровень')"><div class="g-icon">🏃</div><div><div class="g-title">Средний уровень</div><div class="g-sub">Тренируюсь более полугода</div></div><div class="radio"></div></div>
     <div class="goal-opt" id="l3" onclick="selLevel('l3','Продвинутый')"><div class="g-icon">🏆</div><div><div class="g-title">Продвинутый</div><div class="g-sub">Спортсмен / опытный атлет</div></div><div class="radio"></div></div>
+  </div>
+  <button class="btn-primary" onclick="go('s-days')">Далее</button>
+</div>
+ 
+<!-- ══════════ DAYS PER WEEK ══════════ -->
+<div class="screen" id="s-days">
+  <div class="nav"><button class="back-btn" onclick="go('s-level')">← Назад</button><div class="steps-ind"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot on"></div></div></div>
+  <div><div class="big-title">Сколько дней<br>в неделю?</div><div class="form-sub">Шаг 5 из 5 — составим план под твой график</div></div>
+ 
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div class="goal-opt" id="d2" onclick="selDays('d2',2)">
+      <div class="g-icon">2</div>
+      <div><div class="g-title">2 дня в неделю</div><div class="g-sub">Лёгкий старт — идеально для начинающих</div></div>
+      <div class="radio"></div>
+    </div>
+    <div class="goal-opt" id="d3" onclick="selDays('d3',3)">
+      <div class="g-icon">3</div>
+      <div><div class="g-title">3 дня в неделю</div><div class="g-sub">Оптимальный баланс нагрузки и отдыха</div></div>
+      <div class="radio"></div>
+    </div>
+    <div class="goal-opt" id="d4" onclick="selDays('d4',4)">
+      <div class="g-icon">4</div>
+      <div><div class="g-title">4 дня в неделю</div><div class="g-sub">Активный режим с хорошим прогрессом</div></div>
+      <div class="radio"></div>
+    </div>
+    <div class="goal-opt" id="d5" onclick="selDays('d5',5)">
+      <div class="g-icon">5</div>
+      <div><div class="g-title">5 дней в неделю</div><div class="g-sub">Интенсивный режим для серьёзных целей</div></div>
+      <div class="radio"></div>
+    </div>
+    <div class="goal-opt" id="d6" onclick="selDays('d6',6)">
+      <div class="g-icon">6</div>
+      <div><div class="g-title">6 дней в неделю</div><div class="g-sub">Максимальная нагрузка — профессиональный уровень</div></div>
+      <div class="radio"></div>
+    </div>
   </div>
   <button class="btn-primary" onclick="go('s-restrictions')">Далее</button>
 </div>
  
 <!-- ══════════ RESTRICTIONS ══════════ -->
 <div class="screen" id="s-restrictions">
-  <div class="nav"><button class="back-btn" onclick="go('s-level')">← Назад</button><div style="font-size:12px;color:var(--sage);">Последний шаг</div></div>
+  <div class="nav"><button class="back-btn" onclick="go('s-days')">← Назад</button><div style="font-size:12px;color:var(--sage);">Последний шаг</div></div>
   <div><div class="big-title">Ограничения<br>и особенности</div><div class="form-sub">Поможет ИИ составить безопасную программу</div></div>
  
   <!-- INJURIES -->
@@ -607,12 +642,14 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="info-row"><span class="info-lbl">Возраст</span><span class="info-val" id="p-age">—</span></div>
       <div class="info-row"><span class="info-lbl">Вес</span><span class="info-val" id="p-weight">—</span></div>
       <div class="info-row"><span class="info-lbl">Рост</span><span class="info-val" id="p-height">—</span></div>
+      <div class="info-row"><span class="info-lbl">Дней в неделю</span><span class="info-val" id="p-days">—</span></div>
       <div class="info-row"><span class="info-lbl">Место тренировок</span><span class="info-val" id="p-place">—</span></div>
       <div class="info-row"><span class="info-lbl">Выполнено упражнений</span><span class="info-val" id="p-done">0</span></div>
     </div>
   </div>
   <button class="btn-gold" id="upgrade-btn" onclick="go('s-paywall')" style="display:none;">Получить Premium</button>
-  <button class="btn-outline" onclick="regenPlan()">Обновить программу</button>
+  <button class="btn-primary" onclick="startNewProgram()">Создать новую программу</button>
+  <button class="btn-outline" onclick="regenPlan()">Обновить текущую программу</button>
   <button class="btn-danger" onclick="logout()">Выйти из аккаунта</button>
 </div>
  
@@ -749,7 +786,7 @@ var plan = null;
 var done = {};
 var fromScr = 's-home';
 var expFlt = 'all';
-var regTemp = {gender:null, place:null, goal:null, level:null};
+var regTemp = {gender:null, place:null, goal:null, level:null, days:3, daysId:null};
 var selectedRestr = {}; // выбранные ограничения
 var selPriceKey = 'month';
 var priceLabels = {month:'299 ₽/мес', year:'1 990 ₽/год', forever:'4 990 ₽ навсегда'};
@@ -790,7 +827,7 @@ function go(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-restrictions','s-loading','s-detail','s-paywall'];
+  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-days','s-restrictions','s-loading','s-detail','s-paywall'];
   document.getElementById('tabbar').style.display=noTab.indexOf(id)>=0?'none':'flex';
 }
 function switchTab(sid,tid){
@@ -805,6 +842,14 @@ function switchTab(sid,tid){
 // ════════════════════════════════
 function selG(g){regTemp.gender=g;document.getElementById('opt-f').classList.toggle('on',g==='female');document.getElementById('opt-m').classList.toggle('on',g==='male');}
 function selPlace(p){regTemp.place=p;document.getElementById('opt-home').classList.toggle('on',p==='home');document.getElementById('opt-gym').classList.toggle('on',p==='gym');}
+ 
+function selDays(id, days) {
+  if(regTemp.daysId) document.getElementById(regTemp.daysId).classList.remove('on');
+  regTemp.daysId = id;
+  regTemp.days = days;
+  document.getElementById(id).classList.add('on');
+}
+ 
 function selGoal(id,lbl){if(regTemp.goalId)document.getElementById(regTemp.goalId).classList.remove('on');regTemp.goalId=id;document.getElementById(id).classList.add('on');regTemp.goal=lbl;}
 function selLevel(id,lbl){if(regTemp.levelId)document.getElementById(regTemp.levelId).classList.remove('on');regTemp.levelId=id;document.getElementById(id).classList.add('on');regTemp.level=lbl;}
  
@@ -917,10 +962,32 @@ function reg1Next(){
 }
  
 function finishReg(){
+  regTemp.restrictions = getRestrictionsText();
+ 
+  // Если пользователь уже залогинен — обновляем параметры через API
+  if(TOKEN && U.email) {
+    go('s-loading');
+    document.getElementById('load-txt').textContent='Обновляем параметры...';
+    var updates = {
+      gender:       regTemp.gender  || U.gender,
+      place:        regTemp.place   || U.place,
+      goal:         regTemp.goal    || U.goal,
+      level:        regTemp.level   || U.level,
+      days_per_week: regTemp.days  || U.days_per_week || 3
+    };
+    api('PUT','/api/user/update', updates, function(e,d){
+      if(!e && d && d.user){
+        U = d.user; U.access = d.access || U.access;
+      }
+      updUI();
+      callAI();
+    });
+    return;
+  }
+ 
+  // Новый пользователь — регистрация
   go('s-loading');
   document.getElementById('load-txt').textContent='Создаём аккаунт...';
-  // Сохраняем ограничения для передачи в ИИ
-  regTemp.restrictions = getRestrictionsText();
   var body = {
     name:       regTemp.name,
     email:      regTemp.email,
@@ -929,10 +996,11 @@ function finishReg(){
     age:        document.getElementById('reg-age').value    || '25',
     weight:     document.getElementById('reg-weight').value || '70',
     height:     document.getElementById('reg-height').value || '170',
-    place:      regTemp.place   || 'home',
-    goal:       regTemp.goal    || 'Похудеть',
-    level:      regTemp.level   || 'Новичок',
-    promo_code: regTemp.promo   || ''
+    place:        regTemp.place   || 'home',
+    goal:         regTemp.goal    || 'Похудеть',
+    level:        regTemp.level   || 'Новичок',
+    days_per_week: regTemp.days  || 3,
+    promo_code:   regTemp.promo   || ''
   };
   api('POST','/api/register',body,function(e,d){
     if(e||!d||d.error){
@@ -964,8 +1032,9 @@ function callAI(){
   var keyList = keys.map(function(k){ return k+': '+DB[k].name+' ['+DB[k].cat.join(',')+']'; });
   // Берём ограничения из regTemp (при первом входе) или из U (при обновлении)
   var restrictions = regTemp.restrictions || U.restrictions || '';
+  var daysPerWeek = regTemp.days || U.days_per_week || 3;
  
-  api('POST','/api/workout/generate',{exercise_keys:keyList, restrictions:restrictions},function(e,d){
+  api('POST','/api/workout/generate',{exercise_keys:keyList, restrictions:restrictions, days_per_week:daysPerWeek},function(e,d){
     clearInterval(iv);
     if(e||!d||d.error||d.source==='error'){
       plan = fallback();
@@ -1164,7 +1233,7 @@ function updUI(){
   var ini=(parts[0]?parts[0][0]:'?').toUpperCase()+(parts[1]?parts[1][0]:'').toUpperCase();
   document.getElementById('home-ava').textContent=ini;
   document.getElementById('hero-name').textContent=(parts[0]||'Пользователь')+' 👋';
-  document.getElementById('home-sub').textContent=(U.goal||'Тренировки')+' · '+(U.level||'')+' · '+(U.place==='gym'?'Зал':'Дома');
+  var dpw=U.days_per_week||regTemp.days||3; document.getElementById('home-sub').textContent=(U.goal||'Тренировки')+' · '+(U.level||'')+' · '+dpw+' дн/нед · '+(U.place==='gym'?'Зал':'Дома');
   document.getElementById('p-ava').textContent=ini;
   document.getElementById('p-name').textContent=U.name;
   document.getElementById('p-email').textContent=U.email||'—';
@@ -1175,6 +1244,7 @@ function updUI(){
   document.getElementById('p-weight').textContent=U.weight?U.weight+' кг':'—';
   document.getElementById('p-height').textContent=U.height?U.height+' см':'—';
   document.getElementById('p-place').textContent=U.place==='gym'?'Тренажёрный зал':'Дома';
+  var pdays=document.getElementById('p-days'); if(pdays) pdays.textContent=(U.days_per_week||3)+' дней в неделю';
  
   var access = U.access || {};
   var accessLabels = {trial:'Пробный период',promo:'Промокод',paid:'Premium',forever:'Пожизненный ♾️',expired:'Истёк'};
@@ -1210,6 +1280,52 @@ function updUI(){
 // ════════════════════════════════
 // LOGOUT
 // ════════════════════════════════
+ 
+// ════════════════════════════════
+// NEW PROGRAM — сброс и повторный онбординг
+// ════════════════════════════════
+function startNewProgram() {
+  // Сбрасываем выборы онбординга
+  regTemp = {gender:U.gender||null, place:U.place||null, goal:null, level:null, days:U.days_per_week||3, daysId:null};
+  selectedRestr = {};
+ 
+  // Восстанавливаем визуальное состояние селекторов
+  // Пол
+  document.getElementById('opt-f').classList.toggle('on', U.gender==='female');
+  document.getElementById('opt-m').classList.toggle('on', U.gender==='male');
+ 
+  // Место
+  document.getElementById('opt-home').classList.toggle('on', U.place==='home');
+  document.getElementById('opt-gym').classList.toggle('on',  U.place==='gym');
+ 
+  // Цели — сбрасываем все
+  ['g1','g2','g3','g4','g5'].forEach(function(id){
+    document.getElementById(id).classList.remove('on');
+  });
+ 
+  // Уровни — сбрасываем все
+  ['l1','l2','l3'].forEach(function(id){
+    document.getElementById(id).classList.remove('on');
+  });
+ 
+  // Дни — сбрасываем все
+  ['d2','d3','d4','d5','d6'].forEach(function(id){
+    document.getElementById(id).classList.remove('on');
+  });
+  // Подсвечиваем текущее кол-во дней
+  var curDayId = 'd'+(U.days_per_week||3);
+  var curDayEl = document.getElementById(curDayId);
+  if(curDayEl){ curDayEl.classList.add('on'); regTemp.daysId=curDayId; }
+ 
+  // Ограничения — очищаем
+  document.querySelectorAll('.restr-chip').forEach(function(c){ c.classList.remove('on'); });
+  var notesEl = document.getElementById('custom-notes');
+  if(notesEl) notesEl.value = '';
+ 
+  // Переходим на экран выбора цели (пол и параметры уже известны)
+  go('s-goals');
+}
+ 
 function logout(){
   api('POST','/api/logout',null,function(){});
   clearToken();
