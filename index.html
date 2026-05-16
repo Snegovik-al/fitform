@@ -1,3 +1,6 @@
+
+Copy
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -187,6 +190,12 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 /* TOAST */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;}
+ 
+/* RESTRICTIONS */
+.restr-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.restr-chip{padding:8px 14px;border-radius:20px;border:0.5px solid var(--gb);background:rgba(246,244,239,0.5);font-size:12px;color:var(--dark);cursor:pointer;transition:all .2s;user-select:none;-webkit-user-select:none;}
+.restr-chip.on{background:rgba(192,57,43,0.1);border-color:rgba(192,57,43,0.4);color:#c0392b;}
+.glass-input[rows]{padding:14px 16px;}
 </style>
 </head>
 <body>
@@ -314,7 +323,67 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
     <div class="goal-opt" id="l2" onclick="selLevel('l2','Средний уровень')"><div class="g-icon">🏃</div><div><div class="g-title">Средний уровень</div><div class="g-sub">Тренируюсь более полугода</div></div><div class="radio"></div></div>
     <div class="goal-opt" id="l3" onclick="selLevel('l3','Продвинутый')"><div class="g-icon">🏆</div><div><div class="g-title">Продвинутый</div><div class="g-sub">Спортсмен / опытный атлет</div></div><div class="radio"></div></div>
   </div>
-  <button class="btn-primary" id="finish-btn" onclick="finishReg()">Создать программу 🤖</button>
+  <button class="btn-primary" onclick="go('s-restrictions')">Далее</button>
+</div>
+ 
+<!-- ══════════ RESTRICTIONS ══════════ -->
+<div class="screen" id="s-restrictions">
+  <div class="nav"><button class="back-btn" onclick="go('s-level')">← Назад</button><div style="font-size:12px;color:var(--sage);">Последний шаг</div></div>
+  <div><div class="big-title">Ограничения<br>и особенности</div><div class="form-sub">Поможет ИИ составить безопасную программу</div></div>
+ 
+  <!-- INJURIES -->
+  <div class="glass">
+    <div class="card-label" style="margin-bottom:12px;">Травмы и боли</div>
+    <div class="restr-grid">
+      <div class="restr-chip" id="r-knee" onclick="toggleRestr('r-knee','Боль в коленях')">🦵 Колени</div>
+      <div class="restr-chip" id="r-back" onclick="toggleRestr('r-back','Боль в спине')">🔙 Спина</div>
+      <div class="restr-chip" id="r-shoulder" onclick="toggleRestr('r-shoulder','Травма плеча')">💪 Плечо</div>
+      <div class="restr-chip" id="r-neck" onclick="toggleRestr('r-neck','Боль в шее')">🔝 Шея</div>
+      <div class="restr-chip" id="r-hip" onclick="toggleRestr('r-hip','Проблемы с тазобедренным')">🦴 Тазобедренный</div>
+      <div class="restr-chip" id="r-wrist" onclick="toggleRestr('r-wrist','Травма запястья')">🤝 Запястье</div>
+      <div class="restr-chip" id="r-ankle" onclick="toggleRestr('r-ankle','Травма голеностопа')">🦶 Голеностоп</div>
+      <div class="restr-chip" id="r-elbow" onclick="toggleRestr('r-elbow','Боль в локте')">💪 Локоть</div>
+    </div>
+  </div>
+ 
+  <!-- HEALTH -->
+  <div class="glass">
+    <div class="card-label" style="margin-bottom:12px;">Состояние здоровья</div>
+    <div class="restr-grid">
+      <div class="restr-chip" id="r-heart" onclick="toggleRestr('r-heart','Проблемы с сердцем')">❤️ Сердце</div>
+      <div class="restr-chip" id="r-pressure" onclick="toggleRestr('r-pressure','Повышенное давление')">🩺 Давление</div>
+      <div class="restr-chip" id="r-diabetes" onclick="toggleRestr('r-diabetes','Диабет')">💉 Диабет</div>
+      <div class="restr-chip" id="r-pregnancy" onclick="toggleRestr('r-pregnancy','Беременность')">🤰 Беременность</div>
+      <div class="restr-chip" id="r-asthma" onclick="toggleRestr('r-asthma','Астма')">🫁 Астма</div>
+      <div class="restr-chip" id="r-hernia" onclick="toggleRestr('r-hernia','Грыжа')">⚕️ Грыжа</div>
+      <div class="restr-chip" id="r-varicose" onclick="toggleRestr('r-varicose','Варикоз')">🦵 Варикоз</div>
+      <div class="restr-chip" id="r-osteo" onclick="toggleRestr('r-osteo','Остеохондроз')">🦴 Остеохондроз</div>
+    </div>
+  </div>
+ 
+  <!-- PREFERENCES -->
+  <div class="glass">
+    <div class="card-label" style="margin-bottom:12px;">Предпочтения</div>
+    <div class="restr-grid">
+      <div class="restr-chip" id="r-nofloor" onclick="toggleRestr('r-nofloor','Не могу лежать на полу')">🚫 Без пола</div>
+      <div class="restr-chip" id="r-nojump" onclick="toggleRestr('r-nojump','Без прыжков')">🚫 Без прыжков</div>
+      <div class="restr-chip" id="r-norun" onclick="toggleRestr('r-norun','Без бега')">🚫 Без бега</div>
+      <div class="restr-chip" id="r-lowimpact" onclick="toggleRestr('r-lowimpact','Низкая ударная нагрузка')">🟢 Низкая нагрузка</div>
+      <div class="restr-chip" id="r-nobarbell" onclick="toggleRestr('r-nobarbell','Без штанги')">🚫 Без штанги</div>
+      <div class="restr-chip" id="r-dumbbell" onclick="toggleRestr('r-dumbbell','Только гантели')">🏋️ Только гантели</div>
+    </div>
+  </div>
+ 
+  <!-- CUSTOM TEXT -->
+  <div class="glass">
+    <div class="card-label" style="margin-bottom:8px;">Расскажи подробнее</div>
+    <div class="form-sub" style="margin-bottom:12px;">Опиши свои особенности — ИИ учтёт всё</div>
+    <textarea class="glass-input" id="custom-notes" rows="4" placeholder="Например: у меня протрузия L4-L5, не могу делать становую тягу и приседания со штангой. Также плоскостопие — прыжки даются тяжело. Хочу акцент на ягодицы и пресс..." style="resize:none;line-height:1.5;font-family:inherit;"></textarea>
+  </div>
+ 
+  <button class="btn-primary" id="finish-btn" onclick="finishReg()">Создать мою программу 🤖</button>
+  <button class="btn-outline" onclick="finishReg()" style="font-size:13px;padding:12px;">Пропустить — нет ограничений</button>
+  <div style="height:8px;"></div>
 </div>
  
 <!-- ══════════ LOADING ══════════ -->
@@ -607,6 +676,7 @@ var done = {};
 var fromScr = 's-home';
 var expFlt = 'all';
 var regTemp = {gender:null, place:null, goal:null, level:null};
+var selectedRestr = {}; // выбранные ограничения
 var selPriceKey = 'month';
 var priceLabels = {month:'299 ₽/мес', year:'1 990 ₽/год', forever:'4 990 ₽ навсегда'};
  
@@ -646,7 +716,7 @@ function go(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-loading','s-detail','s-paywall'];
+  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-restrictions','s-loading','s-detail','s-paywall'];
   document.getElementById('tabbar').style.display=noTab.indexOf(id)>=0?'none':'flex';
 }
 function switchTab(sid,tid){
@@ -701,6 +771,30 @@ function applyPaywallPromo(){
   });
 }
  
+ 
+// ════════════════════════════════
+// RESTRICTIONS
+// ════════════════════════════════
+function toggleRestr(id, label) {
+  var el = document.getElementById(id);
+  if(selectedRestr[id]) {
+    delete selectedRestr[id];
+    el.classList.remove('on');
+  } else {
+    selectedRestr[id] = label;
+    el.classList.add('on');
+  }
+}
+ 
+function getRestrictionsText() {
+  var chips = Object.values(selectedRestr);
+  var notes = (document.getElementById('custom-notes') || {}).value || '';
+  var parts = [];
+  if(chips.length > 0) parts.push('Ограничения и особенности: ' + chips.join(', '));
+  if(notes.trim()) parts.push('Дополнительно от пользователя: ' + notes.trim());
+  return parts.join('. ');
+}
+ 
 // ════════════════════════════════
 // LOGIN
 // ════════════════════════════════
@@ -751,6 +845,8 @@ function reg1Next(){
 function finishReg(){
   go('s-loading');
   document.getElementById('load-txt').textContent='Создаём аккаунт...';
+  // Сохраняем ограничения для передачи в ИИ
+  regTemp.restrictions = getRestrictionsText();
   var body = {
     name:       regTemp.name,
     email:      regTemp.email,
@@ -792,8 +888,10 @@ function callAI(){
  
   var keys = Object.keys(DB).filter(function(k){ return DB[k].place===U.place; });
   var keyList = keys.map(function(k){ return k+': '+DB[k].name+' ['+DB[k].cat.join(',')+']'; });
+  // Берём ограничения из regTemp (при первом входе) или из U (при обновлении)
+  var restrictions = regTemp.restrictions || U.restrictions || '';
  
-  api('POST','/api/workout/generate',{exercise_keys:keyList},function(e,d){
+  api('POST','/api/workout/generate',{exercise_keys:keyList, restrictions:restrictions},function(e,d){
     clearInterval(iv);
     if(e||!d||d.error||d.source==='error'){
       plan = fallback();
