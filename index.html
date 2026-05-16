@@ -594,199 +594,49 @@ var DB = {
   rowing_machine:{name:'Гребной тренажёр',emoji:'🚣',place:'gym',cat:['cardio','back'],alts:['cable_row','burpee'],muscles:'Спина, ноги, кардио',img_f:null,img_m:null,steps:['Ноги согнуты, держись за ручки','Оттолкнись ногами','Тяни ручки к поясу','Вернись вперёд']}
 };
  
+<script>
+ 
 // ════════════════════════════════
-// STATE & AUTH
+// CONFIG & STATE
 // ════════════════════════════════
+var API = 'https://web-production-92b2c.up.railway.app';
+var TOKEN = null;
 var U = {};
 var plan = null;
 var done = {};
 var fromScr = 's-home';
 var expFlt = 'all';
- 
-// Temp reg data
 var regTemp = {gender:null, place:null, goal:null, level:null};
+var selPriceKey = 'month';
+var priceLabels = {month:'299 ₽/мес', year:'1 990 ₽/год', forever:'4 990 ₽ навсегда'};
  
 // ════════════════════════════════
-// STORAGE HELPERS
+// TOKEN STORAGE
 // ════════════════════════════════
-function saveUsers(users){ try{localStorage.setItem('ff_users', JSON.stringify(users));}catch(e){} }
-function loadUsers(){ try{return JSON.parse(localStorage.getItem('ff_users'))||{};}catch(e){return {};} }
-function saveSession(email){ try{localStorage.setItem('ff_session', email);}catch(e){} }
-function loadSession(){ try{return localStorage.getItem('ff_session')||null;}catch(e){return null;} }
-function clearSession(){ try{localStorage.removeItem('ff_session');}catch(e){} }
-function savePlan(email, p){ try{localStorage.setItem('ff_plan_'+email, JSON.stringify(p));}catch(e){} }
-function loadPlan(email){ try{return JSON.parse(localStorage.getItem('ff_plan_'+email))||null;}catch(e){return null;} }
-function saveDone(email, d){ try{localStorage.setItem('ff_done_'+email, JSON.stringify(d));}catch(e){} }
-function loadDone(email){ try{return JSON.parse(localStorage.getItem('ff_done_'+email))||{};}catch(e){return {};} }
+function saveToken(t){ try{localStorage.setItem('ff_token',t);}catch(e){} }
+function loadToken(){ try{return localStorage.getItem('ff_token')||null;}catch(e){return null;} }
+function clearToken(){ try{localStorage.removeItem('ff_token');}catch(e){} }
+ 
+// ════════════════════════════════
+// API HELPER
+// ════════════════════════════════
+function api(method, path, body, cb) {
+  var opts = { method:method, headers:{'Content-Type':'application/json'} };
+  if(TOKEN) opts.headers['Authorization'] = 'Bearer ' + TOKEN;
+  if(body)  opts.body = JSON.stringify(body);
+  fetch(API + path, opts)
+    .then(function(r){ return r.json(); })
+    .then(function(d){ cb(null, d); })
+    .catch(function(e){ cb(e, null); });
+}
  
 // ════════════════════════════════
 // ACCESS CONTROL
 // ════════════════════════════════
-function getAccessInfo(user) {
-  var now = Date.now();
-  if(user.access === 'forever') return {type:'forever', label:'Пожизненный', valid:true, daysLeft:-1};
-  if(user.access === 'promo' && user.accessExpires) {
-    var left = Math.ceil((user.accessExpires - now) / 86400000);
-    if(left > 0) return {type:'promo', label:'Промокод', valid:true, daysLeft:left};
-  }
-  if(user.access === 'paid' && user.accessExpires) {
-    var left2 = Math.ceil((user.accessExpires - now) / 86400000);
-    if(left2 > 0) return {type:'paid', label:'Premium', valid:true, daysLeft:left2};
-  }
-  // Trial
-  var trialDays = 7;
-  var trialLeft = Math.ceil((user.registeredAt + trialDays*86400000 - now) / 86400000);
-  if(trialLeft > 0) return {type:'trial', label:'Пробный период', valid:true, daysLeft:trialLeft};
-  return {type:'expired', label:'Истёк', valid:false, daysLeft:0};
-}
- 
 function checkAccessAndRoute() {
-  var info = getAccessInfo(U);
-  if(!info.valid) { go('s-paywall'); return false; }
+  var access = U.access || {};
+  if(!access.valid) { go('s-paywall'); return false; }
   return true;
-}
- 
-// ════════════════════════════════
-// PROMO CODE LOGIC
-// ════════════════════════════════
-function checkPromo() {
-  var code = document.getElementById('reg-promo').value.trim().toUpperCase();
-  var res = document.getElementById('promo-result');
-  var input = document.getElementById('reg-promo');
-  if(!code) { showPromoResult(res, input, false, 'Введи промокод'); return; }
-  var promo = PROMOS[code];
-  if(promo) {
-    showPromoResult(res, input, true, '✅ ' + promo.label + ' активированы!');
-  } else {
-    showPromoResult(res, input, false, '❌ Промокод не найден');
-  }
-}
- 
-function showPromoResult(el, input, ok, msg) {
-  el.style.display = 'block';
-  el.innerHTML = '<div class="'+(ok?'field-success':'field-error')+'">'+msg+'</div>';
-  input.className = 'glass-input ' + (ok ? 'promo-ok' : 'error');
-}
- 
-function applyPaywallPromo() {
-  var code = document.getElementById('pay-promo').value.trim().toUpperCase();
-  var res = document.getElementById('pay-promo-result');
-  if(!code) { res.style.display='block'; res.innerHTML='<div class="field-error">Введи промокод</div>'; return; }
-  var promo = PROMOS[code];
-  if(!promo) { res.style.display='block'; res.innerHTML='<div class="field-error">❌ Промокод не найден</div>'; return; }
-  // Apply promo
-  var users = loadUsers();
-  if(promo.type === 'forever') {
-    users[U.email].access = 'forever';
-    users[U.email].accessExpires = null;
-    U.access = 'forever'; U.accessExpires = null;
-  } else {
-    users[U.email].access = 'promo';
-    users[U.email].accessExpires = Date.now() + promo.days * 86400000;
-    U.access = 'promo'; U.accessExpires = users[U.email].accessExpires;
-  }
-  saveUsers(users);
-  res.style.display='block';
-  res.innerHTML='<div class="field-success">✅ '+promo.label+' активированы! Добро пожаловать!</div>';
-  setTimeout(function(){ goToApp(); }, 1200);
-}
- 
-// ════════════════════════════════
-// LOGIN / REGISTER
-// ════════════════════════════════
-function doLogin() {
-  var email = document.getElementById('login-email').value.trim().toLowerCase();
-  var pass = document.getElementById('login-pass').value;
-  var err = document.getElementById('login-err');
-  err.style.display='none';
- 
-  if(!email || !pass) { err.style.display='block'; err.textContent='Заполни все поля'; return; }
- 
-  var users = loadUsers();
-  if(!users[email]) { err.style.display='block'; err.textContent='Аккаунт не найден. Создай его!'; return; }
-  if(users[email].pass !== btoa(pass)) { err.style.display='block'; err.textContent='Неверный пароль'; return; }
- 
-  U = users[email];
-  done = loadDone(email);
-  plan = loadPlan(email);
-  saveSession(email);
-  updUI();
- 
-  if(!plan) {
-    go('s-loading');
-    document.getElementById('load-txt').textContent='Загружаем программу...';
-    setTimeout(function(){ plan=fallback(); savePlan(email,plan); renderPlan(); checkAccessAndRoute() ? switchTab('s-home','tab-h') : null; }, 1200);
-  } else {
-    renderPlan();
-    if(checkAccessAndRoute()) switchTab('s-home','tab-h');
-  }
-}
- 
-function reg1Next() {
-  var name = document.getElementById('reg-name').value.trim();
-  var email = document.getElementById('reg-email').value.trim().toLowerCase();
-  var pass = document.getElementById('reg-pass').value;
-  var pass2 = document.getElementById('reg-pass2').value;
-  var ok = true;
- 
-  document.getElementById('err-name').style.display = name ? 'none' : 'block'; if(!name) ok=false;
-  var emailOk = email && email.indexOf('@') > 0 && email.indexOf('.') > 0;
-  document.getElementById('err-email').style.display = emailOk ? 'none' : 'block'; if(!emailOk) ok=false;
-  document.getElementById('err-pass').style.display = pass.length>=6 ? 'none' : 'block'; if(pass.length<6) ok=false;
-  document.getElementById('err-pass2').style.display = pass===pass2 ? 'none' : 'block'; if(pass!==pass2) ok=false;
- 
-  if(!ok) return;
- 
-  var users = loadUsers();
-  if(users[email]) { document.getElementById('err-email').style.display='block'; document.getElementById('err-email').textContent='Email уже зарегистрирован'; return; }
- 
-  // Check promo
-  var promoCode = document.getElementById('reg-promo').value.trim().toUpperCase();
-  var promoData = PROMOS[promoCode] || null;
- 
-  var accessData = {access:'trial', accessExpires:null};
-  if(promoData) {
-    if(promoData.type==='forever') { accessData={access:'forever',accessExpires:null}; }
-    else { accessData={access:'promo',accessExpires:Date.now()+promoData.days*86400000}; }
-  }
- 
-  regTemp.name = name;
-  regTemp.email = email;
-  regTemp.pass = btoa(pass);
-  regTemp.promo = promoCode;
-  regTemp.promoData = promoData;
-  regTemp.accessData = accessData;
- 
-  go('s-reg2');
-}
- 
-function finishReg() {
-  var users = loadUsers();
-  var email = regTemp.email;
- 
-  U = {
-    name: regTemp.name,
-    email: email,
-    pass: regTemp.pass,
-    gender: regTemp.gender || 'female',
-    age: document.getElementById('reg-age').value || '25',
-    weight: document.getElementById('reg-weight').value || '70',
-    height: document.getElementById('reg-height').value || '170',
-    place: regTemp.place || 'home',
-    goal: regTemp.goal || 'Похудеть',
-    level: regTemp.level || 'Новичок',
-    promo: regTemp.promo || '',
-    access: regTemp.accessData.access,
-    accessExpires: regTemp.accessData.accessExpires,
-    registeredAt: Date.now()
-  };
- 
-  users[email] = U;
-  saveUsers(users);
-  saveSession(email);
-  done = {};
-  updUI();
-  callAI();
 }
  
 // ════════════════════════════════
@@ -811,65 +661,160 @@ function switchTab(sid,tid){
 // ════════════════════════════════
 function selG(g){regTemp.gender=g;document.getElementById('opt-f').classList.toggle('on',g==='female');document.getElementById('opt-m').classList.toggle('on',g==='male');}
 function selPlace(p){regTemp.place=p;document.getElementById('opt-home').classList.toggle('on',p==='home');document.getElementById('opt-gym').classList.toggle('on',p==='gym');}
-function selGoal(id,lbl){if(regTemp.goalId)document.getElementById(regTemp.goalId).classList.remove('on');regTemp.goalId=id;document.getElementById(id).classList.add('on');regTemp.goal=lbl;U.goal=lbl;}
-function selLevel(id,lbl){if(regTemp.levelId)document.getElementById(regTemp.levelId).classList.remove('on');regTemp.levelId=id;document.getElementById(id).classList.add('on');regTemp.level=lbl;U.level=lbl;}
+function selGoal(id,lbl){if(regTemp.goalId)document.getElementById(regTemp.goalId).classList.remove('on');regTemp.goalId=id;document.getElementById(id).classList.add('on');regTemp.goal=lbl;}
+function selLevel(id,lbl){if(regTemp.levelId)document.getElementById(regTemp.levelId).classList.remove('on');regTemp.levelId=id;document.getElementById(id).classList.add('on');regTemp.level=lbl;}
  
 // ════════════════════════════════
-// PAYWALL
+// PROMO CHECK
 // ════════════════════════════════
-var selPriceKey = 'month';
-var priceLabels = {month:'299 ₽/мес', year:'1 990 ₽/год', forever:'4 990 ₽ навсегда'};
- 
-function selPrice(key) {
-  selPriceKey = key;
-  ['month','year','forever'].forEach(function(k){ document.getElementById('pc-'+k).classList.toggle('on',k===key); });
-  document.getElementById('pay-btn').textContent = 'Оформить — ' + priceLabels[key];
+function checkPromo() {
+  var code = document.getElementById('reg-promo').value.trim().toUpperCase();
+  var res   = document.getElementById('promo-result');
+  var input = document.getElementById('reg-promo');
+  if(!code){ showPromoResult(res,input,false,'Введи промокод'); return; }
+  api('POST','/api/promo/check',{code:code},function(err,d){
+    if(err||!d){ showPromoResult(res,input,false,'Ошибка сервера'); return; }
+    if(d.valid){ showPromoResult(res,input,true,'✅ '+d.label+' активированы!'); }
+    else { showPromoResult(res,input,false,'❌ '+d.error); }
+  });
 }
  
-function doPurchase() {
-  // В реальном приложении здесь будет платёжная система
-  showToast('Платёжная система подключается в следующем обновлении 🚀');
+function showPromoResult(el,input,ok,msg){
+  el.style.display='block';
+  el.innerHTML='<div class="'+(ok?'field-success':'field-error')+'">'+msg+'</div>';
+  input.className='glass-input '+(ok?'promo-ok':'error');
 }
  
-function goToApp() {
-  if(checkAccessAndRoute()) switchTab('s-home','tab-h');
+function applyPaywallPromo(){
+  var code = document.getElementById('pay-promo').value.trim().toUpperCase();
+  var res  = document.getElementById('pay-promo-result');
+  res.style.display='none';
+  if(!code){ res.style.display='block'; res.innerHTML='<div class="field-error">Введи промокод</div>'; return; }
+  api('POST','/api/promo/apply',{code:code},function(err,d){
+    res.style.display='block';
+    if(err||!d||d.error){ res.innerHTML='<div class="field-error">❌ '+(d&&d.error||'Ошибка')+'</div>'; return; }
+    res.innerHTML='<div class="field-success">✅ '+d.label+' активированы!</div>';
+    U.access = d.access;
+    U = Object.assign(U, d.user);
+    updUI();
+    setTimeout(function(){ if(checkAccessAndRoute()) switchTab('s-home','tab-h'); }, 1200);
+  });
 }
  
 // ════════════════════════════════
-// AI / FALLBACK
+// LOGIN
+// ════════════════════════════════
+function doLogin(){
+  var email = document.getElementById('login-email').value.trim().toLowerCase();
+  var pass  = document.getElementById('login-pass').value;
+  var err   = document.getElementById('login-err');
+  err.style.display='none';
+  if(!email||!pass){ err.style.display='block'; err.textContent='Заполни все поля'; return; }
+ 
+  showBtnLoading('login-btn', true);
+  api('POST','/api/login',{email:email,password:pass},function(e,d){
+    showBtnLoading('login-btn', false);
+    if(e||!d){ err.style.display='block'; err.textContent='Ошибка соединения'; return; }
+    if(d.error){ err.style.display='block'; err.textContent=d.error; return; }
+    TOKEN = d.token; saveToken(TOKEN);
+    U = d.user; U.access = d.access;
+    done = d.done || {};
+    plan = d.plan || null;
+    updUI();
+    if(!plan){ callAI(); }
+    else { renderPlan(); if(checkAccessAndRoute()) switchTab('s-home','tab-h'); }
+  });
+}
+ 
+// ════════════════════════════════
+// REGISTER
+// ════════════════════════════════
+function reg1Next(){
+  var name  = document.getElementById('reg-name').value.trim();
+  var email = document.getElementById('reg-email').value.trim().toLowerCase();
+  var pass  = document.getElementById('reg-pass').value;
+  var pass2 = document.getElementById('reg-pass2').value;
+  var ok = true;
+  document.getElementById('err-name').style.display  = name?'none':'block'; if(!name)ok=false;
+  var emailOk = email && email.indexOf('@')>0;
+  document.getElementById('err-email').style.display = emailOk?'none':'block'; if(!emailOk)ok=false;
+  document.getElementById('err-pass').style.display  = pass.length>=6?'none':'block'; if(pass.length<6)ok=false;
+  document.getElementById('err-pass2').style.display = pass===pass2?'none':'block'; if(pass!==pass2)ok=false;
+  if(!ok) return;
+  regTemp.name  = name;
+  regTemp.email = email;
+  regTemp.pass  = pass;
+  regTemp.promo = document.getElementById('reg-promo').value.trim().toUpperCase();
+  go('s-reg2');
+}
+ 
+function finishReg(){
+  go('s-loading');
+  document.getElementById('load-txt').textContent='Создаём аккаунт...';
+  var body = {
+    name:       regTemp.name,
+    email:      regTemp.email,
+    password:   regTemp.pass,
+    gender:     regTemp.gender  || 'female',
+    age:        document.getElementById('reg-age').value    || '25',
+    weight:     document.getElementById('reg-weight').value || '70',
+    height:     document.getElementById('reg-height').value || '170',
+    place:      regTemp.place   || 'home',
+    goal:       regTemp.goal    || 'Похудеть',
+    level:      regTemp.level   || 'Новичок',
+    promo_code: regTemp.promo   || ''
+  };
+  api('POST','/api/register',body,function(e,d){
+    if(e||!d||d.error){
+      go('s-level');
+      showToast('Ошибка: '+(d&&d.error||'нет соединения'));
+      return;
+    }
+    TOKEN = d.token; saveToken(TOKEN);
+    U = d.user; U.access = d.access;
+    done = {};
+    plan = null;
+    if(d.promo_label) showToast('🎟 '+d.promo_label+' активированы!');
+    updUI();
+    callAI();
+  });
+}
+ 
+// ════════════════════════════════
+// AI WORKOUT GENERATION
 // ════════════════════════════════
 function callAI(){
   go('s-loading');
   var msgs=['Анализируем параметры...','Подбираем упражнения...','Рассчитываем нагрузку...','Формируем программу на 5 дней...'];
   var mi=0;
-  var iv=setInterval(function(){if(++mi<msgs.length)document.getElementById('load-txt').textContent=msgs[mi];},1200);
+  document.getElementById('load-txt').textContent=msgs[0];
+  var iv=setInterval(function(){if(++mi<msgs.length)document.getElementById('load-txt').textContent=msgs[mi];},1400);
  
-  var keys=Object.keys(DB).filter(function(k){return DB[k].place===U.place;});
-  var list=keys.map(function(k){return k+': '+DB[k].name+' ['+DB[k].cat.join(',')+']';}).join('\n');
+  var keys = Object.keys(DB).filter(function(k){ return DB[k].place===U.place; });
+  var keyList = keys.map(function(k){ return k+': '+DB[k].name+' ['+DB[k].cat.join(',')+']'; });
  
-  var prompt='Персональный фитнес-тренер. Программа на 5 дней (Пн-Пт):\n'
-    +'Пол: '+(U.gender==='female'?'Женщина':'Мужчина')+', Возраст: '+U.age+', Вес: '+U.weight+'кг, Рост: '+U.height+'см\n'
-    +'Место: '+(U.place==='gym'?'Зал':'Дома')+', Цель: '+U.goal+', Уровень: '+U.level+'\n\n'
-    +'Используй ТОЛЬКО эти ключи:\n'+list+'\n\n'
-    +'Ответь СТРОГО только JSON без лишнего текста:\n'
-    +'{"plan":[{"day":"Понедельник","focus":"Ноги","exercises":[{"key":"squat_home","sets":3,"reps":"15","rest":"60с","tip":"совет"}]}]}\n'
-    +'Каждый день 4-5 упражнений. Чередуй группы мышц. Учитывай вес и уровень.';
- 
-  fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:prompt}]})
-  })
-  .then(function(r){return r.json();})
-  .then(function(d){
+  api('POST','/api/workout/generate',{exercise_keys:keyList},function(e,d){
     clearInterval(iv);
-    try{var txt=d.content[0].text;var m=txt.match(/\{[\s\S]*\}/);if(!m)throw new Error();plan=JSON.parse(m[0]);if(!plan.plan||!plan.plan.length)throw new Error();}
-    catch(e){plan=fallback();}
-    savePlan(U.email,plan);renderPlan();
+    if(e||!d||d.error||d.source==='error'){
+      plan = fallback();
+      api('POST','/api/workout/save',{plan:plan},function(){});
+    } else {
+      plan = d.plan;
+    }
+    renderPlan();
     if(checkAccessAndRoute()) switchTab('s-home','tab-h');
-  })
-  .catch(function(){clearInterval(iv);plan=fallback();savePlan(U.email,plan);renderPlan();if(checkAccessAndRoute())switchTab('s-home','tab-h');});
+  });
 }
  
+function regenPlan(){
+  go('s-loading');
+  document.getElementById('load-txt').textContent='Обновляем программу...';
+  setTimeout(callAI, 200);
+}
+ 
+// ════════════════════════════════
+// FALLBACK PLAN
+// ════════════════════════════════
 function fallback(){
   if(U.place==='gym'){return{plan:[
     {day:'Понедельник',focus:'Грудь и трицепс',exercises:[{key:'bench_press',sets:4,reps:'10',rest:'90с',tip:'Сведи лопатки перед жимом'},{key:'incline_press',sets:3,reps:'12',rest:'75с',tip:'Угол 30-45°'},{key:'cable_fly',sets:3,reps:'15',rest:'60с',tip:'Акцент на растяжение'},{key:'tricep_pushdown',sets:3,reps:'12',rest:'60с',tip:'Локти неподвижны'},{key:'skull_crusher',sets:3,reps:'10',rest:'75с',tip:'Медленный негатив'}]},
@@ -880,9 +825,9 @@ function fallback(){
   ]};}
   return{plan:[
     {day:'Понедельник',focus:'Ноги и ягодицы',exercises:[{key:'squat_home',sets:4,reps:'20',rest:'60с',tip:'Спина прямая'},{key:'lunge',sets:3,reps:'12',rest:'60с',tip:'Чередуй ноги'},{key:'glute_bridge',sets:4,reps:'20',rest:'45с',tip:'Сожми ягодицы'},{key:'calf_raise_home',sets:3,reps:'25',rest:'45с',tip:'Медленно'}]},
-    {day:'Вторник',focus:'Верх тела — тяга',exercises:[{key:'pullup',sets:3,reps:'8',rest:'90с',tip:'Помогай ногами если сложно'},{key:'inverted_row',sets:3,reps:'12',rest:'75с',tip:'Сводь лопатки'},{key:'superman',sets:3,reps:'15',rest:'45с',tip:'Задержи 2с вверху'},{key:'bird_dog',sets:3,reps:'10',rest:'45с',tip:'Не двигай тазом'}]},
+    {day:'Вторник',focus:'Верх тела',exercises:[{key:'pullup',sets:3,reps:'8',rest:'90с',tip:'Помогай ногами если сложно'},{key:'inverted_row',sets:3,reps:'12',rest:'75с',tip:'Сводь лопатки'},{key:'superman',sets:3,reps:'15',rest:'45с',tip:'Задержи 2с вверху'},{key:'bird_dog',sets:3,reps:'10',rest:'45с',tip:'Не двигай тазом'}]},
     {day:'Среда',focus:'Грудь и трицепс',exercises:[{key:'pushup',sets:4,reps:'15',rest:'60с',tip:'Тело прямое'},{key:'pushup_wide',sets:3,reps:'12',rest:'60с',tip:'Акцент на грудь'},{key:'diamond_pushup',sets:3,reps:'10',rest:'60с',tip:'Медленно'},{key:'tricep_dip',sets:3,reps:'15',rest:'60с',tip:'Локти назад'}]},
-    {day:'Четверг',focus:'Кор',exercises:[{key:'plank',sets:4,reps:'45с',rest:'30с',tip:'Дыши ровно'},{key:'bicycle_crunch',sets:3,reps:'20',rest:'45с',tip:'Медленно — качество'},{key:'leg_raise',sets:3,reps:'15',rest:'45с',tip:'Поясница прижата'},{key:'russian_twist',sets:3,reps:'20',rest:'45с',tip:'С грузом если можешь'}]},
+    {day:'Четверг',focus:'Кор',exercises:[{key:'plank',sets:4,reps:'45с',rest:'30с',tip:'Дыши ровно'},{key:'bicycle_crunch',sets:3,reps:'20',rest:'45с',tip:'Медленно'},{key:'leg_raise',sets:3,reps:'15',rest:'45с',tip:'Поясница прижата'},{key:'russian_twist',sets:3,reps:'20',rest:'45с',tip:'С грузом если можешь'}]},
     {day:'Пятница',focus:'HIIT и ягодицы',exercises:[{key:'hip_thrust_home',sets:4,reps:'20',rest:'45с',tip:'Через пятки'},{key:'jump_squat',sets:3,reps:'15',rest:'75с',tip:'Мягко приземляйся'},{key:'burpee',sets:3,reps:'10',rest:'90с',tip:'Техника важнее скорости'},{key:'high_knees',sets:3,reps:'30с',rest:'45с',tip:'Колени выше пояса'}]}
   ]};
 }
@@ -891,28 +836,29 @@ function fallback(){
 // RENDER PLAN
 // ════════════════════════════════
 function renderPlan(){
-  if(!plan)return;
+  if(!plan) return;
   var html='';
-  plan.plan.forEach(function(day){
+  (plan.plan||[]).forEach(function(day){
     html+='<div class="plan-day"><div class="plan-day-title">'+day.day+'</div><div class="plan-day-sub">'+day.focus+'</div>';
     (day.exercises||[]).forEach(function(ex){
-      var e=DB[ex.key];if(!e||!ex.key)return;
-      var isDone=done[ex.key];
+      var e=DB[ex.key]; if(!e) return;
       html+='<div class="plan-ex" onclick="openDetail(\''+ex.key+'\','+ex.sets+',\''+ex.reps+'\',\''+ex.rest+'\',\''+esc(ex.tip||'')+'\',\'s-home\')">';
-      html+='<div class="plan-ex-icon">'+(isDone?'✅':e.emoji)+'</div>';
+      html+='<div class="plan-ex-icon">'+(done[ex.key]?'✅':e.emoji)+'</div>';
       html+='<div style="flex:1"><div class="plan-ex-name">'+e.name+'</div><div class="plan-ex-meta">'+ex.sets+' × '+ex.reps+' · отдых '+ex.rest+'</div></div>';
       html+='<div class="plan-ex-arr">›</div></div>';
     });
     html+='</div>';
   });
-  document.getElementById('ai-plan').innerHTML=html;
+  document.getElementById('ai-plan').innerHTML = html;
   updStats();
 }
  
 function updStats(){
-  if(!plan)return;
-  var total=0,d=0;
-  plan.plan.forEach(function(day){(day.exercises||[]).forEach(function(ex){if(DB[ex.key]){total++;if(done[ex.key])d++;}});});
+  if(!plan) return;
+  var total=0, d=0;
+  (plan.plan||[]).forEach(function(day){
+    (day.exercises||[]).forEach(function(ex){ if(DB[ex.key]){ total++; if(done[ex.key]) d++; } });
+  });
   document.getElementById('st-done').textContent=d;
   document.getElementById('st-total').textContent=total;
   document.getElementById('st-pct').textContent=total>0?Math.round(d/total*100)+'%':'0%';
@@ -920,15 +866,15 @@ function updStats(){
 }
  
 // ════════════════════════════════
-// DETAIL
+// EXERCISE DETAIL
 // ════════════════════════════════
 function openDetail(key,sets,reps,rest,tip,from){
   fromScr=from||'s-home';
-  var e=DB[key];if(!e)return;
-  var imgUrl=U.gender==='female'?e.img_f:e.img_m;
-  document.getElementById('d-img-wrap').innerHTML=imgUrl
-    ?'<img class="detail-img" src="'+imgUrl+'" alt="'+e.name+'" loading="lazy"/>'
-    :'<div class="detail-img-ph">'+e.emoji+'</div>';
+  var e=DB[key]; if(!e) return;
+  var imgUrl = U.gender==='female' ? e.img_f : e.img_m;
+  document.getElementById('d-img-wrap').innerHTML = imgUrl
+    ? '<img class="detail-img" src="'+imgUrl+'" alt="'+e.name+'" loading="lazy"/>'
+    : '<div class="detail-img-ph">'+e.emoji+'</div>';
   document.getElementById('d-name').textContent=e.name;
   document.getElementById('d-tags').innerHTML='<span class="tag">'+e.muscles+'</span><span class="tag tag-dark">'+(e.place==='gym'?'🏋️ Зал':'🏠 Дома')+'</span>';
   document.getElementById('d-sets').textContent=sets||3;
@@ -956,16 +902,20 @@ function openDetail(key,sets,reps,rest,tip,from){
   if(done[key]){btn.textContent='✅ Уже выполнено';btn.style.background='var(--sand)';}
   else{btn.textContent='✓ Упражнение выполнено';btn.style.background='';}
   btn.onclick=function(){markDone(key);};
-  document.getElementById('d-back').onclick=function(){var t=fromScr==='s-detail'?'s-home':fromScr;go(t);document.getElementById('tabbar').style.display='flex';};
-  go('s-detail');document.getElementById('tabbar').style.display='none';
+  document.getElementById('d-back').onclick=function(){
+    var t=fromScr==='s-detail'?'s-home':fromScr;
+    go(t); document.getElementById('tabbar').style.display='flex';
+  };
+  go('s-detail');
+  document.getElementById('tabbar').style.display='none';
 }
  
 function markDone(key){
   done[key]=true;
-  saveDone(U.email,done);
+  api('POST','/api/progress/done',{key:key},function(){});
   var btn=document.getElementById('done-btn');
-  btn.textContent='✅ Выполнено!';btn.style.background='var(--sage)';
-  renderPlan();updStats();
+  btn.textContent='✅ Выполнено!'; btn.style.background='var(--sage)';
+  renderPlan(); updStats();
   showToast('Отличная работа! 💪');
   setTimeout(function(){go('s-home');document.getElementById('tabbar').style.display='flex';},700);
 }
@@ -976,15 +926,17 @@ function markDone(key){
 function buildExplore(){
   var keys=Object.keys(DB).filter(function(k){
     var e=DB[k];
-    if(expFlt==='all')return true;
-    if(expFlt==='home')return e.place==='home';
-    if(expFlt==='gym')return e.place==='gym';
+    if(expFlt==='all') return true;
+    if(expFlt==='home') return e.place==='home';
+    if(expFlt==='gym')  return e.place==='gym';
     return e.cat.indexOf(expFlt)>=0;
   });
   document.getElementById('exp-list').innerHTML=keys.map(function(k){
     var e=DB[k];
     var imgUrl=U.gender==='female'?e.img_f:e.img_m;
-    var thumb=imgUrl?'<img class="mini-thumb" src="'+imgUrl+'" alt="'+e.name+'" loading="lazy"/>':'<div class="mini-thumb-ph">'+e.emoji+'</div>';
+    var thumb=imgUrl
+      ?'<img class="mini-thumb" src="'+imgUrl+'" alt="'+e.name+'" loading="lazy"/>'
+      :'<div class="mini-thumb-ph">'+e.emoji+'</div>';
     var altC=(e.alts||[]).length;
     return '<div class="mini-card" onclick="openDetail(\''+k+'\',3,\'12\',\'60с\',\'\',\'s-explore\')">'
       +thumb+'<div class="mini-info"><div class="mini-name">'+e.name+'</div><div class="mini-meta">'+e.muscles+'</div>'
@@ -997,7 +949,24 @@ function buildExplore(){
 function fExp(chip,f){
   expFlt=f;
   document.querySelectorAll('#exp-filters .chip').forEach(function(c){c.classList.remove('on');});
-  chip.classList.add('on');buildExplore();
+  chip.classList.add('on'); buildExplore();
+}
+ 
+// ════════════════════════════════
+// PAYWALL
+// ════════════════════════════════
+function selPrice(key){
+  selPriceKey=key;
+  ['month','year','forever'].forEach(function(k){ document.getElementById('pc-'+k).classList.toggle('on',k===key); });
+  document.getElementById('pay-btn').textContent='Оформить — '+priceLabels[key];
+}
+ 
+function doPurchase(){
+  showToast('Платёжная система подключается скоро 🚀');
+}
+ 
+function goToApp(){
+  if(checkAccessAndRoute()) switchTab('s-home','tab-h');
 }
  
 // ════════════════════════════════
@@ -1021,33 +990,30 @@ function updUI(){
   document.getElementById('p-height').textContent=U.height?U.height+' см':'—';
   document.getElementById('p-place').textContent=U.place==='gym'?'Тренажёрный зал':'Дома';
  
-  // Access info
-  var info = getAccessInfo(U);
+  var access = U.access || {};
   var accessLabels = {trial:'Пробный период',promo:'Промокод',paid:'Premium',forever:'Пожизненный ♾️',expired:'Истёк'};
   var badgeClasses = {trial:'badge-trial',promo:'badge-promo',paid:'badge-promo',forever:'badge-forever',expired:'badge-free'};
-  document.getElementById('p-access').textContent=accessLabels[info.type]||'—';
-  document.getElementById('p-badge').textContent=accessLabels[info.type]||'';
-  document.getElementById('p-badge').className='p-badge '+(badgeClasses[info.type]||'badge-free');
+  document.getElementById('p-access').textContent  = accessLabels[access.type]||'—';
+  document.getElementById('p-badge').textContent   = accessLabels[access.type]||'';
+  document.getElementById('p-badge').className     = 'p-badge '+(badgeClasses[access.type]||'badge-free');
  
   var expText='—';
-  if(info.type==='forever') expText='Навсегда ♾️';
-  else if(info.valid && info.daysLeft>0) expText='Ещё '+info.daysLeft+' дн.';
-  else if(info.type==='expired') expText='Истёк — нужно продлить';
+  if(access.type==='forever') expText='Навсегда ♾️';
+  else if(access.valid && access.days_left>0) expText='Ещё '+access.days_left+' дн.';
+  else if(access.type==='expired') expText='Истёк — нужно продлить';
   document.getElementById('p-expires').textContent=expText;
  
-  // Show/hide upgrade btn
-  var needUpgrade = info.type==='trial' || info.type==='expired';
+  var needUpgrade = access.type==='trial'||access.type==='expired'||!access.valid;
   document.getElementById('upgrade-btn').style.display=needUpgrade?'block':'none';
  
-  // Access banner on home
   var banner=document.getElementById('access-banner');
-  if(info.type==='trial'){
+  if(access.type==='trial'){
     banner.style.display='block';
-    banner.innerHTML='<div class="access-banner banner-trial">⏳ Пробный период — осталось <b>'+info.daysLeft+' дн.</b> <span onclick="go(\'s-paywall\')" style="text-decoration:underline;cursor:pointer;margin-left:4px;">Продлить →</span></div>';
-  } else if(info.type==='promo' && info.daysLeft<=7){
+    banner.innerHTML='<div class="access-banner banner-trial">⏳ Пробный период — осталось <b>'+access.days_left+' дн.</b> <span onclick="go(\'s-paywall\')" style="text-decoration:underline;cursor:pointer;margin-left:4px;">Продлить →</span></div>';
+  } else if(access.type==='promo' && access.days_left<=7){
     banner.style.display='block';
-    banner.innerHTML='<div class="access-banner banner-trial">🎟 Промокод истекает через <b>'+info.daysLeft+' дн.</b> <span onclick="go(\'s-paywall\')" style="text-decoration:underline;cursor:pointer;margin-left:4px;">Продлить →</span></div>';
-  } else if(info.type==='forever'){
+    banner.innerHTML='<div class="access-banner banner-trial">🎟 Промокод истекает через <b>'+access.days_left+' дн.</b></div>';
+  } else if(access.type==='forever'){
     banner.style.display='block';
     banner.innerHTML='<div class="access-banner banner-forever">♾️ У тебя <b>пожизненный доступ</b> — наслаждайся!</div>';
   } else {
@@ -1055,45 +1021,54 @@ function updUI(){
   }
 }
  
-function regenPlan(){go('s-loading');document.getElementById('load-txt').textContent='Обновляем программу...';setTimeout(callAI,200);}
- 
+// ════════════════════════════════
+// LOGOUT
+// ════════════════════════════════
 function logout(){
-  clearSession();
-  U={};plan=null;done={};
+  api('POST','/api/logout',null,function(){});
+  clearToken();
+  TOKEN=null; U={}; plan=null; done={};
   go('s-splash');
 }
  
 // ════════════════════════════════
-// TOAST
+// HELPERS
 // ════════════════════════════════
 function showToast(msg){
   var t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
+  t.textContent=msg; t.classList.add('show');
   setTimeout(function(){t.classList.remove('show');},2200);
+}
+ 
+function showBtnLoading(id, loading){
+  var btn=document.getElementById(id);
+  if(!btn) return;
+  btn.disabled=loading;
+  if(loading) btn.dataset.orig=btn.textContent, btn.textContent='Загрузка...';
+  else btn.textContent=btn.dataset.orig||btn.textContent;
 }
  
 function esc(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
  
 // ════════════════════════════════
-// INIT — проверяем сессию
+// INIT — проверяем токен
 // ════════════════════════════════
 (function init(){
-  var session = loadSession();
-  if(!session) { go('s-splash'); return; }
-  var users = loadUsers();
-  if(!users[session]) { clearSession(); go('s-splash'); return; }
-  U = users[session];
-  done = loadDone(session);
-  plan = loadPlan(session);
-  updUI();
-  if(!plan) {
-    go('s-loading');
-    document.getElementById('load-txt').textContent='Загружаем программу...';
-    setTimeout(function(){ plan=fallback(); savePlan(session,plan); renderPlan(); if(checkAccessAndRoute())switchTab('s-home','tab-h'); }, 1000);
-  } else {
-    renderPlan();
-    if(checkAccessAndRoute()) switchTab('s-home','tab-h');
-  }
+  TOKEN = loadToken();
+  if(!TOKEN){ go('s-splash'); return; }
+ 
+  go('s-loading');
+  document.getElementById('load-txt').textContent='Загружаем профиль...';
+ 
+  api('GET','/api/me',null,function(e,d){
+    if(e||!d||d.error){ clearToken(); TOKEN=null; go('s-splash'); return; }
+    U    = d.user; U.access = d.access;
+    done = d.done || {};
+    plan = d.plan || null;
+    updUI();
+    if(!plan){ callAI(); }
+    else { renderPlan(); if(checkAccessAndRoute()) switchTab('s-home','tab-h'); }
+  });
 })();
  
 // Telegram
