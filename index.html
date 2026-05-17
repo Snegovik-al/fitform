@@ -281,18 +281,21 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 #s-run{padding:0!important;gap:0!important;position:relative;}
 .run-map{width:100%;height:100vh;display:block;background:#e8e4dc;}
 .run-overlay{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:0 16px 32px;}
-.run-stats-card{background:rgba(20,20,15,0.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:0.5px solid rgba(255,255,255,0.12);border-radius:24px;padding:20px 24px;margin-bottom:14px;}
-.run-stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:18px;}
+.run-stats-card{background:rgba(246,244,239,0.7);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:0.5px solid rgba(255,255,255,0.6);border-radius:28px;padding:22px 24px;margin-bottom:14px;}
+.run-stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:22px;}
 .run-stat{text-align:center;padding:0 8px;}
-.run-stat+.run-stat{border-left:0.5px solid rgba(255,255,255,0.1);}
-.run-stat-v{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;color:#fff;line-height:1;}
-.run-stat-l{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.05em;margin-top:4px;}
-.run-btn-row{display:flex;gap:12px;align-items:center;justify-content:center;}
-.run-btn-main{width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:28px;transition:transform .15s;}
+.run-stat+.run-stat{border-left:0.5px solid rgba(65,70,75,0.12);}
+.run-stat-v{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;color:var(--dark);line-height:1;}
+.run-stat-l{font-size:10px;color:var(--sage);text-transform:uppercase;letter-spacing:.05em;margin-top:4px;}
+.run-btn-row{display:flex;gap:16px;align-items:center;justify-content:center;}
+.run-btn-main{border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s;box-shadow:0 4px 16px rgba(123,143,122,0.3);}
 .run-btn-main:active{transform:scale(0.93);}
-.run-btn-start{background:var(--sage);}
-.run-btn-stop{background:#c0392b;}
-.run-btn-pause{background:rgba(255,255,255,0.15);width:52px;height:52px;font-size:20px;}
+.run-btn-start{width:72px;height:72px;background:var(--sage);}
+.run-btn-stop{background:var(--sage);width:54px;height:54px;}
+.run-btn-pause{background:var(--sage);width:54px;height:54px;}
+/* SVG иконки кнопок */
+.run-btn-icon{width:24px;height:24px;fill:#C9A84C;}
+.run-btn-icon-lg{width:30px;height:30px;fill:#C9A84C;}
 .run-top-nav{position:fixed;top:0;left:0;right:0;z-index:101;display:flex;align-items:center;justify-content:space-between;padding:100px 20px 12px;}
 .run-back{background:rgba(0,0,0,0.3);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:7px 16px;color:#fff;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;}
 .run-status{background:rgba(0,0,0,0.3);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:7px 14px;color:#fff;font-size:12px;display:flex;align-items:center;gap:6px;}
@@ -855,9 +858,15 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
         </div>
       </div>
       <div class="run-btn-row">
-        <button class="run-btn-main run-btn-pause" id="run-pause-btn" onclick="pauseRun()" style="display:none;">⏸</button>
-        <button class="run-btn-main run-btn-start" id="run-main-btn" onclick="startRun()">▶</button>
-        <button class="run-btn-main run-btn-stop" id="run-stop-btn" onclick="finishRun()" style="display:none;width:52px;height:52px;font-size:20px;">■</button>
+        <button class="run-btn-main run-btn-pause" id="run-pause-btn" onclick="pauseRun()" style="display:none;">
+  <svg class="run-btn-icon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+</button>
+        <button class="run-btn-main run-btn-start" id="run-main-btn" onclick="startRun()">
+  <svg class="run-btn-icon-lg" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+</button>
+        <button class="run-btn-main run-btn-stop" id="run-stop-btn" onclick="finishRun()" style="display:none;">
+  <svg class="run-btn-icon" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+</button>
       </div>
     </div>
   </div>
@@ -1828,14 +1837,16 @@ function pauseRun(){
   runState = 'paused';
   clearInterval(runTimer);
   clearInterval(runGeoTimer);
-  document.getElementById('run-pause-btn').textContent = '▶';
+  var pb=document.getElementById('run-pause-btn');
+  pb.innerHTML='<svg class="run-btn-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="#C9A84C"/></svg>';
   document.getElementById('run-pause-btn').onclick = function(){ resumeRun(); };
   document.getElementById('run-dot').className = 'run-dot paused';
   document.getElementById('run-status-text').textContent = 'Пауза';
 }
 
 function resumeRun(){
-  document.getElementById('run-pause-btn').textContent = '⏸';
+  var pb2=document.getElementById('run-pause-btn');
+  pb2.innerHTML='<svg class="run-btn-icon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1" fill="#C9A84C"/><rect x="14" y="4" width="4" height="16" rx="1" fill="#C9A84C"/></svg>';
   document.getElementById('run-pause-btn').onclick = function(){ pauseRun(); };
   startRun();
 }
@@ -1882,7 +1893,8 @@ function resetRunUI(){
   document.getElementById('run-main-btn').style.display = 'flex';
   document.getElementById('run-pause-btn').style.display = 'none';
   document.getElementById('run-stop-btn').style.display = 'none';
-  document.getElementById('run-pause-btn').textContent = '⏸';
+  var pb2=document.getElementById('run-pause-btn');
+  pb2.innerHTML='<svg class="run-btn-icon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1" fill="#C9A84C"/><rect x="14" y="4" width="4" height="16" rx="1" fill="#C9A84C"/></svg>';
   document.getElementById('run-pause-btn').onclick = function(){ pauseRun(); };
   document.getElementById('run-dot').className = 'run-dot';
   document.getElementById('run-status-text').textContent = 'Готов к старту';
