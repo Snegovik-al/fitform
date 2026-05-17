@@ -276,6 +276,38 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .plan-ex-name-dark{font-size:13px;font-weight:500;color:#fff;}
 .plan-ex-meta-dark{font-size:11px;color:rgba(255,255,255,0.5);margin-top:1px;}
 
+
+/* RUNNING SCREEN */
+#s-run{padding:0!important;gap:0!important;position:relative;}
+.run-map{width:100%;height:100vh;display:block;background:#e8e4dc;}
+.run-overlay{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:0 16px 32px;}
+.run-stats-card{background:rgba(20,20,15,0.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:0.5px solid rgba(255,255,255,0.12);border-radius:24px;padding:20px 24px;margin-bottom:14px;}
+.run-stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:18px;}
+.run-stat{text-align:center;padding:0 8px;}
+.run-stat+.run-stat{border-left:0.5px solid rgba(255,255,255,0.1);}
+.run-stat-v{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;color:#fff;line-height:1;}
+.run-stat-l{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.05em;margin-top:4px;}
+.run-btn-row{display:flex;gap:12px;align-items:center;justify-content:center;}
+.run-btn-main{width:72px;height:72px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:28px;transition:transform .15s;}
+.run-btn-main:active{transform:scale(0.93);}
+.run-btn-start{background:var(--sage);}
+.run-btn-stop{background:#c0392b;}
+.run-btn-pause{background:rgba(255,255,255,0.15);width:52px;height:52px;font-size:20px;}
+.run-top-nav{position:fixed;top:0;left:0;right:0;z-index:101;display:flex;align-items:center;justify-content:space-between;padding:52px 20px 12px;}
+.run-back{background:rgba(0,0,0,0.3);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:7px 16px;color:#fff;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;}
+.run-status{background:rgba(0,0,0,0.3);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:7px 14px;color:#fff;font-size:12px;display:flex;align-items:center;gap:6px;}
+.run-dot{width:8px;height:8px;border-radius:50%;background:#888;flex-shrink:0;}
+.run-dot.active{background:#4CAF50;animation:pulse-run 1s infinite;}
+.run-dot.paused{background:#FFC107;}
+@keyframes pulse-run{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.run-history{display:flex;flex-direction:column;gap:10px;}
+.run-history-card{background:var(--glass);backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;padding:16px;}
+.run-history-date{font-size:12px;color:var(--sage);margin-bottom:8px;}
+.run-history-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.run-history-stat{text-align:center;}
+.run-history-val{font-size:18px;font-weight:500;color:var(--dark);}
+.run-history-lbl{font-size:10px;color:var(--sage);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+
 /* REST TIMER */
 .rest-timer{background:linear-gradient(135deg,rgba(123,143,122,0.92),rgba(65,70,75,0.95));border-radius:20px;padding:20px;color:#fff;text-align:center;position:relative;overflow:hidden;}
 .rest-timer::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,0.07);border-radius:50%;pointer-events:none;}
@@ -780,6 +812,61 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   <button class="btn-danger" onclick="logout()">Выйти из аккаунта</button>
 </div>
 
+
+<!-- ══════════ RUNNING ══════════ -->
+<div class="screen" id="s-run">
+
+  <!-- Карта -->
+  <div id="run-map" class="run-map"></div>
+
+  <!-- Верхний нав -->
+  <div class="run-top-nav">
+    <button class="run-back" onclick="stopRunAndGoBack()">← Назад</button>
+    <div class="run-status" id="run-status">
+      <div class="run-dot" id="run-dot"></div>
+      <span id="run-status-text">Готов к старту</span>
+    </div>
+  </div>
+
+  <!-- Нижняя панель со статистикой -->
+  <div class="run-overlay">
+    <div class="run-stats-card">
+      <div class="run-stats-grid">
+        <div class="run-stat">
+          <div class="run-stat-v" id="run-dist">0.00</div>
+          <div class="run-stat-l">км</div>
+        </div>
+        <div class="run-stat">
+          <div class="run-stat-v" id="run-time">00:00</div>
+          <div class="run-stat-l">время</div>
+        </div>
+        <div class="run-stat">
+          <div class="run-stat-v" id="run-pace">--:--</div>
+          <div class="run-stat-l">мин/км</div>
+        </div>
+      </div>
+      <div class="run-btn-row">
+        <button class="run-btn-main run-btn-pause" id="run-pause-btn" onclick="pauseRun()" style="display:none;">⏸</button>
+        <button class="run-btn-main run-btn-start" id="run-main-btn" onclick="startRun()">▶</button>
+        <button class="run-btn-main run-btn-stop" id="run-stop-btn" onclick="finishRun()" style="display:none;width:52px;height:52px;font-size:20px;">■</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ RUN HISTORY ══════════ -->
+<div class="screen" id="s-runhistory">
+  <div class="nav">
+    <div class="logo">FIT<b>form</b></div>
+    <button class="run-back" style="background:var(--glass);color:var(--dark);border:0.5px solid var(--gb);" onclick="switchTab('s-run','tab-r')">← Назад</button>
+  </div>
+  <div><div class="sec-title">История пробежек</div></div>
+  <div id="run-history-list" class="run-history"></div>
+  <div id="run-history-empty" style="text-align:center;padding:40px 20px;color:var(--sage);font-size:14px;display:none;">
+    Пока нет пробежек.<br/>Нажми Старт и беги! 🏃
+  </div>
+</div>
+
 <!-- TABBAR -->
 <div class="tabbar" id="tabbar">
   <button class="tab on" id="tab-h" onclick="switchTab('s-home','tab-h')">
@@ -787,6 +874,9 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   </button>
   <button class="tab" id="tab-e" onclick="switchTab('s-explore','tab-e')">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Упражнения</span>
+  </button>
+  <button class="tab" id="tab-r" onclick="openRunScreen()">
+    <svg viewBox="0 0 24 24"><path d="M13 4a1 1 0 1 0 2 0 1 1 0 0 0-2 0M5.5 14.5l2-3 3 2.5 2.5-5 3 7"/><path d="M3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9-9-4.03-9-9z" stroke-dasharray="2,0"/></svg><span>Бег</span>
   </button>
   <button class="tab" id="tab-p" onclick="switchTab('s-profile','tab-p')">
     <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span>
@@ -955,7 +1045,7 @@ function go(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-days','s-restrictions','s-loading','s-detail','s-alt','s-paywall'];
+  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-days','s-restrictions','s-loading','s-detail','s-alt','s-run','s-runhistory','s-paywall'];
   document.getElementById('tabbar').style.display=noTab.indexOf(id)>=0?'none':'flex';
 }
 function switchTab(sid,tid){
@@ -1588,6 +1678,230 @@ function initTimerForExercise(restStr) {
   });
   document.getElementById('timer-start-btn').textContent = 'Старт';
   updateTimerUI();
+}
+
+
+// ════════════════════════════════
+// RUNNING MODULE
+// ════════════════════════════════
+var YANDEX_API_KEY = '7e36202c-6b81-4637-9e89-1d940ec10d93';
+var runMap = null;
+var runRoute = null;        // Polyline маршрута
+var runCoords = [];         // Массив координат
+var runTimer = null;        // Таймер секунд
+var runGeoTimer = null;     // Таймер геолокации
+var runSeconds = 0;
+var runDistance = 0;        // в км
+var runState = 'idle';      // idle | running | paused
+var runHistory = [];        // история пробежек
+var ymapsReady = false;
+
+function loadRunHistory(){
+  try{ runHistory=JSON.parse(localStorage.getItem('ff_runs')||'[]'); }catch(e){ runHistory=[]; }
+}
+function saveRunHistory(){
+  try{ localStorage.setItem('ff_runs', JSON.stringify(runHistory)); }catch(e){}
+}
+
+function openRunScreen(){
+  // Переключаем таб
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  document.getElementById('tab-r').classList.add('on');
+  go('s-run');
+  loadRunHistory();
+  // Загружаем Яндекс Карты если ещё не загружены
+  if(!ymapsReady){ loadYmaps(); }
+}
+
+function loadYmaps(){
+  if(document.getElementById('ymaps-script')) return;
+  var script = document.createElement('script');
+  script.id = 'ymaps-script';
+  script.src = 'https://api-maps.yandex.ru/2.1/?apikey='+YANDEX_API_KEY+'&lang=ru_RU';
+  script.onload = function(){
+    ymaps.ready(function(){
+      ymapsReady = true;
+      initMap();
+    });
+  };
+  document.head.appendChild(script);
+}
+
+function initMap(){
+  if(runMap) return;
+  // Центр по умолчанию — Москва
+  var center = [55.7558, 37.6173];
+  runMap = new ymaps.Map('run-map', {
+    center: center,
+    zoom: 15,
+    controls: []
+  });
+  // Стиль карты
+  runMap.options.set('suppressMapOpenBlock', true);
+  // Попытка получить текущую позицию для центрирования
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var c = [pos.coords.latitude, pos.coords.longitude];
+      runMap.setCenter(c, 16);
+    }, null, {timeout:5000});
+  }
+}
+
+function startRun(){
+  if(runState === 'idle'){
+    // Первый старт
+    runCoords = [];
+    runSeconds = 0;
+    runDistance = 0;
+    updateRunUI();
+    // Создаём линию маршрута
+    runRoute = new ymaps.Polyline([], {}, {
+      strokeColor: '#7B8F7A',
+      strokeWidth: 5,
+      strokeOpacity: 0.9
+    });
+    runMap.geoObjects.add(runRoute);
+  }
+  runState = 'running';
+  // Обновляем UI кнопок
+  document.getElementById('run-main-btn').style.display = 'none';
+  document.getElementById('run-pause-btn').style.display = 'flex';
+  document.getElementById('run-stop-btn').style.display = 'flex';
+  document.getElementById('run-dot').className = 'run-dot active';
+  document.getElementById('run-status-text').textContent = 'Бегу';
+  // Запускаем таймер
+  runTimer = setInterval(function(){
+    runSeconds++;
+    updateRunUI();
+  }, 1000);
+  // Запускаем геолокацию
+  startGeoTracking();
+  // Вибрация
+  try{ window.Telegram.WebApp.HapticFeedback.impactOccurred('medium'); }catch(e){}
+}
+
+function pauseRun(){
+  runState = 'paused';
+  clearInterval(runTimer);
+  clearInterval(runGeoTimer);
+  document.getElementById('run-pause-btn').textContent = '▶';
+  document.getElementById('run-pause-btn').onclick = function(){ resumeRun(); };
+  document.getElementById('run-dot').className = 'run-dot paused';
+  document.getElementById('run-status-text').textContent = 'Пауза';
+}
+
+function resumeRun(){
+  document.getElementById('run-pause-btn').textContent = '⏸';
+  document.getElementById('run-pause-btn').onclick = function(){ pauseRun(); };
+  startRun();
+}
+
+function finishRun(){
+  clearInterval(runTimer);
+  clearInterval(runGeoTimer);
+  runState = 'idle';
+  // Сохраняем в историю
+  if(runDistance > 0.01){
+    var record = {
+      date: new Date().toLocaleDateString('ru-RU'),
+      distance: runDistance.toFixed(2),
+      time: formatTime(runSeconds),
+      pace: calcPace()
+    };
+    runHistory.unshift(record);
+    if(runHistory.length > 50) runHistory.pop();
+    saveRunHistory();
+    showToast('Пробежка сохранена! ' + runDistance.toFixed(2) + ' км');
+  }
+  // Сброс UI
+  resetRunUI();
+  try{ window.Telegram.WebApp.HapticFeedback.notificationOccurred('success'); }catch(e){}
+}
+
+function stopRunAndGoBack(){
+  if(runState !== 'idle'){
+    clearInterval(runTimer);
+    clearInterval(runGeoTimer);
+    resetRunUI();
+  }
+  switchTab('s-home','tab-h');
+}
+
+function resetRunUI(){
+  runState = 'idle';
+  runSeconds = 0; runDistance = 0; runCoords = [];
+  if(runMap && runRoute){ runMap.geoObjects.remove(runRoute); runRoute=null; }
+  document.getElementById('run-dist').textContent = '0.00';
+  document.getElementById('run-time').textContent = '00:00';
+  document.getElementById('run-pace').textContent = '--:--';
+  document.getElementById('run-main-btn').style.display = 'flex';
+  document.getElementById('run-pause-btn').style.display = 'none';
+  document.getElementById('run-stop-btn').style.display = 'none';
+  document.getElementById('run-pause-btn').textContent = '⏸';
+  document.getElementById('run-pause-btn').onclick = function(){ pauseRun(); };
+  document.getElementById('run-dot').className = 'run-dot';
+  document.getElementById('run-status-text').textContent = 'Готов к старту';
+}
+
+function startGeoTracking(){
+  if(!navigator.geolocation) return;
+  runGeoTimer = setInterval(function(){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var lat = pos.coords.latitude;
+      var lon = pos.coords.longitude;
+      var newCoord = [lat, lon];
+      // Добавляем точку
+      if(runCoords.length > 0){
+        var last = runCoords[runCoords.length-1];
+        var dist = calcDistKm(last[0], last[1], lat, lon);
+        // Фильтруем шум GPS — минимум 3 метра
+        if(dist > 0.003){
+          runDistance += dist;
+          runCoords.push(newCoord);
+          // Обновляем линию на карте
+          if(runRoute) runRoute.geometry.setCoordinates(runCoords);
+          // Центрируем карту на текущей позиции
+          runMap.setCenter(newCoord);
+        }
+      } else {
+        runCoords.push(newCoord);
+        runMap.setCenter(newCoord, 16);
+        // Добавляем маркер старта
+        runMap.geoObjects.add(new ymaps.Placemark(newCoord, {balloonContent:'Старт'}, {
+          preset:'islands#greenCircleDotIcon'
+        }));
+      }
+    }, null, {enableHighAccuracy:true, timeout:4000, maximumAge:0});
+  }, 3000); // каждые 3 секунды
+}
+
+function calcDistKm(lat1,lon1,lat2,lon2){
+  var R=6371;
+  var dLat=(lat2-lat1)*Math.PI/180;
+  var dLon=(lon2-lon1)*Math.PI/180;
+  var a=Math.sin(dLat/2)*Math.sin(dLat/2)+
+    Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
+    Math.sin(dLon/2)*Math.sin(dLon/2);
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+function calcPace(){
+  if(runDistance < 0.01 || runSeconds < 1) return '--:--';
+  var secPerKm = runSeconds / runDistance;
+  var m = Math.floor(secPerKm/60);
+  var s = Math.floor(secPerKm%60);
+  return m+':'+(s<10?'0':'')+s;
+}
+
+function formatTime(sec){
+  var m=Math.floor(sec/60), s=sec%60;
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+
+function updateRunUI(){
+  document.getElementById('run-dist').textContent = runDistance.toFixed(2);
+  document.getElementById('run-time').textContent = formatTime(runSeconds);
+  document.getElementById('run-pace').textContent = calcPace();
 }
 
 // ════════════════════════════════
