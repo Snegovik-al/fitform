@@ -293,7 +293,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .run-btn-start{background:var(--sage);}
 .run-btn-stop{background:#c0392b;}
 .run-btn-pause{background:rgba(255,255,255,0.15);width:52px;height:52px;font-size:20px;}
-.run-top-nav{position:fixed;top:0;left:0;right:0;z-index:101;display:flex;align-items:center;justify-content:space-between;padding:52px 20px 12px;}
+.run-top-nav{position:fixed;top:0;left:0;right:0;z-index:101;display:flex;align-items:center;justify-content:space-between;padding:100px 20px 12px;}
 .run-back{background:rgba(0,0,0,0.3);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:7px 16px;color:#fff;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;}
 .run-status{background:rgba(0,0,0,0.3);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:7px 14px;color:#fff;font-size:12px;display:flex;align-items:center;gap:6px;}
 .run-dot{width:8px;height:8px;border-radius:50%;background:#888;flex-shrink:0;}
@@ -301,6 +301,7 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
 .run-dot.paused{background:#FFC107;}
 @keyframes pulse-run{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .run-history{display:flex;flex-direction:column;gap:10px;}
+.run-location-btn{position:fixed;right:16px;z-index:101;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border:0.5px solid rgba(0,0,0,0.1);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;top:160px;}
 .run-history-card{background:var(--glass);backdrop-filter:blur(12px);border:0.5px solid var(--gb);border-radius:18px;padding:16px;}
 .run-history-date{font-size:12px;color:var(--sage);margin-bottom:8px;}
 .run-history-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
@@ -819,6 +820,9 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
   <!-- Карта -->
   <div id="run-map" class="run-map"></div>
 
+  <!-- Кнопка геопозиции -->
+  <button class="run-location-btn" onclick="centerOnUser()" title="Моя позиция">📍</button>
+
   <!-- Верхний нав -->
   <div class="run-top-nav">
     <button class="run-back" onclick="stopRunAndGoBack()">← Назад</button>
@@ -826,6 +830,11 @@ body{min-height:100%;font-family:'DM Sans',sans-serif;color:var(--dark);backgrou
       <div class="run-dot" id="run-dot"></div>
       <span id="run-status-text">Готов к старту</span>
     </div>
+  </div>
+
+  <!-- Кнопка истории -->
+  <div style="position:fixed;left:16px;bottom:220px;z-index:101;">
+    <button onclick="switchTab('s-runhistory','tab-r')" style="background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;padding:8px 14px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;color:#41464B;">История</button>
   </div>
 
   <!-- Нижняя панель со статистикой -->
@@ -1696,6 +1705,20 @@ var runState = 'idle';      // idle | running | paused
 var runHistory = [];        // история пробежек
 var ymapsReady = false;
 
+function centerOnUser(){
+  if(!runMap) return;
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      runMap.setCenter([pos.coords.latitude, pos.coords.longitude], 16, {duration:300});
+      try{ window.Telegram.WebApp.HapticFeedback.impactOccurred('light'); }catch(e){}
+    }, function(){
+      showToast('Не удалось получить геопозицию');
+    }, {enableHighAccuracy:true, timeout:5000});
+  } else {
+    showToast('Геолокация недоступна');
+  }
+}
+
 function loadRunHistory(){
   try{ runHistory=JSON.parse(localStorage.getItem('ff_runs')||'[]'); }catch(e){ runHistory=[]; }
 }
@@ -1704,13 +1727,37 @@ function saveRunHistory(){
 }
 
 function openRunScreen(){
-  // Переключаем таб
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
   document.getElementById('tab-r').classList.add('on');
   go('s-run');
   loadRunHistory();
-  // Загружаем Яндекс Карты если ещё не загружены
+  renderRunHistory();
   if(!ymapsReady){ loadYmaps(); }
+  else if(runMap){ 
+    // Центрируем на текущей позиции при открытии
+    setTimeout(centerOnUser, 300);
+  }
+}
+
+function renderRunHistory(){
+  var list = document.getElementById('run-history-list');
+  var empty = document.getElementById('run-history-empty');
+  if(!list) return;
+  if(runHistory.length === 0){
+    list.innerHTML = '';
+    if(empty) empty.style.display = 'block';
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+  list.innerHTML = runHistory.map(function(r, i){
+    return '<div class="run-history-card">'
+      + '<div class="run-history-date">' + r.date + '</div>'
+      + '<div class="run-history-stats">'
+      + '<div class="run-history-stat"><div class="run-history-val">' + r.distance + '</div><div class="run-history-lbl">км</div></div>'
+      + '<div class="run-history-stat"><div class="run-history-val">' + r.time + '</div><div class="run-history-lbl">время</div></div>'
+      + '<div class="run-history-stat"><div class="run-history-val">' + r.pace + '</div><div class="run-history-lbl">мин/км</div></div>'
+      + '</div></div>';
+  }).join('');
 }
 
 function loadYmaps(){
@@ -1812,6 +1859,7 @@ function finishRun(){
     if(runHistory.length > 50) runHistory.pop();
     saveRunHistory();
     showToast('Пробежка сохранена! ' + runDistance.toFixed(2) + ' км');
+    renderRunHistory();
   }
   // Сброс UI
   resetRunUI();
