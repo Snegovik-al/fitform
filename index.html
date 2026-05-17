@@ -912,6 +912,7 @@ var U = {};
 var plan = null;
 var done = {};
 var fromScr = 's-home';
+var originPlanKey = null; // ключ упражнения из плана (для альтернатив)
 var expFlt = 'all';
 var regTemp = {gender:null, place:null, goal:null, level:null, days:3, daysId:null};
 var selectedRestr = {}; // выбранные ограничения
@@ -954,7 +955,7 @@ function go(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-days','s-restrictions','s-loading','s-detail','s-paywall'];
+  var noTab=['s-splash','s-login','s-reg1','s-reg2','s-goals','s-level','s-days','s-restrictions','s-loading','s-detail','s-alt','s-paywall'];
   document.getElementById('tabbar').style.display=noTab.indexOf(id)>=0?'none':'flex';
 }
 function switchTab(sid,tid){
@@ -1223,7 +1224,7 @@ function renderPlan(){
     html+='<div class="plan-day"><div class="plan-day-title">'+day.day+'</div><div class="plan-day-sub">'+day.focus+'</div>';
     (day.exercises||[]).forEach(function(ex){
       var e=DB[ex.key]; if(!e) return;
-      html+='<div class="plan-ex" onclick="openDetail(\''+ex.key+'\','+ex.sets+',\''+ex.reps+'\',\''+ex.rest+'\',\''+esc(ex.tip||'')+'\',\'s-home\')">';
+      html+='<div class="plan-ex" onclick="setOrigin(\''+ex.key+'\');openDetail(\''+ex.key+'\','+ex.sets+',\''+ex.reps+'\',\''+ex.rest+'\',\''+esc(ex.tip||'')+'\',\'s-home\')">'; 
       html+='<div class="plan-ex-icon">'+(done[ex.key]?'✓':e.emoji)+'</div>';
       html+='<div style="flex:1"><div class="plan-ex-name">'+e.name+'</div><div class="plan-ex-meta">'+ex.sets+' × '+ex.reps+' · отдых '+ex.rest+'</div></div>';
       html+='<div class="plan-ex-arr">›</div></div>';
@@ -1249,6 +1250,8 @@ function updStats(){
 // ════════════════════════════════
 // EXERCISE DETAIL
 // ════════════════════════════════
+function setOrigin(key){ originPlanKey=key; }
+
 function openDetail(key,sets,reps,rest,tip,from){
   fromScr=from||'s-home';
   var e=DB[key]; if(!e) return;
@@ -1285,7 +1288,7 @@ function openDetail(key,sets,reps,rest,tip,from){
   if(alts.length>0){
     document.getElementById('d-alts').innerHTML=alts.map(function(ak){
       var ae=DB[ak];
-      return '<div class="alt-card-dark" onclick="openDetail(\''+ak+'\',3,\'12\',\'60с\',\'\',\'s-detail\')">'
+      return '<div class="alt-card-dark" onclick="openDetail(\''+ak+'\',3,\'12\',\'60с\',\'\',\'s-alt\')">'
         +'<div style="font-size:20px;flex-shrink:0">'+ae.emoji+'</div>'
         +'<div><div style="font-size:13px;font-weight:500;color:#fff">'+ae.name+'</div><div style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:2px">'+ae.muscles+'</div></div>'
         +'<div style="margin-left:auto;color:rgba(255,255,255,0.4);font-size:18px;">›</div></div>';
@@ -1301,7 +1304,8 @@ function openDetail(key,sets,reps,rest,tip,from){
   else{btn.textContent='Упражнение выполнено';btn.style.background='';}
   btn.onclick=function(){markDone(key);};
   document.getElementById('d-back').onclick=function(){
-    var t=fromScr==='s-detail'?'s-home':fromScr;
+    var t=(fromScr==='s-detail'||fromScr==='s-alt')?'s-home':fromScr;
+    if(fromScr==='s-alt') originPlanKey=null;
     go(t); document.getElementById('tabbar').style.display='flex';
   };
   go('s-detail');
@@ -1311,11 +1315,22 @@ function openDetail(key,sets,reps,rest,tip,from){
 function markDone(key){
   done[key]=true;
   api('POST','/api/progress/done',{key:key},function(){});
+
+  // Если это альтернативное упражнение — также отмечаем оригинальное из плана
+  if(originPlanKey && originPlanKey !== key){
+    done[originPlanKey]=true;
+    api('POST','/api/progress/done',{key:originPlanKey},function(){});
+  }
+
   var btn=document.getElementById('done-btn');
   btn.textContent='Выполнено'; btn.style.background='var(--sage)';
   renderPlan(); updStats();
   showToast('Отличная работа! 💪');
-  setTimeout(function(){go('s-home');document.getElementById('tabbar').style.display='flex';},700);
+  setTimeout(function(){
+    originPlanKey=null;
+    go('s-home');
+    document.getElementById('tabbar').style.display='flex';
+  },700);
 }
 
 // ════════════════════════════════
